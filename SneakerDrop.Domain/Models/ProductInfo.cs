@@ -37,8 +37,5 @@ namespace SneakerDrop.Domain.Models
         [StringLength(50)]
         [Required]
         public string Color { get; set; }
-
-        public Listing Listing { get; set; }
-
     }
 }

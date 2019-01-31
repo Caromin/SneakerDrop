@@ -30,24 +30,5 @@ namespace SneakerDrop.Domain.Models
         [StringLength(50)]
         [Required]
         public string Password { get; set; }
-
-        public Address Address { get; set; }
-
-        public Orders Orders { get; set; }
-
-        public Payment Payment { get; set; }
-
-        public Listing  Listing { get; set; }
-
-
-        public bool CheckDbForUser(User login)
-        {
-            return true;
-        }
-
-        public bool ValidateString(User word)
-        {
-            return true;
-        }
     }
 }

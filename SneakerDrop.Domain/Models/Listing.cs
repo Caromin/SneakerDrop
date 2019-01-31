@@ -22,29 +22,8 @@ namespace SneakerDrop.Domain.Models
 
         public Orders Orders { get; set; }
 
-        public bool AddListingByUser()
-        {
-            return true;
-        }
+        public User UserId { get; set; }
 
-        public bool GetListingByUser()
-        {
-            return true;
-        }
-
-        public bool EditListingByUser()
-        {
-            return true;
-        }
-
-        public bool DeleteListingByUser()
-        {
-            return true;
-        }
-
-        public bool GetProductInfoByProductId()
-        {
-            return true;
-        }
+        public ProductInfo ProductInfoId { get; set; }
     }
 }

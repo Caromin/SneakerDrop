@@ -23,19 +23,9 @@ namespace SneakerDrop.Domain.Models
         [Timestamp]
         public DateTime Timestamp { get; set; }
 
-        public bool AddOrderByUser()
-        {
-            return true;
-        }
+        public Payment PaymentId { get; set; }
 
-        public bool GetOrderByUser()
-        {
-            return true;
-        }
+        public User UserId { get; set; }
 
-        public bool DeleteOrderByUser()
-        {
-            return true;
-        }
     }
 }

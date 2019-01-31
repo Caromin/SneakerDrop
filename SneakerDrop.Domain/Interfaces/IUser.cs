@@ -17,9 +17,5 @@ namespace SneakerDrop.Domain.Interfaces
 
         string Password { get; set; }
 
-        bool CheckDbForUser(User login);
-
-        bool ValidateString(User word);
-
     }
 }

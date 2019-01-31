@@ -27,26 +27,6 @@ namespace SneakerDrop.Domain.Models
         [Required]
         public int CVV { get; set; }
 
-        public Orders Orders { get; set; }
-
-        public bool AddPaymentByUser()
-        {
-            return true;
-        }
-
-        public bool GetPaymentByUser()
-        {
-            return true;
-        }
-
-        public bool EditPaymentByUser()
-        {
-            return true;
-        }
-
-        public bool DeletePaymentByUser()
-        {
-            return true;
-        }
+        public User UserId { get; set; }
     }
 }

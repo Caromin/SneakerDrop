@@ -7,7 +7,7 @@ namespace SneakerDrop.Domain.Models
     [Table("Payment", Schema = "User")]
     public class Payment
     {
-        [Key]
+       
         public int PaymentId { get; set; }
 
 
@@ -27,6 +27,6 @@ namespace SneakerDrop.Domain.Models
         [Required]
         public int CVV { get; set; }
 
-        public User UserId { get; set; }
+        public User User { get; set; } 
     }
 }

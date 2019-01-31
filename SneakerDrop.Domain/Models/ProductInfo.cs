@@ -7,21 +7,18 @@ namespace SneakerDrop.Domain.Models
     [Table("Product", Schema = "Store")]
     public class ProductInfo
     {
-        [Key]
+      
         public int ProductInfoId { get; set; }
 
+        public Brand Brand { get; set; }
+
+
+        public Type Type { get; set; }
 
         [StringLength(50)]
         [Required]
         public string ProductTitle { get; set; }
 
-        [StringLength(50)]
-        [Required]
-        public string Brand { get; set; }
-
-        [StringLength(50)]
-        [Required]
-        public string Type { get; set; }
 
         [StringLength(500)]
         [Required]

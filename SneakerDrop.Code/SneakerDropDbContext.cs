@@ -18,7 +18,7 @@ namespace SneakerDrop.Code
 
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            builder.UseSqlServer("data source=oak2019.database.windows.net;initial catalog=SneakerDropDB;user id=sqladmin;password=Florida2019;");
+            builder.UseSqlServer("data source=oak2019.database.windows.net;initial catalog=SneakerDropDBv2;user id=sqladmin;password=Florida2019;");
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

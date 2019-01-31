@@ -7,7 +7,7 @@ namespace SneakerDrop.Domain.Models
     [Table("Listing", Schema = "Store")]
     public class Listing
     {
-        [Key]
+      
         public int ListingId { get; set; }
 
         [Required]
@@ -20,10 +20,8 @@ namespace SneakerDrop.Domain.Models
         [Required]
         public string Size { get; set; }
 
-        public Orders Orders { get; set; }
+        public User User { get; set; }
 
-        public User UserId { get; set; }
-
-        public ProductInfo ProductInfoId { get; set; }
+        public ProductInfo ProductInfo { get; set; }
     }
 }

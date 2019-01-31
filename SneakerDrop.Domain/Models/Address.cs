@@ -11,10 +11,6 @@ namespace SneakerDrop.Domain.Models
         [Key]
         public int AddressId { get; set; }
 
-        [ForeignKey("User")]
-        [Required]
-        public User UserId { get; set; }
-
         [StringLength(50)]
         [Required]
         public string Street { get; set; }

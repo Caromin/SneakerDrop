@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SneakerDrop.Code;
 
-namespace SneakerDrop.Code.SneakerDropMigrations
+namespace SneakerDrop.Code.SneakerDropMigrate
 {
     [DbContext(typeof(SneakerDropDbContext))]
     partial class SneakerDropDbContextModelSnapshot : ModelSnapshot
@@ -41,11 +41,7 @@ namespace SneakerDrop.Code.SneakerDropMigrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int>("User");
-
                     b.HasKey("AddressId");
-
-                    b.HasIndex("User");
 
                     b.ToTable("Address","User");
                 });
@@ -56,7 +52,7 @@ namespace SneakerDrop.Code.SneakerDropMigrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ProductInfo");
+                    b.Property<int?>("OrdersOrderId");
 
                     b.Property<int>("Quantity");
 
@@ -64,15 +60,11 @@ namespace SneakerDrop.Code.SneakerDropMigrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int>("User");
-
                     b.Property<decimal>("UserSetPrice");
 
                     b.HasKey("ListingId");
 
-                    b.HasIndex("ProductInfo");
-
-                    b.HasIndex("User");
+                    b.HasIndex("OrdersOrderId");
 
                     b.ToTable("Listing","Store");
                 });
@@ -83,11 +75,7 @@ namespace SneakerDrop.Code.SneakerDropMigrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Listing");
-
                     b.Property<int>("OrderGroupNumber");
-
-                    b.Property<int>("Payment");
 
                     b.Property<int>("Quantity");
 
@@ -99,15 +87,7 @@ namespace SneakerDrop.Code.SneakerDropMigrations
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
-                    b.Property<int>("User");
-
                     b.HasKey("OrderId");
-
-                    b.HasIndex("Listing");
-
-                    b.HasIndex("Payment");
-
-                    b.HasIndex("User");
 
                     b.ToTable("Orders","User");
                 });
@@ -128,13 +108,13 @@ namespace SneakerDrop.Code.SneakerDropMigrations
 
                     b.Property<int>("Month");
 
-                    b.Property<int>("User");
+                    b.Property<int?>("OrdersOrderId");
 
                     b.Property<int>("Year");
 
                     b.HasKey("PaymentId");
 
-                    b.HasIndex("User");
+                    b.HasIndex("OrdersOrderId");
 
                     b.ToTable("Payment","User");
                 });
@@ -159,6 +139,8 @@ namespace SneakerDrop.Code.SneakerDropMigrations
 
                     b.Property<int>("DisplayPrice");
 
+                    b.Property<int?>("ListingId");
+
                     b.Property<string>("ProductTitle")
                         .IsRequired()
                         .HasMaxLength(50);
@@ -173,6 +155,8 @@ namespace SneakerDrop.Code.SneakerDropMigrations
 
                     b.HasKey("ProductInfoId");
 
+                    b.HasIndex("ListingId");
+
                     b.ToTable("Product","Store");
                 });
 
@@ -181,6 +165,8 @@ namespace SneakerDrop.Code.SneakerDropMigrations
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AddressId");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -194,9 +180,15 @@ namespace SneakerDrop.Code.SneakerDropMigrations
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<int?>("ListingId");
+
+                    b.Property<int?>("OrdersOrderId");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(50);
+
+                    b.Property<int?>("PaymentId");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -204,54 +196,55 @@ namespace SneakerDrop.Code.SneakerDropMigrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("User","User");
-                });
+                    b.HasIndex("AddressId");
 
-            modelBuilder.Entity("SneakerDrop.Domain.Models.Address", b =>
-                {
-                    b.HasOne("SneakerDrop.Domain.Models.User", "UserId")
-                        .WithMany()
-                        .HasForeignKey("User")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasIndex("ListingId");
+
+                    b.HasIndex("OrdersOrderId");
+
+                    b.HasIndex("PaymentId");
+
+                    b.ToTable("User","User");
                 });
 
             modelBuilder.Entity("SneakerDrop.Domain.Models.Listing", b =>
                 {
-                    b.HasOne("SneakerDrop.Domain.Models.ProductInfo", "ProductId")
+                    b.HasOne("SneakerDrop.Domain.Models.Orders", "Orders")
                         .WithMany()
-                        .HasForeignKey("ProductInfo")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SneakerDrop.Domain.Models.User", "UserId")
-                        .WithMany()
-                        .HasForeignKey("User")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SneakerDrop.Domain.Models.Orders", b =>
-                {
-                    b.HasOne("SneakerDrop.Domain.Models.Listing", "ListingId")
-                        .WithMany()
-                        .HasForeignKey("Listing")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SneakerDrop.Domain.Models.Payment", "PaymentId")
-                        .WithMany()
-                        .HasForeignKey("Payment")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SneakerDrop.Domain.Models.User", "UserId")
-                        .WithMany()
-                        .HasForeignKey("User")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OrdersOrderId");
                 });
 
             modelBuilder.Entity("SneakerDrop.Domain.Models.Payment", b =>
                 {
-                    b.HasOne("SneakerDrop.Domain.Models.User", "UserId")
+                    b.HasOne("SneakerDrop.Domain.Models.Orders", "Orders")
                         .WithMany()
-                        .HasForeignKey("User")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OrdersOrderId");
+                });
+
+            modelBuilder.Entity("SneakerDrop.Domain.Models.ProductInfo", b =>
+                {
+                    b.HasOne("SneakerDrop.Domain.Models.Listing", "Listing")
+                        .WithMany()
+                        .HasForeignKey("ListingId");
+                });
+
+            modelBuilder.Entity("SneakerDrop.Domain.Models.User", b =>
+                {
+                    b.HasOne("SneakerDrop.Domain.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("SneakerDrop.Domain.Models.Listing", "Listing")
+                        .WithMany()
+                        .HasForeignKey("ListingId");
+
+                    b.HasOne("SneakerDrop.Domain.Models.Orders", "Orders")
+                        .WithMany()
+                        .HasForeignKey("OrdersOrderId");
+
+                    b.HasOne("SneakerDrop.Domain.Models.Payment", "Payment")
+                        .WithMany()
+                        .HasForeignKey("PaymentId");
                 });
 #pragma warning restore 612, 618
         }

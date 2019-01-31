@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SneakerDrop.Domain.Models
 {
+    [Table("Payment", Schema = "User")]
     public class Payment
     {
         [Key]

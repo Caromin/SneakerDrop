@@ -4,8 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SneakerDrop.Domain.Models
 {
+    [Table("Address", Schema = "User")]
     public class Address
     {
+       
         [Key]
         public int AddressId { get; set; }
 

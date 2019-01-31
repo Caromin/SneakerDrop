@@ -7,7 +7,7 @@ namespace SneakerDrop.Domain.Models
     [Table("Orders", Schema = "User")]
     public class Orders
     {
-        [Key]
+       
         public int OrderId { get; set; }
 
         [Required]
@@ -23,9 +23,9 @@ namespace SneakerDrop.Domain.Models
         [Timestamp]
         public DateTime Timestamp { get; set; }
 
-        public Payment PaymentId { get; set; }
+        public Payment Payment { get; set; }
 
-        public User UserId { get; set; }
+        public User User { get; set; }
 
     }
 }

@@ -7,9 +7,7 @@ namespace SneakerDrop.Domain.Models
     [Table("Address", Schema = "User")]
     public class Address
     {
-
-        [Key]
-        public int AddressId { get; set; }
+       public int AddressId { get; set; }
 
         [StringLength(50)]
         [Required]
@@ -27,6 +25,6 @@ namespace SneakerDrop.Domain.Models
         [Required]
         public string PostalCode { get; set; }
 
-        public User UserId { get; set; }
+        public User User { get; set; }
     }
 }

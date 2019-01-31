@@ -1,4 +1,6 @@
 ﻿using System;
+using SneakerDrop.Domain.Models;
+
 namespace SneakerDrop.Domain.Interfaces
 {
     public interface IUser
@@ -14,5 +16,10 @@ namespace SneakerDrop.Domain.Interfaces
         string Email { get; set; }
 
         string Password { get; set; }
+
+        bool CheckDbForUser(User login);
+
+        bool ValidateString(User word);
+
     }
 }

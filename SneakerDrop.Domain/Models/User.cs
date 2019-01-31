@@ -31,7 +31,7 @@ namespace SneakerDrop.Domain.Models
         [Required]
         public string Password { get; set; }
 
-        public Address Addresses { get; set; }
+        public Address Address { get; set; }
 
         public Orders Orders { get; set; }
 

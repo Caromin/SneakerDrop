@@ -1,21 +1,33 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace SneakerDrop.Domain.Models
 {
     public class Address
     {
+        [Key]
         public int AddressId { get; set; }
 
+        [ForeignKey("User")]
+        [Required]
         public User UserId { get; set; }
 
-        public long CCNumber { get; set; }
+        [StringLength(50)]
+        [Required]
+        public string Street { get; set; }
 
-        public string CCUserName { get; set; }
+        [StringLength(50)]
+        [Required]
+        public string City { get; set; }
 
-        public int Month { get; set; }
+        [StringLength(50)]
+        [Required]
+        public string State { get; set; }
 
-        public int Year { get; set; }
-
-        public int CVV { get; set; }
+        [StringLength(50)]
+        [Required]
+        public string PostalCode { get; set; }
 
         public bool AddAddressByUser()
         {

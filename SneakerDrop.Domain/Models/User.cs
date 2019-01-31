@@ -17,6 +17,7 @@ namespace SneakerDrop.Domain.Models
 
         public string Password { get; set; }
 
+
         public bool CheckDbForUser(User login)
         {
             return true;

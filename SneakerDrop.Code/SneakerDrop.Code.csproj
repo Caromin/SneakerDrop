@@ -5,16 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="SneakerDropMigrations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SneakerDrop.Domain\SneakerDrop.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="SneakerDropMigrate\" />
   </ItemGroup>
 
 </Project>

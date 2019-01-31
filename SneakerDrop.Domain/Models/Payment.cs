@@ -1,19 +1,33 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace SneakerDrop.Domain.Models
 {
     public class Payment
     {
-        public int AddressId { get; set; }
+        [Key]
+        public int PaymentId { get; set; }
 
+        [ForeignKey("User")]
+        [Required]
         public User UserId { get; set; }
 
-        public string Street { get; set; }
+        [Required]
+        public long CCNumber { get; set; }
 
-        public string City { get; set; }
+        [StringLength(50)]
+        [Required]
+        public string CCUserName { get; set; }
 
-        public string State { get; set; }
+        [Required]
+        public int Month { get; set; }
 
-        public string PostalCode { get; set; }
+        [Required]
+        public int Year { get; set; }
+
+        [Required]
+        public int CVV { get; set; }
 
         public bool AddPaymentByUser()
         {

@@ -10,18 +10,6 @@ namespace SneakerDrop.Domain.Models
         [Key]
         public int OrderId { get; set; }
 
-        [ForeignKey("Listing")]
-        [Required]
-        public Listing ListingId { get; set; }
-
-        [ForeignKey("User")]
-        [Required]
-        public User UserId { get; set; }
-
-        [ForeignKey("Payment")]
-        [Required]
-        public Payment PaymentId { get; set; }
-
         [Required]
         public int OrderGroupNumber { get; set; }
 

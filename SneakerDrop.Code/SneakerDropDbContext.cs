@@ -18,7 +18,7 @@ namespace SneakerDrop.Code
 
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            builder.UseSqlServer("data source=oak2019.database.windows.net;initial catalog=MovieNightDB;user id=sqladmin;password=Florida2019;");
+            builder.UseSqlServer("data source=oak2019.database.windows.net;initial catalog=SneakerDropDB;user id=sqladmin;password=Florida2019;");
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -26,9 +26,9 @@ namespace SneakerDrop.Code
             builder.Entity<dm.User>().HasKey(e => e.UserId);
             builder.Entity<dm.Address>().HasKey(e => e.AddressId);
             builder.Entity<dm.Orders>().HasKey(e => e.OrderId);
-            //builder.Entity<dm.Payment>().HasKey(e => e.);
+            builder.Entity<dm.Payment>().HasKey(e => e.PaymentId);
             builder.Entity<dm.Listing>().HasKey(e => e.ListingId);
-            builder.Entity<dm.ProductInfo>().HasKey(e => e.ProductId);
+            builder.Entity<dm.ProductInfo>().HasKey(e => e.ProductInfoId);
             
         }
 

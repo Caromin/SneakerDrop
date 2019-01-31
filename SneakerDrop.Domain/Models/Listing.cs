@@ -10,14 +10,6 @@ namespace SneakerDrop.Domain.Models
         [Key]
         public int ListingId { get; set; }
 
-        [ForeignKey("User")]
-        [Required]
-        public User UserId { get; set; }
-
-        [ForeignKey("ProductInfo")]
-        [Required]
-        public ProductInfo ProductId { get; set; }
-
         [Required]
         public decimal UserSetPrice { get; set; }
 
@@ -27,6 +19,8 @@ namespace SneakerDrop.Domain.Models
         [StringLength(50)]
         [Required]
         public string Size { get; set; }
+
+        public Orders Orders { get; set; }
 
         public bool AddListingByUser()
         {

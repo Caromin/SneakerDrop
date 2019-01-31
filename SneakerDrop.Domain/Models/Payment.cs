@@ -10,9 +10,6 @@ namespace SneakerDrop.Domain.Models
         [Key]
         public int PaymentId { get; set; }
 
-        [ForeignKey("User")]
-        [Required]
-        public User UserId { get; set; }
 
         [Required]
         public long CCNumber { get; set; }
@@ -29,6 +26,8 @@ namespace SneakerDrop.Domain.Models
 
         [Required]
         public int CVV { get; set; }
+
+        public Orders Orders { get; set; }
 
         public bool AddPaymentByUser()
         {

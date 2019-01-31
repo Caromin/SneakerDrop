@@ -31,6 +31,14 @@ namespace SneakerDrop.Domain.Models
         [Required]
         public string Password { get; set; }
 
+        public Address Addresses { get; set; }
+
+        public Orders Orders { get; set; }
+
+        public Payment Payment { get; set; }
+
+        public Listing  Listing { get; set; }
+
 
         public bool CheckDbForUser(User login)
         {

@@ -10,6 +10,7 @@ namespace SneakerDrop.Domain.Models
         [Key]
         public int ProductInfoId { get; set; }
 
+
         [StringLength(50)]
         [Required]
         public string ProductTitle { get; set; }
@@ -36,6 +37,8 @@ namespace SneakerDrop.Domain.Models
         [StringLength(50)]
         [Required]
         public string Color { get; set; }
+
+        public Listing Listing { get; set; }
 
     }
 }

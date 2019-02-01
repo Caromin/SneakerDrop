@@ -16,9 +16,6 @@
     <Compile Remove="UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TestModels\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\SneakerDrop.Domain\SneakerDrop.Domain.csproj" />
   </ItemGroup>
 </Project>

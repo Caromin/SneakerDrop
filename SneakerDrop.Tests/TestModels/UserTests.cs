@@ -8,6 +8,7 @@ namespace SneakerDrop.Tests.TestModels
     {
         public UserTests()
         {
+
             var sut = new User
             {
                 Username = "ian2519",
@@ -19,9 +20,10 @@ namespace SneakerDrop.Tests.TestModels
         }
 
         [Fact]
-        public void Test_LoginValidation()
+        public void Test_GetUsers()
         {
-            su
+
+
             
         }
     }

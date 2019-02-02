@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace SneakerDrop.Domain.Models
 {
@@ -26,5 +27,11 @@ namespace SneakerDrop.Domain.Models
         public string PostalCode { get; set; }
 
         public User User { get; set; }
+
+        public bool CheckString()
+        {
+            return Validator.ValidateString(this) && Validator.ValidateNumber(this);
+        }
+
     }
 }

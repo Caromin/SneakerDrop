@@ -30,14 +30,10 @@ namespace SneakerDrop.Domain.Models
         [StringLength(50)]
         [Required]
         public string Password { get; set; }
-        public User()
-        {
 
-        }
-        public void LoginValidation(string Username,string Password)
+        public bool CheckString()
         {
-            
-
+            return Validator.ValidateString(this) && Validator.ValidateNumber(this);
         }
     }
 

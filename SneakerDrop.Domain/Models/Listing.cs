@@ -23,5 +23,24 @@ namespace SneakerDrop.Domain.Models
         public User User { get; set; }
 
         public ProductInfo ProductInfo { get; set; }
+
+        public bool CheckString()
+        {
+            return Validator.ValidateString(this) && Validator.ValidateNumber(this) && Validator.ValidateMoney(this);
+        }
+
+        public static decimal CartTotal(Listing productinfo, Listing buyerinfo)
+        {
+            decimal PendingPrice = 0;
+            
+             if (buyerinfo.Quantity > productinfo.Quantity || buyerinfo.Quantity < 0)
+            {
+                PendingPrice = -1;
+                return PendingPrice;
+            }
+            PendingPrice = 1;
+            return PendingPrice; 
+             
+        } 
     }
 }

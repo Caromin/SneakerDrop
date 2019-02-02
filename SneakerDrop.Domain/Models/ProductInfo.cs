@@ -34,5 +34,10 @@ namespace SneakerDrop.Domain.Models
         [StringLength(50)]
         [Required]
         public string Color { get; set; }
+
+        public bool CheckString()
+        {
+            return Validator.ValidateString(this) && Validator.ValidateNumber(this);
+        }
     }
 }

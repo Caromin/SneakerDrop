@@ -27,5 +27,12 @@ namespace SneakerDrop.Domain.Models
 
         public User User { get; set; }
 
+        public bool CheckString()
+        {
+            return Validator.ValidateString(this) && Validator.ValidateNumber(this);
+        }
+
+
+
     }
 }

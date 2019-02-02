@@ -1,7 +1,49 @@
-﻿
+﻿@model SneakerDrop.Mvc.Models.UserViewModel
+
+
 @{
     ViewData["Title"] = "Register";
 }
 
-<h1>Register</h1>
+<div class="text-center">
+    @using (@Html.BeginForm("Register", "Home"))
+    {
+        <div class="col-12">
+            @Html.LabelFor(u => u.Firstname, "First Name")
+            @Html.TextBoxFor(u => u.Firstname, new { @required = "required", placeholder = "Enter Your First Name" })
+            @Html.ValidationMessageFor(u => u.Firstname)
+        </div>
+
+        <div class="col-12">
+            @Html.LabelFor(u => u.Lastname, "Last Name")
+            @Html.TextBoxFor(u => u.Lastname, new { @required = "required", placeholder = "Enter Your Last Name" })
+            @Html.ValidationMessageFor(u => u.Lastname)
+        </div>
+
+        <div class="col-12">
+            @Html.LabelFor(u => u.Email, "Email")
+            @Html.TextBoxFor(u => u.Email, new { @required = "required", placeholder = "Enter Your Email" })
+            @Html.ValidationMessageFor(u => u.Email)
+        </div>
+
+        <div class="col-12">
+            @Html.LabelFor(u => u.Username, "Username")
+            @Html.TextBoxFor(u => u.Username, new { @required = "required", placeholder = "Enter Your Username" })
+            @Html.ValidationMessageFor(u => u.Username)
+        </div>
+
+        <div class=" col-12">
+            @Html.LabelFor(p => p.Password, "Password")
+            @Html.TextBoxFor(p => p.Password, new { @required = "required", placeholder = "Enter Your password" })
+            @Html.ValidationMessageFor(p => p.Password)
+        </div>
+
+
+        <button type="submit">Sign Up</button>
+        <div><a class="signin" href="SignUp">Already have an account? Click Here!</a></div>
+
+
+    }
+</div>
+
 

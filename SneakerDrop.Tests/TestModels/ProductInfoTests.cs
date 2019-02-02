@@ -7,6 +7,7 @@ namespace SneakerDrop.Tests.TestModels
 {
     public class ProductInfoTests
     {
+        
         [Fact]
         public void ProdcutInfoTests()
         {

@@ -34,5 +34,13 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.Equal(value, sut.Firstname);
         }
+        [Fact]
+        public void Test_EditUserInfoById()
+        {
+            var sut = UserHelper.EditUserInfoById(user);
+
+            Assert.True(sut);
+
+        }
     }
 }

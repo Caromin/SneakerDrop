@@ -20,19 +20,22 @@ namespace SneakerDrop.Code.Helpers
         {
            User dbInfo = _db.Users.Where(u => u.UserId == user.UserId).FirstOrDefault();
 
-            //var dbUser = new User
-            //{
-            //    UserId = dbInfo.UserId,
-            //    Username = dbInfo.Username,
-            //    Firstname = dbInfo.Firstname,
-            //    Lastname = dbInfo.Lastname,
-            //    Email = dbInfo.Email,
-            //    Password = dbInfo.Password
-            //};
-
             return dbInfo;
         }
+        public static bool EditUserInfoById(User user)
+        {
+            var results = _db.Users.Where(u => u.UserId == user.UserId).FirstOrDefault();
 
+            results.Username = user.Username;
+            results.Firstname = user.Firstname;
+            results.Lastname = user.Lastname;
+            results.Password = user.Password;
+            results.Email = user.Email;
+
+            _db.SaveChanges();
+
+            return true;
+        }
     }
 
 }

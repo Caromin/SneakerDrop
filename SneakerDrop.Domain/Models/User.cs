@@ -36,4 +36,5 @@ namespace SneakerDrop.Domain.Models
             return Validator.ValidateString(this) && Validator.ValidateNumber(this);
         }
     }
+
 }

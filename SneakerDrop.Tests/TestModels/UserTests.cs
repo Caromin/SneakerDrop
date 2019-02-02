@@ -16,7 +16,7 @@ namespace SneakerDrop.Tests.TestModels
             Email = "Email@email.com"
         };
 
-        [Fact]
+        [Fact(Skip = "IsWorking")]
         public void Test_AddUser()
         {
             var sut = UserHelper.AddUser(user);
@@ -24,5 +24,14 @@ namespace SneakerDrop.Tests.TestModels
             Assert.True(sut);   
         }
 
+        [Fact]
+        public void Test_GetUserInfoById()
+        {
+            var test = new UserTests();
+            var value = test.user.Firstname;
+            var sut = UserHelper.GetUserInfoById(user);
+
+            Assert.Equal(value, sut.Firstname);
+        }
     }
 }

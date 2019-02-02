@@ -9,6 +9,7 @@ namespace SneakerDrop.Tests.TestModels
     {
         public User user = new User
         {
+            UserId = 1,
             Username = "ian2519",
             Password = "Password",
             Firstname = "Ian",

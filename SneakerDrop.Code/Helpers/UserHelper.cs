@@ -18,9 +18,19 @@ namespace SneakerDrop.Code.Helpers
         }
         public static User GetUserInfoById(User user)
         {
-           User dbUser = _db.Users.Where(u => u.UserId == user.UserId).FirstOrDefault();
-            
-            return dbUser;
+           User dbInfo = _db.Users.Where(u => u.UserId == user.UserId).FirstOrDefault();
+
+            //var dbUser = new User
+            //{
+            //    UserId = dbInfo.UserId,
+            //    Username = dbInfo.Username,
+            //    Firstname = dbInfo.Firstname,
+            //    Lastname = dbInfo.Lastname,
+            //    Email = dbInfo.Email,
+            //    Password = dbInfo.Password
+            //};
+
+            return dbInfo;
         }
 
     }

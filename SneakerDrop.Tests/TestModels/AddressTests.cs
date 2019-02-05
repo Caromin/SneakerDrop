@@ -30,13 +30,13 @@ namespace SneakerDrop.Tests.TestModels
                 PostalCode = "75024",
                 User = user
             };
+            var test = UserHelper.GetUserInfoById(user);
 
             
         }
         [Fact]
         public void Test_AddAddressByUser()
         {
-            var test = UserHelper.GetUserInfoById(user);
             var sut = AddressHelper.AddAddress(sut2);
 
 

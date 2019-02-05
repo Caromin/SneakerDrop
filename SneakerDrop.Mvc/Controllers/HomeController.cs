@@ -25,8 +25,30 @@ namespace SneakerDrop.Mvc.Controllers
         }
         public IActionResult Account()
         {
-            return View();
+            return View("~/Views/User/Account.cshtml");
         }
+
+        public IActionResult Listing()
+        {
+            return View("~/Views/User/Listing.cshtml");
+        }
+
+        public IActionResult ChangeUserInfo()
+        {
+            return View("~/Views/User/ChangeUserInfo.cshtml");
+        }
+
+        public IActionResult OrderHistory()
+        {
+            return View("~/Views/User/OrderHistory.cshtml");
+        }
+
+        public IActionResult ChangePayment()
+        {
+            return View("~/Views/User/ChangePayment.cshtml");
+        }
+
+
 
         public IActionResult Privacy()
         {

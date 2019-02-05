@@ -1,4 +1,5 @@
-﻿@model SneakerDrop.Mvc.Models.UserViewModel
+﻿@using SneakerDrop.Domain.Models;
+@model SneakerDrop.Mvc.Models.UserViewModel
 
 
 @{
@@ -9,9 +10,12 @@
 @using (@Html.BeginForm("Sign", "Home"))
 {
     <div class="col-12">
-    @Html.LabelFor(u => u.Username, "Username")
+        @*@foreach (User item in Model.Users)*@
+        
+    @Html.LabelFor(u=> u.Username, "Username")
     @Html.TextBoxFor(u => u.Username, new { @required = "required", placeholder = "Enter Your Username" })
     @Html.ValidationMessageFor(u => u.Username)
+        
     </div>
 
     <div class=" col-12">

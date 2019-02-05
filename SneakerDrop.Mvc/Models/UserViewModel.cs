@@ -10,7 +10,9 @@ namespace SneakerDrop.Mvc.Models
 {
     public class UserViewModel
     {
+        public IEnumerable<dm.User> Users { get; set; }
 
+        public IEnumerable<dm.Address> Addresses { get; set; }
 
 
         [StringLength(50)]

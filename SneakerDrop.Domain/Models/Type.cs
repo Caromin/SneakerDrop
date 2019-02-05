@@ -7,20 +7,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SneakerDrop.Domain.Models
 {
     [Table("Type", Schema = "Product")]
-        public class Type
-        {
-            
-            public int TypeId { get; set; }
+    public class Type
+    {
+
+        public int TypeId { get; set; }
 
 
-            [StringLength(50)]
-            [Required]
-            public string TypeName { get; set; }
-
-        public bool CheckString()
-        {
-            return Validator.ValidateString(this) && Validator.ValidateNumber(this);
-        }
+        [StringLength(50)]
+        [Required]
+        public string TypeName { get; set; }
     }
-    }
+}
 

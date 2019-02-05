@@ -7,7 +7,7 @@ namespace SneakerDrop.Domain.Models
     [Table("Orders", Schema = "User")]
     public class Orders
     {
-       
+
         public int OrderId { get; set; }
 
         [Required]
@@ -26,13 +26,6 @@ namespace SneakerDrop.Domain.Models
         public Payment Payment { get; set; }
 
         public User User { get; set; }
-
-        public bool CheckString()
-        {
-            return Validator.ValidateString(this) && Validator.ValidateNumber(this);
-        }
-
-
 
     }
 }

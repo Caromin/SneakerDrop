@@ -7,7 +7,7 @@ namespace SneakerDrop.Domain.Models
     [Table("Product", Schema = "Store")]
     public class ProductInfo
     {
-      
+
         public int ProductInfoId { get; set; }
 
         public Brand Brand { get; set; }
@@ -34,10 +34,5 @@ namespace SneakerDrop.Domain.Models
         [StringLength(50)]
         [Required]
         public string Color { get; set; }
-
-        public bool CheckString()
-        {
-            return Validator.ValidateString(this) && Validator.ValidateNumber(this);
-        }
     }
 }

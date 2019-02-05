@@ -8,7 +8,7 @@ namespace SneakerDrop.Domain.Models
     [Table("Address", Schema = "User")]
     public class Address
     {
-       public int AddressId { get; set; }
+        public int AddressId { get; set; }
 
         [StringLength(50)]
         [Required]
@@ -27,11 +27,5 @@ namespace SneakerDrop.Domain.Models
         public string PostalCode { get; set; }
 
         public User User { get; set; }
-
-        public bool CheckString()
-        {
-            return Validator.ValidateString(this) && Validator.ValidateNumber(this);
-        }
-
     }
 }

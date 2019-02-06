@@ -8,6 +8,7 @@ namespace SneakerDrop.Domain.Models
     [Table("Address", Schema = "User")]
     public class Address
     {
+        
         public int AddressId { get; set; }
 
         [StringLength(50)]

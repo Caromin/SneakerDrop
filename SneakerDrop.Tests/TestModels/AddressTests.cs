@@ -14,7 +14,7 @@ namespace SneakerDrop.Tests.TestModels
         {
             user = new User()
             {
-                UserId = 2,
+                //UserId = 2,
                 Username = "ian2519",
                 Password = "Password",
                 Firstname = "Ian",
@@ -30,11 +30,10 @@ namespace SneakerDrop.Tests.TestModels
                 PostalCode = "75024",
                 User = user
             };
-            var test = UserHelper.GetUserInfoById(user);
 
 
         }
-        [Fact(Skip = "non-functioning, avoid")]
+        [Fact]
         public void Test_AddAddressByUser()
         {
             var sut = AddressHelper.AddAddress(sut2);

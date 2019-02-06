@@ -15,14 +15,14 @@ namespace SneakerDrop.Tests.TestModels
       
             sut2 = new Address()
             {
-                AddressId = 1,
+                AddressId = 4,
                 Street = "4508 Burnhill Dr",
                 City = "Plano",
                 State = "TX",
                 PostalCode = "75024",
                 User = new User()
                 {
-                    UserId = 1,
+                    UserId = 4,
                     Username = "ian2519",
                     Password = "Password",
                     Firstname = "Ian",
@@ -33,14 +33,13 @@ namespace SneakerDrop.Tests.TestModels
 
 
         }
-        [Fact(Skip ="Dosen't work")]
+        [Fact(Skip ="Doesn't work")]
         public void Test_AddAddressByUser()
         {
             var sut = AddressHelper.AddAddressById(sut2);
 
 
             Assert.True(sut);
-
         }
         [Fact]
         public void Test_GetAddressInfoById()

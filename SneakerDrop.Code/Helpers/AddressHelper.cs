@@ -34,6 +34,16 @@ namespace SneakerDrop.Code.Helpers
 
             return _db.SaveChanges() == 1;
         }
+        public static bool DeleteAddressInfoById(Address address)
+        {
+            var deleteAddress = _db.Addresses.Where(a => a.AddressId == address.AddressId);
+
+            foreach (var item in deleteAddress)
+            {
+
+            }
+            return true;
+        }
 
     }
 }

@@ -3,21 +3,31 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SneakerDrop.Mvc.Models;
+using c = SneakerDrop.Code.Helpers;
+using dm = SneakerDrop.Domain.Models;
 
 namespace SneakerDrop.Mvc.Controllers
 {
     public class HomeController : Controller
     {
+        public IMapper mapper;
         public IActionResult Index()
         {
             return View();
         }
-
-        public IActionResult Login()
+      
+        [HttpGet]
+        public IActionResult Login( c.UserHelper userhelper)
         {
-            return View();
+
+
+            var context = userhelper.GetAllUsers();
+            var mappeditem = mapper.Map<List<UserViewModel>>(context);
+            return View(mappeditem);
+            
         }
         public IActionResult Register()
         {

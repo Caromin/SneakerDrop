@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SneakerDrop.Code.Helpers
 {
-    public static class UserHelper
+    public class UserHelper
     {
         private static SneakerDropDbContext _db = new SneakerDropDbContext();
 
@@ -16,12 +16,18 @@ namespace SneakerDrop.Code.Helpers
             return _db.SaveChanges() == 1;
      
         }
-        public static User GetUserInfoById(User user)
+        public User GetUserInfoById(User user)
         {
            User dbInfo = _db.Users.Where(u => u.UserId == user.UserId).FirstOrDefault();
 
             return dbInfo;
         }
+        public List<User> GetAllUsers()
+        {
+            var getallusers = _db.Users.ToList();
+            return getallusers;
+        }
+
         public static bool EditUserInfoById(User user)
         {
             var results = _db.Users.Where(u => u.UserId == user.UserId).FirstOrDefault();

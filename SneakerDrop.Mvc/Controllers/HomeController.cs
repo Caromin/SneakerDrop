@@ -13,22 +13,13 @@ namespace SneakerDrop.Mvc.Controllers
 {
     public class HomeController : Controller
     {
-        public IMapper mapper;
         public IActionResult Index()
         {
             return View();
         }
-      
+
         [HttpGet]
-        public IActionResult Login( c.UserHelper userhelper)
-        {
 
-
-            var context = userhelper.GetAllUsers();
-            var mappeditem = mapper.Map<List<UserViewModel>>(context);
-            return View(mappeditem);
-            
-        }
         public IActionResult Register()
         {
             return View();

@@ -6,11 +6,11 @@ using System.Text;
 
 namespace SneakerDrop.Code.Helpers
 {
-    public class AddressHelper
+    public static class AddressHelper
     {
         private static SneakerDropDbContext _db = new SneakerDropDbContext();
 
-        public static bool AddAddress(Address address)
+        public static bool AddAddressById(Address address)
         {
 
 

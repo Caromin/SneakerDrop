@@ -24,7 +24,6 @@ namespace SneakerDrop.Tests.TestModels
                 Lastname = "Nai",
                 Email = "Email@email.com"
             }
-
         };
 
         [Fact(Skip = "paused for now")]
@@ -51,7 +50,7 @@ namespace SneakerDrop.Tests.TestModels
             Assert.True(sut);
         }
 
-        [Fact]
+        [Fact(Skip = "working, avoid deleting from db")]
         public void Test_DeletePaymentById()
         {
             var sut = PaymentHelper.DeletePaymentById(payment);

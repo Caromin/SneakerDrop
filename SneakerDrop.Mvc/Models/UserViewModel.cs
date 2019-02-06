@@ -5,15 +5,12 @@ using System.Threading.Tasks;
 using dm = SneakerDrop.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SneakerDrop.Code.Helpers;
 
 namespace SneakerDrop.Mvc.Models
 {
     public class UserViewModel
     {
-        public IEnumerable<dm.User> Users { get; set; }
-
-        public IEnumerable<dm.Address> Addresses { get; set; }
-
 
         [StringLength(50)]
         [Required]
@@ -35,5 +32,17 @@ namespace SneakerDrop.Mvc.Models
         [StringLength(50)]
         [Required]
         public string Password { get; set; }
+
+        public void LoginValidator()
+        {
+            var validator = new dm.Validator();
+            var valCheck =  validator.ValidateString(Username, Password, Email);
+            
+            if (valCheck)
+            {
+                // waiting for automapper to match models
+                // UserHelper.GetUserInfoById(user);
+            }
+        }
     }
 }

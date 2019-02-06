@@ -7,9 +7,8 @@ namespace SneakerDrop.Domain.Models
     [Table("Payment", Schema = "User")]
     public class Payment
     {
-       
-        public int PaymentId { get; set; }
 
+        public int PaymentId { get; set; }
 
         [Required]
         public long CCNumber { get; set; }
@@ -28,10 +27,5 @@ namespace SneakerDrop.Domain.Models
         public int CVV { get; set; }
 
         public User User { get; set; }
-
-        public bool CheckString()
-        {
-            return Validator.ValidateString(this) && Validator.ValidateNumber(this);
-        }
     }
 }

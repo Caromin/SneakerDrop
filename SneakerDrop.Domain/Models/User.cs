@@ -8,7 +8,7 @@ namespace SneakerDrop.Domain.Models
     [Table("User", Schema = "User")]
     public class User : IUser
     {
-       
+        
         public int UserId { get; set; }
 
         [StringLength(50)]
@@ -31,10 +31,7 @@ namespace SneakerDrop.Domain.Models
         [Required]
         public string Password { get; set; }
 
-        public bool CheckString()
-        {
-            return Validator.ValidateString(this) && Validator.ValidateNumber(this);
-        }
+
     }
 
 }

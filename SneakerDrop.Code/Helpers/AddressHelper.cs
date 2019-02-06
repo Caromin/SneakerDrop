@@ -29,18 +29,14 @@ namespace SneakerDrop.Code.Helpers
             editAddress.City = address.City;
             editAddress.State = address.State;
             editAddress.PostalCode = address.PostalCode;
-
-            _db.SaveChanges();
-
+         
             return _db.SaveChanges() == 1;
         }
-        public static List<Address> DeleteAddressInfoById(Address address)
+        public static bool DeleteAddressInfoById(Address address)
         {
-            var deleteAddress = _db.Addresses.Where(a => a.AddressId == address.AddressId).ToList();
+            _db.Addresses.RemoveRange(_db.Addresses.Where(a => a.AddressId == address.AddressId));
 
-
-
-            return deleteAddress;
+            return _db.SaveChanges() ==1;
         }
 
     }

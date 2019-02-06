@@ -8,7 +8,7 @@ namespace SneakerDrop.Domain.Models
     [Table("User", Schema = "User")]
     public class User : IUser
     {
-
+        
         public int UserId { get; set; }
 
         [StringLength(50)]

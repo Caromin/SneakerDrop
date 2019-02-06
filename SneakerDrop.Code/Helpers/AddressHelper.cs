@@ -12,8 +12,6 @@ namespace SneakerDrop.Code.Helpers
 
         public static bool AddAddressById(Address address)
         {
-
-
             _db.Addresses.Add(address);
             return _db.SaveChanges() == 1;
         }
@@ -22,6 +20,23 @@ namespace SneakerDrop.Code.Helpers
             var dbAddressInfo = _db.Addresses.Where(a => a.User.UserId == address.User.UserId).ToList();
 
             return dbAddressInfo;
+        }
+        public static bool EditAddressInfoById(Address address)
+        {
+            var editAddress = _db.Addresses.Where(a => a.AddressId == address.AddressId).FirstOrDefault();
+
+            editAddress.Street = address.Street;
+            editAddress.City = address.City;
+            editAddress.State = address.State;
+            editAddress.PostalCode = address.PostalCode;
+         
+            return _db.SaveChanges() == 1;
+        }
+        public static bool DeleteAddressInfoById(Address address)
+        {
+            _db.Addresses.RemoveRange(_db.Addresses.Where(a => a.AddressId == address.AddressId));
+
+            return _db.SaveChanges() ==1;
         }
 
     }

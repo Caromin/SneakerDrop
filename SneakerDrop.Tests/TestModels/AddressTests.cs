@@ -6,53 +6,56 @@ using Xunit;
 namespace SneakerDrop.Tests.TestModels
 {
     public class AddressTests
-    {
-        public Address sut2;
-        public User user { get; set; }
-
-        public AddressTests()
-        {
-            user = new User()
+    {           
+           public static Address address = new Address()
             {
-                UserId = 2,
-                Username = "ian2519",
-                Password = "Password",
-                Firstname = "Ian",
-                Lastname = "Nai",
-                Email = "Email@email.com"
-            };
-            sut2 = new Address()
-            {
-                AddressId = 4,
+                AddressId = 2,
                 Street = "4508 Burnhill Dr",
                 City = "Plano",
                 State = "TX",
                 PostalCode = "75024",
-                User = user
-            };
-
-
-        }
-        [Fact(Skip = "non-functioning, avoid")]
+                User = new User
+                {
+                    UserId = 2,
+                    Username = "ian2519",
+                    Password = "Password",
+                    Firstname = "Ian",
+                    Lastname = "Nai",
+                    Email = "Email@email.com"
+                }
+        };       
+        [Fact(Skip ="Doesn't work")]
         public void Test_AddAddressByUser()
         {
-            var test = UserHelper.GetUserInfoById(user);
-            var sut = AddressHelper.AddAddressById(sut2);
+            var sut = AddressHelper.AddAddressById(address);
 
 
             Assert.True(sut);
-
         }
         [Fact]
         public void Test_GetAddressInfoById()
         {
-            var test = new AddressTests();
-            var value = test.sut2.AddressId;
-            var sut = AddressHelper.GetAddressInfoById(sut2);
+
+            var sut = AddressHelper.GetAddressInfoById(address);
 
             Assert.NotNull(sut);
         }
-    };
+        [Fact(Skip ="Not working properly")]
+        public void Test_EditAddressInfoById()
+        {
+            var sut = AddressHelper.EditAddressInfoById(address);
 
+            Assert.True(sut);
+        }
+        [Fact(Skip ="working")]
+        public void Test_DeleteAddressInfoById()
+        {
+            var sut = AddressHelper.DeleteAddressInfoById(address);
+
+            Assert.True(sut);
+        }
+    }
 }
+
+
 

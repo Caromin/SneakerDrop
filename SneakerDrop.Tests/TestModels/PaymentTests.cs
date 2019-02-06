@@ -24,7 +24,6 @@ namespace SneakerDrop.Tests.TestModels
                 Lastname = "Nai",
                 Email = "Email@email.com"
             }
-
         };
 
         [Fact(Skip = "paused for now")]

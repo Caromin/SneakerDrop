@@ -33,6 +33,6 @@ namespace SneakerDrop.Code
         }
 
 
-        //modelbuilder.hasdefaultschema("User")
+        
     }
 }

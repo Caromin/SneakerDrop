@@ -22,7 +22,7 @@ namespace SneakerDrop.Tests.TestModels
         {
             var sut = UserHelper.AddUser(user);
 
-            Assert.True(sut);   
+            Assert.True(sut);
         }
 
         [Fact]

@@ -10,7 +10,6 @@ namespace SneakerDrop.Domain.Models
 
         public int PaymentId { get; set; }
 
-
         [Required]
         public long CCNumber { get; set; }
 

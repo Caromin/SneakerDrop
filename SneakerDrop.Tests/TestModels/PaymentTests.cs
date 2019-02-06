@@ -7,40 +7,56 @@ namespace SneakerDrop.Tests.TestModels
 {
     public class PaymentTests
     {
-        public User user = new User
+        public static Payment payment = new Payment()
         {
-            UserId = 1,
-            Username = "ian2519",
-            Password = "Password",
-            Firstname = "Ian",
-            Lastname = "Nai",
-            Email = "Email@email.com"
+            PaymentId = 1,
+            CCNumber = 1111222233334444,
+            CCUserName = "Christian Aromin",
+            Month = 01,
+            Year = 22,
+            CVV = 123,
+            User = new User
+            {
+                UserId = 1,
+                Username = "ian2519",
+                Password = "Password",
+                Firstname = "Ian",
+                Lastname = "Nai",
+                Email = "Email@email.com"
+            }
+
         };
 
-        [Fact]
+        [Fact(Skip = "paused for now")]
         public void Test_AddUser()
         {
-            var sut = PaymentHelper.AddPaymentById(user);
+            var sut = PaymentHelper.AddPaymentById(payment);
 
             Assert.True(sut);
         }
 
         [Fact]
-        public void Test_GetUserInfoById()
+        public void Test_GetPaymentById()
         {
-            var test = new UserTests();
-            var value = test.user.Firstname;
-            var sut = UserHelper.GetUserInfoById(user);
+            var sut = PaymentHelper.GetPaymentById(payment);
 
-            Assert.Equal(value, sut.Firstname);
+            Assert.Equal(1, sut.Count);
         }
+
         [Fact]
-        public void Test_EditUserInfoById()
+        public void Test_EditPaymentById()
         {
-            var sut = UserHelper.EditUserInfoById(user);
+            var sut = PaymentHelper.EditPaymentById(payment);
 
             Assert.True(sut);
+        }
 
+        [Fact]
+        public void Test_DeletePaymentById()
+        {
+            var sut = PaymentHelper.DeletePaymentById(payment);
+
+            Assert.True(sut);
         }
     }
 

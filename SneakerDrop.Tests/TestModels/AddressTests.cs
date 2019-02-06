@@ -37,7 +37,7 @@ namespace SneakerDrop.Tests.TestModels
         public void Test_AddAddressByUser()
         {
             var test = UserHelper.GetUserInfoById(user);
-            var sut = AddressHelper.AddAddress(sut2);
+            var sut = AddressHelper.AddAddressById(sut2);
 
 
             Assert.True(sut);

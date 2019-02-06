@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using SneakerDrop.Domain.Models;
 
 namespace SneakerDrop.Code.Helpers
@@ -7,25 +9,42 @@ namespace SneakerDrop.Code.Helpers
     {
         private static SneakerDropDbContext _db = new SneakerDropDbContext();
 
-        public static bool AddPaymentById(User user)
+        public static bool AddPaymentById(Payment payment)
         {
+            _db.Payment.Add(payment);
 
-            return true;
+            return _db.SaveChanges() == 1;
         }
 
-        public static bool GetPaymentById()
+        public static List<Payment> GetPaymentById(Payment payment)
         {
-            return true;
+            List<Payment> results = _db.Payment.Where(p => p.User.UserId == payment.User.UserId).ToList();
+
+            if (results != null)
+            {
+                return results;
+            }
+            return null;
         }
 
-        public static bool EditPaymentById()
+        public static bool EditPaymentById(Payment payment)
         {
-            return true;
+            var result = _db.Payment.Where(p => p.PaymentId == payment.PaymentId).FirstOrDefault();
+
+            result.CCNumber = payment.CCNumber;
+            result.CCUserName = payment.CCUserName;
+            result.Month = payment.Month;
+            result.Year = payment.Year;
+            result.CVV = payment.CVV;
+
+            return _db.SaveChanges() == 1;
         }
 
-        public static bool DeldtePaymentByID()
+        public static bool DeletePaymentById(Payment payment)
         {
-            return true;
+            _db.Payment.RemoveRange(_db.Payment.Where(p => p.PaymentId == payment.PaymentId));
+
+            return _db.SaveChanges() == 1;
         }
     }
 }

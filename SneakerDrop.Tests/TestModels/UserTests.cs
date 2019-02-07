@@ -1,6 +1,9 @@
 ﻿using System;
+using AutoMapper;
 using SneakerDrop.Code.Helpers;
 using SneakerDrop.Domain.Models;
+using SneakerDrop.Mvc.AutoMapperModels;
+using SneakerDrop.Mvc.Models;
 using Xunit;
 
 namespace SneakerDrop.Tests.TestModels
@@ -40,6 +43,14 @@ namespace SneakerDrop.Tests.TestModels
             var sut = UserHelper.EditUserInfoById(user);
 
             Assert.True(sut);
+
+        }
+        [Fact]
+        public void Test_UserMapper()
+        {
+            var config = AutoMapperProfile.userMapper;
+            
+            config.AssertConfigurationIsValid();
 
         }
     }

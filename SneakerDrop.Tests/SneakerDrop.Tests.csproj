@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
@@ -18,5 +19,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SneakerDrop.Code\SneakerDrop.Code.csproj" />
     <ProjectReference Include="..\SneakerDrop.Domain\SneakerDrop.Domain.csproj" />
+    <ProjectReference Include="..\SneakerDrop.Mvc\SneakerDrop.Mvc.csproj" />
   </ItemGroup>
 </Project>

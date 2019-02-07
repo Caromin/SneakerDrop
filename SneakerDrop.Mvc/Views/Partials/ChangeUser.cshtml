@@ -1,0 +1,39 @@
+﻿@model SneakerDrop.Mvc.Models.UserViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChangeUser</title>
+</head>
+<body>
+
+    <p class="font-weight-bold bg-primary text-center">Change User Information</p>
+
+    @using (@Html.BeginForm("userchange", "Home"))
+    {
+        <div class=" text-center">
+
+
+            @Html.LabelFor(u => u.Username, "New Username")
+            @Html.TextBoxFor(u => u.Username, new { @required = "required", placeholder = "PParker1" })
+            @Html.ValidationMessageFor(u => u.Username)
+
+        </div>
+
+        <div class="text-center">
+
+
+            @Html.LabelFor(u => u.Password, "New Password")
+            @Html.TextBoxFor(u => u.Password, new { @required = "required", placeholder = "1234" })
+            @Html.ValidationMessageFor(u => u.Username)
+
+        </div>
+
+        <div class="text-center">
+            <button type="submit">Submit</button>
+        </div>
+
+    }
+</body>
+</html>
+

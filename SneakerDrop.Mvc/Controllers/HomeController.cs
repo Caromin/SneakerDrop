@@ -44,14 +44,22 @@ namespace SneakerDrop.Mvc.Controllers
             return View("~/Views/User/OrderHistory.cshtml");
         }
 
-        public IActionResult ChangePayment()
+        public IActionResult ChangeAddress()
         {
-            return View("~/Views/User/ChangePayment.cshtml");
+            return View("/Views/Partials/ChangeAddress.cshtml");
         }
 
+        public IActionResult ChangePayment()
+        {
+            return View("/Views/Partials/ChangePayment.cshtml");
+        }
 
+        public IActionResult ChangeUser()
+        {
+            return View("/Views/Partials/ChangeUser.cshtml");
+        }
 
-        public IActionResult Privacy()
+         public IActionResult Privacy()
         {
             return View();
         }

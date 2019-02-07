@@ -11,7 +11,7 @@ namespace SneakerDrop.Mvc.Models
 {
     public class UserViewModel
     {
-
+        public int UserId { get; set; }
         [StringLength(50)]
         [Required]
         public string Firstname { get; set; }

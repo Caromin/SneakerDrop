@@ -1,5 +1,6 @@
 ﻿using SneakerDrop.Code.Helpers;
 using SneakerDrop.Domain.Models;
+using SneakerDrop.Mvc.AutoMapperModels;
 using System;
 using Xunit;
 
@@ -56,6 +57,13 @@ namespace SneakerDrop.Tests.TestModels
             var sut = AddressHelper.DeleteAddressInfoById(address);
 
             Assert.True(sut);
+        }
+        [Fact]
+        public void Test_AddressMapper()
+        {
+            var config = AutoMapperProfile.addressMapper;
+
+            config.AssertConfigurationIsValid();
         }
     }
 }

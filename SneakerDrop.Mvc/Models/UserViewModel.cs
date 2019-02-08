@@ -78,7 +78,7 @@ namespace SneakerDrop.Mvc.Models
             var userModel = usernameModel.MappingUser(userView);
 
             var usernameValidator = new dm.Validator();
-            var usernameCheck = usernameValidator.ValidateUsername(userModel);
+            var usernameCheck = usernameValidator.ValidateUserName(userModel);
 
             if (usernameCheck)
             {

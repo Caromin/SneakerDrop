@@ -54,14 +54,15 @@ namespace SneakerDrop.Tests.TestModels
                 Lastname = "Aromin"
             };
 
-            var test = sut.LoginValidator(sut);
+            var test = sut.UserValidator(sut);
 
             Assert.Equal(sut.Firstname, test.Firstname);
         }
         [Fact]
         public void Test_ValidateUsername()
         {
-            var test = user.ValidateUsername(user);
+
+            var test = user.ValidateUserName(user);
 
             Assert.True(test);
         }

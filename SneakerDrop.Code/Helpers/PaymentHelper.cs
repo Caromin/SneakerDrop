@@ -27,19 +27,6 @@ namespace SneakerDrop.Code.Helpers
             return null;
         }
 
-        public static bool EditPaymentById(Payment payment)
-        {
-            var result = _db.Payment.Where(p => p.PaymentId == payment.PaymentId).FirstOrDefault();
-
-            result.CCNumber = payment.CCNumber;
-            result.CCUserName = payment.CCUserName;
-            result.Month = payment.Month;
-            result.Year = payment.Year;
-            result.CVV = payment.CVV;
-
-            return _db.SaveChanges() == 1;
-        }
-
         public static bool DeletePaymentById(Payment payment)
         {
             _db.Payment.RemoveRange(_db.Payment.Where(p => p.PaymentId == payment.PaymentId));

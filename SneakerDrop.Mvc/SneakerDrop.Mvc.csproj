@@ -22,5 +22,7 @@
 
   <ItemGroup>
     <Compile Remove="AutoMapperModels\AutoMapperProfile.cs" />
+    <Compile Remove="Models\OrderViewModel.cs" />
+    <Compile Remove="Models\ListingViewModel.cs" />
   </ItemGroup>
 </Project>

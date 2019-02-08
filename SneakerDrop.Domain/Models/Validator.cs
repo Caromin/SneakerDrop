@@ -18,11 +18,17 @@ namespace SneakerDrop.Domain.Models
             return false;
         }
 
-       public void ValidateUsername(User user)
+       public bool ValidateUsername(User user)
         {
-            string pattern = @"^[a-zA-Z0-9\_]+$";
+            string pattern = @"^[a-zA-Z0-9]+$";
             var username = user.Username;
+
             Match match = Regex.Match(username, pattern);
+            if (match.Success)
+            {
+                return true;
+            }
+            return false;
             
         }
     }

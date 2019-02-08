@@ -7,6 +7,7 @@ namespace SneakerDrop.Domain.Models
     [Table("Payment", Schema = "User")]
     public class Payment
     {
+
         public int PaymentId { get; set; }
 
         [Required]

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-using SneakerDrop.Domain.Models;
 
 namespace SneakerDrop.Mvc.Models
 {
@@ -23,7 +25,5 @@ namespace SneakerDrop.Mvc.Models
 
         [Required]
         public int CVV { get; set; }
-
-        public User User { get; set; }
     }
 }

@@ -42,6 +42,14 @@ namespace SneakerDrop.Tests.TestModels
             Assert.Equal(1, sut.Count);
         }
 
+        [Fact(Skip = "no dummy db data")]
+        public void Test_EditPaymentById()
+        {
+            var sut = PaymentHelper.EditPaymentById(payment);
+
+            Assert.True(sut);
+        }
+
         [Fact(Skip = "working, avoid deleting from db")]
         public void Test_DeletePaymentById()
         {

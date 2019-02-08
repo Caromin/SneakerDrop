@@ -16,5 +16,20 @@ namespace SneakerDrop.Domain.Models
 
             return false;
         }
+
+        public bool ValidateNewUser(User userModel)
+        {
+            return true;
+        }
+
+        public bool EditString(User userModel)
+        {
+            return true;
+        }
+
+        public bool ValidateNewPayment(Payment paymentView)
+        {
+            return true;
+        }
     }
 }

@@ -2,7 +2,7 @@
 using AutoMapper;
 using SneakerDrop.Code.Helpers;
 using SneakerDrop.Domain.Models;
-using SneakerDrop.Mvc.AutoMapperModels;
+
 using SneakerDrop.Mvc.Models;
 using Xunit;
 
@@ -49,11 +49,7 @@ namespace SneakerDrop.Tests.TestModels
         public void Test_UserMapper()
         {
 
-            var config = AutoMapperProfile.userMapper;
-            
-            config.AssertConfigurationIsValid();
 
-            Assert.NotNull(config);
 
         }
     }

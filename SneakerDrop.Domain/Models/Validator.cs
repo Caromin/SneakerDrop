@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace SneakerDrop.Domain.Models
 {
@@ -15,6 +16,14 @@ namespace SneakerDrop.Domain.Models
             }
 
             return false;
+        }
+
+       public void ValidateUsername(User user)
+        {
+            string pattern = @"^[a-zA-Z0-9\_]+$";
+            var username = user.Username;
+            Match match = Regex.Match(username, pattern);
+            
         }
     }
 }

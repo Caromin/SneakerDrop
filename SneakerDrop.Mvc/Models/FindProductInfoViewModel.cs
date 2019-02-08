@@ -58,6 +58,6 @@ namespace SneakerDrop.Mvc.Models
             var productInfoMapper = productInfoConfig.CreateMapper();
 
             return productInfoMapper.Map<FindProductInfoViewModel, dm.ProductInfo>(findProduct);
-        };
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using SneakerDrop.Code.Helpers;
 using SneakerDrop.Domain.Models;
+
 using System;
 using Xunit;
 
@@ -57,6 +58,12 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(sut);
         }
+        [Fact]
+        public void Test_AddressMapper()
+        {
+
+        }
+
     }
 }
 

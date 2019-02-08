@@ -6,7 +6,7 @@ using SneakerDrop.Domain.Interfaces;
 namespace SneakerDrop.Domain.Models
 {
     [Table("User", Schema = "User")]
-    public class User : IUser
+    public class User : Validator , IUser
     {
         
         public int UserId { get; set; }

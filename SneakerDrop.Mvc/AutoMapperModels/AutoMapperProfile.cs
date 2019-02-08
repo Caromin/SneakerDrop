@@ -19,6 +19,16 @@ namespace SneakerDrop.Mvc.AutoMapperModels
             .ForMember(m => m.Lastname, u => u.MapFrom(src => src.Lastname))
             .ForMember(m => m.Email, u => u.MapFrom(src => src.Email));
         });
+        public static MapperConfiguration addressMapper = new MapperConfiguration(mc =>
+        {
+            mc.CreateMap<LocationViewModel, dm.Address>()
+            .ForMember(m => m.AddressId, u => u.MapFrom(src => src.AddressId))
+            .ForMember(m => m.Street, u => u.MapFrom(src => src.Street))
+            .ForMember(m => m.City, u => u.MapFrom(src => src.City))
+            .ForMember(m => m.State, u => u.MapFrom(src => src.State))
+            .ForMember(m => m.PostalCode, u => u.MapFrom(src => src.PostalCode))
+            .ForMember(m => m.User, u => u.MapFrom(src => src.User));
+        });
 
     }
 }

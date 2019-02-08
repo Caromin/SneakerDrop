@@ -72,6 +72,20 @@ namespace SneakerDrop.Mvc.Models
             // returning something only for test purpose
             return userModel;
         }
+        public dm.User UsernameValidator(UserViewModel userView)
+        {
+            var usernameModel = new ConvertToDomainUser();
+            var userModel = usernameModel.MappingUser(userView);
+
+            var usernameValidator = new dm.Validator();
+            var usernameCheck = usernameValidator.ValidateUserName(userModel);
+
+            if (usernameCheck)
+            {
+                UserHelper.GetUserInfoById(userModel);
+            }
+            return userModel;
+        }
     }
 
     public class ConvertToDomainUser : Profile
@@ -90,5 +104,6 @@ namespace SneakerDrop.Mvc.Models
 
             return userMapper.Map<UserViewModel, dm.User>(userView);
         }
+
     }
 }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using dm = SneakerDrop.Domain.Models;
+﻿using dm = SneakerDrop.Domain.Models;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using SneakerDrop.Code.Helpers;
 using AutoMapper;
 
@@ -13,6 +8,9 @@ namespace SneakerDrop.Mvc.Models
     public class UserViewModel
     {
         public int UserId { get; set; }
+
+        public string HelperType { get; set; }
+
         [StringLength(50)]
         [Required]
         public string Firstname { get; set; }
@@ -34,19 +32,40 @@ namespace SneakerDrop.Mvc.Models
         [Required]
         public string Password { get; set; }
 
-        public dm.User LoginValidator(UserViewModel userView)
+        public dm.User UserValidator(UserViewModel userView)
         {
-            var loginModel = new ConvertToDomainUser();
-            var userModel = loginModel.MappingUser(userView);
-
+            var createModel = new ConvertToDomainUser();
             var validator = new dm.Validator();
-            var valCheck = validator.ValidateString(userModel);
+            var userModel = createModel.MappingUser(userView);
 
-            if (valCheck)
+            switch (userView.HelperType)
             {
-                UserHelper.GetUserInfoById(userModel);
+                case "Add":
+                    var valCheckAdd = validator.ValidateNewUser(userModel);
+
+                    if (valCheckAdd)
+                    {
+                        UserHelper.AddUser(userModel);
+                    }
+                    // write error method call here
+                    break;
+                case "Get":
+                    UserHelper.GetUserInfoById(userModel);
+                    break;
+                case "Edit":
+                    var valCheckEdit = validator.EditString(userModel);
+
+                    if (valCheckEdit)
+                    {
+                        UserHelper.EditUserInfoById(userModel);
+                    }
+                    // write error method call here
+                    break;
+                default:
+                    break;
             }
 
+            // returning something only for test purpose
             return userModel;
         }
     }

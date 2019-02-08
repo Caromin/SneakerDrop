@@ -12,27 +12,21 @@ namespace SneakerDrop.Domain.Models
 
         public Brand Brand { get; set; }
 
-
         public Type Type { get; set; }
 
         [StringLength(50)]
-        [Required]
         public string ProductTitle { get; set; }
 
 
         [StringLength(500)]
-        [Required]
         public string Description { get; set; }
 
-        [Required]
         public int DisplayPrice { get; set; }
 
         [StringLength(50)]
-        [Required]
         public string ReleaseDate { get; set; }
 
         [StringLength(50)]
-        [Required]
         public string Color { get; set; }
     }
 }

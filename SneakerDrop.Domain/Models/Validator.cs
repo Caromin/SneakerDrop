@@ -31,5 +31,10 @@ namespace SneakerDrop.Domain.Models
         {
             return true;
         }
+
+        public bool ValidateProductTitle(ProductInfo productInfoDomainModel)
+        {
+            return true;
+        }
     }
 }

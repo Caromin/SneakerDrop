@@ -54,7 +54,12 @@ namespace SneakerDrop.Mvc.Models
                     // write error method call here
                     break;
                 case "Get":
-                    UserHelper.GetUserInfoById(userModel);
+                    var valCheckUsername = validator.ValidateUserName(userModel);
+
+                    if (valCheckUsername)
+                    {
+                        UserHelper.GetUserInfoById(userModel);
+                    }
                     break;
                 case "Edit":
                     var valCheckEdit = validator.EditString(userModel);

@@ -48,9 +48,12 @@ namespace SneakerDrop.Tests.TestModels
         [Fact]
         public void Test_UserMapper()
         {
+
             var config = AutoMapperProfile.userMapper;
             
             config.AssertConfigurationIsValid();
+
+            Assert.NotNull(config);
 
         }
     }

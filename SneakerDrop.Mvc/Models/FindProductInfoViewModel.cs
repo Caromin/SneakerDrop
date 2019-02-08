@@ -63,8 +63,7 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(p => p.TypeId, f => f.MapFrom(src => src.Type.TypeId))
             .ForMember(p => p.ProductTitle, f => f.MapFrom(src => src.ProductTitle))
             .ForMember(p => p.Description, f => f.MapFrom(src => src.Description))
-            .ForMember(p => p.Color, f => f.MapFrom(src => src.Color))
-);
+            .ForMember(p => p.Color, f => f.MapFrom(src => src.Color)));
 
         public dm.ProductInfo MappingProductInfo(FindProductInfoViewModel findProduct)
         {

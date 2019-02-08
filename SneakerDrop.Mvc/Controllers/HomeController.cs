@@ -18,7 +18,10 @@ namespace SneakerDrop.Mvc.Controllers
             return View();
         }
 
-        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
 
         public IActionResult Register()
         {

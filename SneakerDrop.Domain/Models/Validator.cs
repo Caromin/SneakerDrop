@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace SneakerDrop.Domain.Models
 {
@@ -18,18 +17,24 @@ namespace SneakerDrop.Domain.Models
             return false;
         }
 
-       public bool ValidateUsername(User user)
+        public bool ValidateNewUser(User userModel)
         {
-            string pattern = @"^[a-zA-Z0-9]+$";
-            var username = user.Username;
+            return true;
+        }
 
-            Match match = Regex.Match(username, pattern);
-            if (match.Success)
-            {
-                return true;
-            }
-            return false;
-            
+        public bool EditString(User userModel)
+        {
+            return true;
+        }
+
+        public bool ValidateNewPayment(Payment paymentView)
+        {
+            return true;
+        }
+
+        public bool ValidateProductTitle(ProductInfo productInfoDomainModel)
+        {
+            return true;
         }
     }
 }

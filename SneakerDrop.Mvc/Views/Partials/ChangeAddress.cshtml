@@ -1,0 +1,55 @@
+﻿@model SneakerDrop.Mvc.Models.LocationViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChangeAddress</title>
+</head>
+<body>
+    <p class="font-weight-bold bg-primary text-center">Create a New Address</p>
+
+    @using (@Html.BeginForm("userchange", "Home"))
+    {
+        <div class="text-center">
+
+
+            @Html.LabelFor(u => u.Street, "Street")
+            @Html.TextBoxFor(u => u.Street, new { @required = "required", placeholder = "320 Peter Parker Lane" })
+            @Html.ValidationMessageFor(u => u.Street)
+
+        </div>
+
+        <div class="text-center">
+
+
+            @Html.LabelFor(u => u.City, "City")
+            @Html.TextBoxFor(u => u.City, new { @required = "required", placeholder = "Tampa" })
+            @Html.ValidationMessageFor(u => u.City)
+
+        </div>
+
+        <div class="text-center">
+
+
+            @Html.LabelFor(u => u.State, "State")
+            @Html.TextBoxFor(u => u.State, new { @required = "required", placeholder = "Florida" })
+            @Html.ValidationMessageFor(u => u.State)
+
+        </div>
+
+
+        <div class="text-center">
+
+
+            @Html.LabelFor(u => u.PostalCode, "ZipCode")
+            @Html.TextBoxFor(u => u.PostalCode, new { @required = "required", placeholder = "37451" })
+            @Html.ValidationMessageFor(u => u.PostalCode)
+
+        </div>
+
+        <div class="text-center">
+            <button type="submit">Submit</button>
+        </div>
+    }
+</body>
+</html>

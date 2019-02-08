@@ -1,0 +1,63 @@
+﻿@model SneakerDrop.Mvc.Models.PaymentViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChangePayment</title>
+</head>
+<body>
+
+    <p class="font-weight-bold bg-primary text-center">Add A New Card</p>
+
+    @using (@Html.BeginForm("userchange", "Home"))
+    {
+        <div class=" text-center">
+
+
+            @Html.LabelFor(u => u.CCNumber, "Card Number")
+            @Html.TextBoxFor(u => u.CCNumber, new { @required = "required", placeholder = "7273456788920301" })
+            @Html.ValidationMessageFor(u => u.CCNumber)
+
+        </div>
+
+        <div class="text-center">
+
+
+            @Html.LabelFor(u => u.CCUserName, "Name on Card")
+            @Html.TextBoxFor(u => u.CCUserName, new { @required = "required", placeholder = "Bart J. Simpson" })
+            @Html.ValidationMessageFor(u => u.CCUserName)
+
+        </div>
+
+        <div class="text-center">
+
+
+            @Html.LabelFor(u => u.Month, "Month")
+            @Html.TextBoxFor(u => u.Month, new { @required = "required", placeholder = "01" })
+            @Html.ValidationMessageFor(u => u.Month)
+
+            @Html.LabelFor(u => u.Year, "Year")
+            @Html.TextBoxFor(u => u.Year, new { @required = "required", placeholder = "2019" })
+            @Html.ValidationMessageFor(u => u.Year)
+
+        </div>
+
+        <div class="text-center">
+
+
+            @Html.LabelFor(u => u.CVV, "CVV")
+            @Html.TextBoxFor(u => u.CVV, new { @required = "required", placeholder = "727" })
+            @Html.ValidationMessageFor(u => u.CVV)
+
+
+
+        </div>
+
+        <div class="text-center">
+        <button type="submit">Submit</button>
+        </div>
+
+    }
+</body>
+</html>
+

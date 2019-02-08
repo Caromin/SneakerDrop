@@ -1,7 +1,17 @@
 ﻿
 @{
-    ViewData["Title"] = "ChangeAddress";
+    ViewData["Title"] = "ChangeAccountInfo";
 }
 
-<h1>ChangeAddress</h1>
+@{Html.RenderPartial("../Partials/ChangeUser.cshtml");
+}
+
+@{Html.RenderPartial("../Partials/ChangeAddress.cshtml");
+}
+
+
+@{Html.RenderPartial("../Partials/ChangePayment.cshtml");
+}
+
+
 

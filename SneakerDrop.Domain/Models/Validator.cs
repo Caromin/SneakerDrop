@@ -7,9 +7,9 @@ namespace SneakerDrop.Domain.Models
 {
     public class Validator
     {
-        public bool ValidateString(string username, string password, string email)
-        { 
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(email))
+        public bool ValidateString(User user)
+        {
+            if (string.IsNullOrWhiteSpace(user.Username) || string.IsNullOrWhiteSpace(user.Password) || string.IsNullOrWhiteSpace(user.Email))
             {
                 return true;
             }

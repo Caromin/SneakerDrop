@@ -58,13 +58,13 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.Equal(sut.Firstname, test.Firstname);
         }
+       
         [Fact]
-        public void Test_ValidateUsername()
+        public void Test_validateEmail()
         {
+            var sut = user.ValidateEmail(user);
+            Assert.True(sut);
 
-            var test = user.ValidateUserName(user);
-
-            Assert.True(test);
         }
     }
 }

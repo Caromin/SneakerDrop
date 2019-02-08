@@ -77,6 +77,20 @@ namespace SneakerDrop.Mvc.Models
             // returning something only for test purpose
             return userModel;
         }
+        public dm.User EmailValidator(UserViewModel userview)
+        {
+            var getEmail = new ConversionUser();
+            dm.User userModel = getEmail.MappingUser(userview);
+
+            var valid = new dm.Validator();
+            var valCheckEmail = valid.ValidateEmail(userModel);
+
+            if (valCheckEmail)
+            {
+                UserHelper.GetUserInfoById(userModel);
+            }
+            return userModel;
+        }
     }
 
     public class ConversionUser : Profile

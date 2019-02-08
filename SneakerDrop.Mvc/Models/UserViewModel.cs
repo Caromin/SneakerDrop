@@ -34,7 +34,7 @@ namespace SneakerDrop.Mvc.Models
         [Required]
         public string Password { get; set; }
 
-        public void LoginValidator(UserViewModel userView)
+        public dm.User LoginValidator(UserViewModel userView)
         {
             var loginModel = new ConvertToDomainUser();
             var userModel = loginModel.MappingUser(userView);
@@ -46,6 +46,8 @@ namespace SneakerDrop.Mvc.Models
             {
                 UserHelper.GetUserInfoById(userModel);
             }
+
+            return userModel;
         }
     }
 

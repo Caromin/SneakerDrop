@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SneakerDrop.Mvc.Models;
 using c = SneakerDrop.Code.Helpers;
@@ -27,20 +28,27 @@ namespace SneakerDrop.Mvc.Controllers
         {
             return View();
         }
+      
         public IActionResult Account()
         {
             return View("~/Views/User/Account.cshtml");
         }
 
+        public IActionResult SellerSearch()
+        {
+            return View("~/Views/Store/SellerSearch.cshtml");
+        }
+
         public IActionResult Listing()
         {
-            return View("~/Views/User/Listing.cshtml");
+            return View("~/Views/Store/Listing.cshtml");
         }
 
         public IActionResult ChangeUserInfo()
         {
             return View("~/Views/User/ChangeUserInfo.cshtml");
         }
+
 
         public IActionResult OrderHistory()
         {

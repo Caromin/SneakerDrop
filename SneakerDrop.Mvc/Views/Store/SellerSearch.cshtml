@@ -1,0 +1,39 @@
+﻿@model SneakerDrop.Mvc.Models.CreateNewListingViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SellerSearch</title>
+
+    <style>
+        .search {
+            position: relative;
+            left: 400px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="text-center d-inline">
+        @using (@Html.BeginForm("seller", "Store"))
+        {
+            <div class="d-inline-block">
+          
+
+                @Html.TextBoxFor(u => u.ProductTitle, new { @required = "required", placeholder = "Search for Items" })
+                @Html.ValidationMessageFor(u => u.ProductTitle)
+
+            </div>
+
+
+            <div class="d-inline-block float-right">
+                <button type="submit">Search</button>
+            </div>
+
+
+        }
+    </div>
+
+</body>
+</html>
+

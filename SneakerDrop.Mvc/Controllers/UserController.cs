@@ -20,7 +20,7 @@ namespace SneakerDrop.Mvc.Controllers
             {
                 return View("~/Views/User/Account.cshtml");
             }
-            return View("Index");
+            return View("~/Views/Home/Index.cshtml");
         }
     }
 }

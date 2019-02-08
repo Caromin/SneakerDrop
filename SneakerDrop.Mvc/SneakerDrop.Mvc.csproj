@@ -20,4 +20,7 @@
     <ProjectReference Include="..\SneakerDrop.Domain\SneakerDrop.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="AutoMapperModels\AutoMapperProfile.cs" />
+  </ItemGroup>
 </Project>

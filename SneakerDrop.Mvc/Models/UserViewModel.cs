@@ -22,6 +22,8 @@ namespace SneakerDrop.Mvc.Models
         public string Lastname { get; set; }
 
         [StringLength(50)]
+        [MinLength(5)]
+        [MaxLength(15)]
         [Required]
         public string Username { get; set; }
 
@@ -31,6 +33,8 @@ namespace SneakerDrop.Mvc.Models
         public string Email { get; set; }
 
         [StringLength(50)]
+        [MinLength(5)]
+        [MaxLength(15)]
         [Required]
         public string Password { get; set; }
 

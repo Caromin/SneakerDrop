@@ -16,5 +16,12 @@ namespace SneakerDrop.Code.Helpers
 
             return result;
         }
+
+        public static ProductInfo SingleProductInfo(ProductInfo product)
+        {
+            var result = _db.ProductInfos.Where(p => p.ProductTitle == product.ProductTitle).FirstOrDefault();
+
+            return result;
+        }
     }
 }

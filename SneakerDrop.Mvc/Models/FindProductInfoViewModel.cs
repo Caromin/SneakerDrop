@@ -30,7 +30,7 @@ namespace SneakerDrop.Mvc.Models
 
         public List<FindProductInfoViewModel> FindMatchingProductInfo(FindProductInfoViewModel findProduct)
         {
-            var createModel = new Conversion();
+            var createModel = new ConversionProduct();
             var validator = new dm.Validator();
             var productInfoDomainModel = createModel.MappingProductInfo(findProduct);
             var checkValidation = validator.ValidateProductTitle(productInfoDomainModel);
@@ -46,7 +46,7 @@ namespace SneakerDrop.Mvc.Models
         }
     }
 
-    public class Conversion : Profile
+    public class ConversionProduct : Profile
     {
         public static MapperConfiguration productInfoConfig = new MapperConfiguration(cgf => cgf.CreateMap<FindProductInfoViewModel, dm.ProductInfo>()
             .ForMember(p => p.ProductInfoId, f => f.MapFrom(src => src.ProductInfoId))

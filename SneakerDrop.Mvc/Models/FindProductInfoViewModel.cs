@@ -28,21 +28,25 @@ namespace SneakerDrop.Mvc.Models
         [Required]
         public string Color { get; set; }
 
-        public void FindMatchingProductInfo(FindProductInfoViewModel findProduct)
+        public List<FindProductInfoViewModel> FindMatchingProductInfo(FindProductInfoViewModel findProduct)
         {
-            var createModel = new ConvertingToDomainProductInfo();
+            var createModel = new Conversion();
             var validator = new dm.Validator();
             var productInfoDomainModel = createModel.MappingProductInfo(findProduct);
             var checkValidation = validator.ValidateProductTitle(productInfoDomainModel);
 
             if (checkValidation)
             {
-                FindProductInfoHelper.FindPossibleMatches(productInfoDomainModel);
+                List<dm.ProductInfo> results = FindProductInfoHelper.FindPossibleMatches(productInfoDomainModel);
+                List<FindProductInfoViewModel> productViewModel = createModel.MappingViewInfo(results);
+
+                return productViewModel;
             }
+            return null;
         }
     }
 
-    public class ConvertingToDomainProductInfo : Profile
+    public class Conversion : Profile
     {
         public static MapperConfiguration productInfoConfig = new MapperConfiguration(cgf => cgf.CreateMap<FindProductInfoViewModel, dm.ProductInfo>()
             .ForMember(p => p.ProductInfoId, f => f.MapFrom(src => src.ProductInfoId))
@@ -53,11 +57,35 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(p => p.Color, f => f.MapFrom(src => src.Color))
         );
 
+        public static MapperConfiguration viewConfig = new MapperConfiguration(cgf => cgf.CreateMap<dm.ProductInfo, FindProductInfoViewModel>()
+            .ForMember(p => p.ProductInfoId, f => f.MapFrom(src => src.ProductInfoId))
+            .ForMember(p => p.BrandId, f => f.MapFrom(src => src.Brand.BrandId))
+            .ForMember(p => p.TypeId, f => f.MapFrom(src => src.Type.TypeId))
+            .ForMember(p => p.ProductTitle, f => f.MapFrom(src => src.ProductTitle))
+            .ForMember(p => p.Description, f => f.MapFrom(src => src.Description))
+            .ForMember(p => p.Color, f => f.MapFrom(src => src.Color)));
+
         public dm.ProductInfo MappingProductInfo(FindProductInfoViewModel findProduct)
         {
             var productInfoMapper = productInfoConfig.CreateMapper();
 
             return productInfoMapper.Map<FindProductInfoViewModel, dm.ProductInfo>(findProduct);
         }
+
+        public List<FindProductInfoViewModel> MappingViewInfo(List<dm.ProductInfo> product)
+        {
+            var productInfo = viewConfig.CreateMapper();
+
+            List<FindProductInfoViewModel> convertedList = new List<FindProductInfoViewModel>();
+
+            foreach (var item in product)
+            {
+                var newItem = productInfo.Map<dm.ProductInfo, FindProductInfoViewModel>(item);
+                convertedList.Add(newItem);
+            }
+
+            return convertedList;
+        }
     }
+
 }

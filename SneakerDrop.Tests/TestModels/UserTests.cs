@@ -2,7 +2,6 @@
 using AutoMapper;
 using SneakerDrop.Code.Helpers;
 using SneakerDrop.Domain.Models;
-using SneakerDrop.Mvc.AutoMapperModels;
 using SneakerDrop.Mvc.Models;
 using Xunit;
 
@@ -37,6 +36,7 @@ namespace SneakerDrop.Tests.TestModels
 
         //    Assert.Equal(value, sut.Firstname);
         //}
+
         [Fact]
         public void Test_EditUserInfoById()
         {
@@ -48,10 +48,15 @@ namespace SneakerDrop.Tests.TestModels
         [Fact]
         public void Test_UserMapper()
         {
-            var config = AutoMapperProfile.userMapper;
-            
-            config.AssertConfigurationIsValid();
+            var sut = new UserViewModel
+            {
+                Firstname = "Christian",
+                Lastname = "Aromin"
+            };
 
+            var test = sut.LoginValidator(sut);
+
+            Assert.Equal(sut.Firstname, test.Firstname);
         }
     }
 }

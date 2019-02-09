@@ -30,38 +30,36 @@ namespace SneakerDrop.Mvc.Models
 
         public int UserId { get; set; }
 
+        public ConversionPayment createModel = new ConversionPayment();
 
-        public List<PaymentViewModel> PaymentValidator(PaymentViewModel paymentView)
+        public dm.Validator validator = new dm.Validator();
+
+        // In the user homepage when payment is selected, userId is passed in PaymentViewModel format
+        public List<PaymentViewModel> GetAllPayments(PaymentViewModel paymentView)
         {
-            var createModel = new ConversionPayment();
-            var validator = new dm.Validator();
             dm.Payment paymentDomainModel = createModel.MappingPayment(paymentView);
+            List<dm.Payment> domainPaymentList = PaymentHelper.GetPaymentById(paymentDomainModel);
 
-            // validator info methods
-            // if statement
-            switch (paymentView.HelperType)
+            return createModel.MappingView(domainPaymentList);
+        }
+
+        // add requires all properties, delete only needs
+        public bool AddOrDeletePayments(PaymentViewModel paymentView)
+        {
+            dm.Payment paymentDomainModel = createModel.MappingPayment(paymentView);
+            var valCheckAdd = validator.ValidateNewPayment(paymentDomainModel);
+
+            if (paymentView.HelperType == "add")
             {
-                case "Add":
-                    var valCheckAdd = validator.ValidateNewPayment(paymentDomainModel);
-
-                    if (valCheckAdd)
-                    {
-                        PaymentHelper.AddPaymentById(paymentDomainModel);
-                        return null;
-                    }
-                    // write error method call here
-                    return null;
-                case "Get":
-                    List<dm.Payment> domainPaymentList = PaymentHelper.GetPaymentById(paymentDomainModel);
-                    List<PaymentViewModel> viewPaymentList = createModel.MappingView(domainPaymentList);
-
-                    return viewPaymentList;
-                case "Delete":
-                    PaymentHelper.DeletePaymentById(paymentDomainModel);
-                    return null;
-                default:
-                    return null;
+                if (valCheckAdd)
+                {
+                    PaymentHelper.AddPaymentById(paymentDomainModel);
+                    return true;
+                }
+                return false;
             }
+            PaymentHelper.DeletePaymentByPaymentId(paymentDomainModel);
+            return true;
         }
     }
 

@@ -42,7 +42,7 @@ namespace SneakerDrop.Mvc.Models
 
         public List<OrderAndPaymentViewModel> GetOrders()
         {
-
+            
         }
     }
 

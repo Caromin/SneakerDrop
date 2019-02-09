@@ -21,7 +21,7 @@ namespace SneakerDrop.Code.Helpers
             return results;
         }
 
-        public static bool CancelOrderById(Orders orders)
+        public static bool CancelOrderByOrderId(Orders orders)
         {
             _db.Orders.RemoveRange(_db.Orders.Where(o => o.OrderId == orders.OrderId));
 

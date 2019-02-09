@@ -27,7 +27,7 @@ namespace SneakerDrop.Code.Helpers
             return null;
         }
 
-        public static bool DeletePaymentById(Payment payment)
+        public static bool DeletePaymentByPaymentId(Payment payment)
         {
             _db.Payment.RemoveRange(_db.Payment.Where(p => p.PaymentId == payment.PaymentId));
 

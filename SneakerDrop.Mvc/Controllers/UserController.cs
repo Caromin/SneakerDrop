@@ -9,15 +9,26 @@ namespace SneakerDrop.Mvc.Controllers
 {
     public class UserController : Controller
     {
+
         [HttpPost]
-        [ActionName("login")]
-        public IActionResult LoginCheck(UserViewModel userviewmodel)
+        [ActionName("register")]
+        public IActionResult LoginFilter(UserViewModel userviewmodel)
         {
+            
+            ViewBag.Firstname = userviewmodel.Firstname;
+            ViewBag.Lastname = userviewmodel.Lastname;
             ViewBag.Username = userviewmodel.Username;
             ViewBag.Password = userviewmodel.Password;
-
-            if (ViewBag.Username == "OaksTree" && ViewBag.Password == "1234")
+            ViewBag.Email = userviewmodel.Email;
+        
+            if (ViewBag.Firstname != null
+                || ViewBag.Lastname != null
+                || ViewBag.Username != null
+                || ViewBag.Password != null
+                || ViewBag.Email != null)
             {
+                userviewmodel.HelperType = "add";
+                userviewmodel.AddEditUser(userviewmodel);
                 return View("~/Views/User/Account.cshtml");
             }
             return View("~/Views/Home/Index.cshtml");

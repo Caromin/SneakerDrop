@@ -45,19 +45,19 @@ namespace SneakerDrop.Tests.TestModels
             Assert.True(sut);
 
         }
-        [Fact]
-        public void Test_UserMapper()
-        {
-            var sut = new UserViewModel
-            {
-                Firstname = "Christian",
-                Lastname = "Aromin"
-            };
+        //[Fact]
+        //public void Test_UserMapper()
+        //{
+        //    var sut = new UserViewModel
+        //    {
+        //        Firstname = "Christian",
+        //        Lastname = "Aromin"
+        //    };
 
-            var test = sut.UserValidator(sut);
+        //    var test = sut.UserValidator(sut);
 
-            Assert.Equal(sut.Firstname, test.Firstname);
-        }
+        //    Assert.Equal(sut.Firstname, test.Firstname);
+        //}
         [Fact]
         public void Test_ValidateUsername()
         {

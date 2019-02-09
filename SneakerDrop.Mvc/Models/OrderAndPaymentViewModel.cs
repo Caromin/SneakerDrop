@@ -40,10 +40,10 @@ namespace SneakerDrop.Mvc.Models
 
         public int ProductInfoId { get; set; }
 
-        public List<OrderAndPaymentViewModel> GetOrders()
-        {
+        //public List<OrderAndPaymentViewModel> GetOrders()
+        //{
 
-        }
+        //}
     }
 
     public class ConversionOrder : Profile

@@ -86,7 +86,7 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(a => a.City, av => av.MapFrom(src => src.City))
             .ForMember(a => a.State, av => av.MapFrom(src => src.State))
             .ForMember(a => a.PostalCode, av => av.MapFrom(src => src.PostalCode))
-            .ForMember(a => a.UserId, av => av.MapFrom(src => src.User.UserId)));
+            .ForPath(a => a.UserId, av => av.MapFrom(src => src.User.UserId)));
 
         public dm.Address MappingAddress(AddressViewModel addressView)
         {

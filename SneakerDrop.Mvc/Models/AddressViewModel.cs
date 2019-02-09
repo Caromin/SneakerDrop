@@ -68,6 +68,19 @@ namespace SneakerDrop.Mvc.Models
                 return true;
             }
         }
+        public bool StreetValidator(AddressViewModel street)
+        {
+            dm.Address addressModel = createModel.MappingAddress(street);
+            var valCheckStreet = validator.ValidateStreet(addressModel);
+
+            if (valCheckStreet)
+            {
+                var addressInfo = AddressHelper.GetAddressInfoById(addressModel);
+                return true;
+            }
+
+            return false;
+        }
     }
 
     public class ConversionAddress : Profile

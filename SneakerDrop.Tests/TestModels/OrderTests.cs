@@ -61,7 +61,7 @@ namespace SneakerDrop.Tests.TestModels
         [Fact(Skip = "nothing to delete")]
         public void Test_CancelOrderById()
         {
-            var sut = OrderHelper.CancelOrderById(order);
+            var sut = OrderHelper.CancelOrderByOrderId(order);
 
             Assert.True(sut);
         }

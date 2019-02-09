@@ -77,7 +77,17 @@ namespace SneakerDrop.Tests.TestModels
             var test = sut.AddEditDeleteAddresses(sut);
 
             Assert.True(test);
+        }
+        [Fact]
+        public void Test_StreetValidator()
+        {
+            var sut = new AddressViewModel
+            {
+                Street = "!!4508 Burnhill Dr!!"
+            };
+            var test = sut.StreetValidator(sut);
 
+            Assert.True(test);
         }
 
     }

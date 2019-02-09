@@ -45,9 +45,9 @@ namespace SneakerDrop.Tests.TestModels
         [Fact(Skip = "working, avoid deleting from db")]
         public void Test_DeletePaymentById()
         {
-            var sut = PaymentHelper.DeletePaymentById(payment);
+            //var sut = PaymentHelper.DeletePaymentById(payment);
 
-            Assert.True(sut);
+           // Assert.True(sut);
         }
     }
 

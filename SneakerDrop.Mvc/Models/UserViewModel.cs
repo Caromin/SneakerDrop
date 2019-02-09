@@ -36,7 +36,7 @@ namespace SneakerDrop.Mvc.Models
         [Required]
         public string Password { get; set; }
 
-        public dm.User UserValidator(UserViewModel userView)
+        public UserViewModel UserValidator(UserViewModel userView)
         {
             var createModel = new ConversionUser();
             var validator = new dm.Validator();
@@ -52,13 +52,14 @@ namespace SneakerDrop.Mvc.Models
                         UserHelper.AddUser(userModel);
                     }
                     // write error method call here
-                    break;
+                    return null;
                 case "Get":
                     var valCheckUsername = validator.ValidateUserName(userModel);
 
                     if (valCheckUsername)
                     {
-                        UserHelper.GetUserInfoById(userModel);
+                        var userInfo = UserHelper.GetUserInfoById(userModel);
+                        return createModel.MappingViewInfo(userInfo);
                     }
                     break;
                 case "Edit":
@@ -69,13 +70,12 @@ namespace SneakerDrop.Mvc.Models
                         UserHelper.EditUserInfoById(userModel);
                     }
                     // write error method call here
-                    break;
+                    return null;
                 default:
-                    break;
+                    return null;
             }
 
-            // returning something only for test purpose
-            return userModel;
+            return null;
         }
         public dm.User EmailValidator(UserViewModel userview)
         {

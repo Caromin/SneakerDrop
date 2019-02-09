@@ -31,39 +31,41 @@ namespace SneakerDrop.Mvc.Models
 
         public int UserId { get; set; }
 
-        public List<AddressViewModel> AddressValidator(AddressViewModel addressView)
+        public ConversionAddress createModel = new ConversionAddress();
+
+        public dm.Validator validator = new dm.Validator();
+
+        public List<AddressViewModel> GetAllAddresses(AddressViewModel addressView)
         {
-            var createModel = new ConversionAddress();
-            var validator = new dm.Validator();
             dm.Address addressDomainModel = createModel.MappingAddress(addressView);
+            List<dm.Address> domainAddressList = AddressHelper.GetAddressInfoById(addressDomainModel);
 
-            //validator info methods
-            // if statement
-            switch (addressView.HelperType)
+            return createModel.MappingView(domainAddressList);
+        }
+
+        public bool AddEditDeleteAddresses(AddressViewModel addressView)
+        {
+            dm.Address addressDomainModel = createModel.MappingAddress(addressView);
+            var valCheckAdd = validator.ValidateNewAdddress(addressDomainModel);
+
+            if (addressView.HelperType == "add")
             {
-                case "Add":
-                    var valCheckAdd = validator.ValidateNewAdddress(addressDomainModel);
-
-                    if (valCheckAdd)
-                    {
-                        AddressHelper.AddAddressById(addressDomainModel);
-                        return null;
-                    }
-                    // write error method call here
-                    return null;
-                case "Get":
-                    List<dm.Address> domainAddressList = AddressHelper.GetAddressInfoById(addressDomainModel);
-                    List<AddressViewModel> viewAddressList = createModel.MappingView(domainAddressList);
-
-                    return viewAddressList;
-                case "Edit":
-                    AddressHelper.EditAddressInfoById(addressDomainModel);
-                    return null;
-                case "Delete":
-                    AddressHelper.DeleteAddressInfoById(addressDomainModel);
-                    return null;
-                default:
-                    return null;
+                if (valCheckAdd)
+                {
+                    AddressHelper.AddAddressById(addressDomainModel);
+                    return true;
+                }
+                return false;
+            }
+            else if (addressView.HelperType == "edit")
+            {
+                AddressHelper.EditAddressInfoById(addressDomainModel);
+                return true;
+            }
+            else
+            {
+                AddressHelper.DeleteAddressInfoById(addressDomainModel);
+                return true;
             }
         }
     }

@@ -50,5 +50,10 @@ namespace SneakerDrop.Domain.Models
         {
             return true;
         }
+
+        public bool ValidateNewAdddress(Address addressDomainModel)
+        {
+            return true;
+        }
     }
 }

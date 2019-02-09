@@ -35,7 +35,7 @@ namespace SneakerDrop.Mvc.Models
         {
             var createModel = new ConversionPayment();
             var validator = new dm.Validator();
-            var paymentDomainModel = createModel.MappingPayment(paymentView);
+            dm.Payment paymentDomainModel = createModel.MappingPayment(paymentView);
 
             // validator info methods
             // if statement

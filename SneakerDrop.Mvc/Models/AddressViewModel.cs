@@ -78,7 +78,7 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(a => a.City, av => av.MapFrom(src => src.City))
             .ForMember(a => a.State, av => av.MapFrom(src => src.State))
             .ForMember(a => a.PostalCode, av => av.MapFrom(src => src.PostalCode))
-            .ForMember(a => a.User.UserId, av => av.MapFrom(src => src.UserId)));
+            .ForPath(a => a.User.UserId, av => av.MapFrom(src => src.UserId)));
 
         public static MapperConfiguration viewConfig = new MapperConfiguration(cgf => cgf.CreateMap<dm.Address, AddressViewModel>()
             .ForMember(a => a.AddressId, av => av.MapFrom(src => src.AddressId))

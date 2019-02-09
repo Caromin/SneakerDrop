@@ -57,7 +57,7 @@ namespace SneakerDrop.Mvc.Models
         }
 
         // used to sent all info in UserViewModel format for add or edit
-        public UserViewModel AddEditUser(UserViewModel userView)
+        public bool AddEditUser(UserViewModel userView)
         {
             dm.User userModel = createModel.MappingUser(userView);
             var valCheckAdd = validator.ValidateNewUser(userModel);
@@ -65,12 +65,20 @@ namespace SneakerDrop.Mvc.Models
 
             if (userView.HelperType == "add")
             {
-                UserHelper.AddUser(userModel);
-                return null;
+                if (valCheckAdd)
+                {
+                    UserHelper.AddUser(userModel);
+                    return true;
+                }
+                return false;
             }
 
-            UserHelper.EditUserInfoById(userModel);
-            return null;
+            if (valCheckEdit)
+            {
+                UserHelper.EditUserInfoById(userModel);
+                return true;
+            }
+            return false;
         }
     }
 

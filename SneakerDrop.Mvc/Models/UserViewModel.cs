@@ -80,6 +80,19 @@ namespace SneakerDrop.Mvc.Models
             }
             return false;
         }
+        public bool EmailValidator(UserViewModel email)
+        {
+            dm.User userModel = createModel.MappingUser(email);
+            var valCheckEmail = validator.ValidateEmail(userModel);
+
+            if (valCheckEmail)
+            {
+                var userInfo = UserHelper.GetUserInfoById(userModel);
+                return true;
+            }
+
+            return false;
+        }
     }
 
     public class ConversionUser : Profile

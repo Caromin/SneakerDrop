@@ -43,6 +43,12 @@ namespace SneakerDrop.Domain.Models
             return false;
         }
 
+        public bool ValidateAddress(Address address)
+        {
+            string pattern =
+            return true;
+        }
+
         public bool ValidateNewUser(User userModel)
         {
             return true;

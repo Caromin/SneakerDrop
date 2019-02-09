@@ -45,24 +45,48 @@ namespace SneakerDrop.Tests.TestModels
             Assert.True(sut);
 
         }
-        //[Fact]
-        //public void Test_UserMapper()
-        //{
-        //    var sut = new UserViewModel
-        //    {
-        //        Firstname = "Christian",
-        //        Lastname = "Aromin"
-        //    };
-
-        //    var test = sut.UserValidator(sut);
-
-        //    Assert.Equal(sut.Firstname, test.Firstname);
-        //}
         [Fact]
-        public void Test_ValidateUsername()
+        public void Test_LoginValidator()
         {
+            var sut = new UserViewModel
+            {
+                UserId = 1,
+                Username = "ian25192",
+                Password = "Password",
+                Firstname = "Ian",
+                Lastname = "Nai",
+                Email = "Email@email.com"
+            };
 
-            var test = user.ValidateUserName(user);
+            var test = sut.LoginValidator(sut);
+
+            Assert.Equal(sut.Firstname, test.Firstname);
+        }
+        [Fact]
+        public void Test_AddEditUser()
+        {
+            var sut = new UserViewModel
+            {
+                UserId= 2,
+                Username = "ian25192",
+                Password = "Password",
+                Firstname = "Bob",
+                Lastname = "Jan",
+                Email = "Email@email.com"
+            };
+            var test = sut.AddEditUser(sut);
+
+            Assert.True(test);
+
+        }     
+        [Fact]
+        public void Test_EmailValidator()
+        {
+            var sut = new UserViewModel
+            {
+                Email = "email@email.com"
+            };
+            var test = sut.EmailValidator(sut);
 
             Assert.True(test);
         }

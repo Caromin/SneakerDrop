@@ -93,7 +93,6 @@ namespace SneakerDrop.Mvc.Models
         public List<PaymentViewModel> MappingView(List<dm.Payment> payment)
         {
             var paymentModel = viewConfig.CreateMapper();
-
             List<PaymentViewModel> convertedList = new List<PaymentViewModel>();
 
             foreach (var item in payment)

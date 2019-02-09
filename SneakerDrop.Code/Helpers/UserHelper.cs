@@ -16,11 +16,16 @@ namespace SneakerDrop.Code.Helpers
             return _db.SaveChanges() == 1;
 
         }
-        public static User GetUserInfoById(User user)
+        public static User GetUserInfoByUsername(User user)
         {
-            User dbInfo = _db.Users.Where(u => u.UserId == user.UserId).FirstOrDefault();
+            User dbInfo = _db.Users.Where(u => u.Username == user.Username).FirstOrDefault();
 
-            return dbInfo;
+            if (dbInfo.Password == user.Password)
+            {
+                return dbInfo;
+            }
+
+            return null;
         }
 
         public static bool EditUserInfoById(User user)

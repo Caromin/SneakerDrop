@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using AutoMapper;
+using dm = SneakerDrop.Domain.Models;
 
 namespace SneakerDrop.Mvc.Models
 {
@@ -52,5 +54,18 @@ namespace SneakerDrop.Mvc.Models
         [Required]
         public string Color { get; set; }
 
+        public dm.Validator validator = new dm.Validator();
+
+        //public CreateNewListingViewModel CreateNewListing(FindProductInfoViewModel specificProduct)
+        //{
+        //    var listingDomainModel =
+        //}
+    }
+
+    public class ConversionNewListing : Profile
+    {
+        public static MapperConfiguration listingConfig = new MapperConfiguration(cgf => cgf.CreateMap<CreateNewListingViewModel, dm.Listing>()
+
+            );
     }
 }

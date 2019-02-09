@@ -60,10 +60,19 @@ namespace SneakerDrop.Tests.TestModels
         }
        
         [Fact]
-        public void Test_validateEmail()
+        public void Test_ValidateEmail()
         {
             var sut = user.ValidateEmail(user);
             Assert.True(sut);
+
+            var sut2 = new UserViewModel
+            {
+                Email = "Email@email.com"
+            };
+            var test = sut2.EmailValidator(sut2);
+
+
+            Assert.Equal(test.Email, sut2.Email);
 
         }
     }

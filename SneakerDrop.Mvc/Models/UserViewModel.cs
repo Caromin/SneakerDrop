@@ -90,6 +90,7 @@ namespace SneakerDrop.Mvc.Models
                 UserHelper.GetUserInfoById(userModel);
             }
             return userModel;
+            
         }
     }
 

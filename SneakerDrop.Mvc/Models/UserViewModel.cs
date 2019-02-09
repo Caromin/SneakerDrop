@@ -36,45 +36,40 @@ namespace SneakerDrop.Mvc.Models
         [Required]
         public string Password { get; set; }
 
-        public UserViewModel UserValidator(UserViewModel userView)
+        public dm.Validator validator = new dm.Validator();
+
+        public ConversionUser createModel = new ConversionUser();
+
+
+        // receives only username and password in UserViewModel format
+        public UserViewModel LoginValidator(UserViewModel user)
         {
-            var createModel = new ConversionUser();
-            var validator = new dm.Validator();
-            dm.User userModel = createModel.MappingUser(userView);
+            dm.User userModel = createModel.MappingUser(user);
+            var valCheckUsername = validator.ValidateUserName(userModel);
 
-            switch (userView.HelperType)
+            if (valCheckUsername)
             {
-                case "Add":
-                    var valCheckAdd = validator.ValidateNewUser(userModel);
-
-                    if (valCheckAdd)
-                    {
-                        UserHelper.AddUser(userModel);
-                    }
-                    // write error method call here
-                    return null;
-                case "Get":
-                    var valCheckUsername = validator.ValidateUserName(userModel);
-
-                    if (valCheckUsername)
-                    {
-                        var userInfo = UserHelper.GetUserInfoById(userModel);
-                        return createModel.MappingViewInfo(userInfo);
-                    }
-                    break;
-                case "Edit":
-                    var valCheckEdit = validator.EditString(userModel);
-
-                    if (valCheckEdit)
-                    {
-                        UserHelper.EditUserInfoById(userModel);
-                    }
-                    // write error method call here
-                    return null;
-                default:
-                    return null;
+                var userInfo = UserHelper.GetUserInfoById(userModel);
+                return createModel.MappingViewInfo(userInfo);
             }
 
+            return null;
+        }
+
+        // used to sent all info in UserViewModel format for add or edit
+        public UserViewModel AddEditUser(UserViewModel userView)
+        {
+            dm.User userModel = createModel.MappingUser(userView);
+            var valCheckAdd = validator.ValidateNewUser(userModel);
+            var valCheckEdit = validator.EditString(userModel);
+
+            if (userView.HelperType == "add")
+            {
+                UserHelper.AddUser(userModel);
+                return null;
+            }
+
+            UserHelper.EditUserInfoById(userModel);
             return null;
         }
     }

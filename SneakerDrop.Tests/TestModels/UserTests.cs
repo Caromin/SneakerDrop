@@ -27,15 +27,15 @@ namespace SneakerDrop.Tests.TestModels
             Assert.True(sut);
         }
 
-        //[Fact]
-        //public void Test_GetUserInfoById()
-        //{
-        //    var test = new UserTests();
-        //    var value = test.user.Firstname;
-        //    var sut = UserHelper.GetUserInfoById(user);
+        [Fact]
+        public void Test_GetUserInfoById()
+        {
+            var test = new UserTests();
+            var value = test.user.Username;
+            var sut = UserHelper.GetUserInfoByUsername(user);
 
-        //    Assert.Equal(value, sut.Firstname);
-        //}
+            Assert.Equal(value, sut.Username);
+        }
 
         [Fact]
         public void Test_EditUserInfoById()

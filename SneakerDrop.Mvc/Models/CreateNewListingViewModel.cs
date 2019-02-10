@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
+using SneakerDrop.Code.Helpers;
 using dm = SneakerDrop.Domain.Models;
 
 namespace SneakerDrop.Mvc.Models
@@ -60,7 +61,17 @@ namespace SneakerDrop.Mvc.Models
 
         public CreateNewListingViewModel CreateNewListing(dm.ProductInfo specificProduct)
         {
-            return createModel.MappingCreateListing(specificProduct);
+            var productInfo = FindProductInfoHelper.SingleProductInfo(specificProduct);
+
+            return createModel.MappingCreateListing(productInfo);
+        }
+
+        public bool AddListingToDb(CreateNewListingViewModel listing)
+        {
+            var newItem = createModel.MappingDomainListing(listing);
+            ListingHelper.AddListingById(newItem);
+
+            return true;
         }
     }
 
@@ -75,10 +86,25 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(c => c.Color, pf => pf.MapFrom(src => src.Color))
             .ForAllOtherMembers(c => c.Ignore()));
 
+        public static MapperConfiguration domainConfig = new MapperConfiguration(cgf => cgf.CreateMap<CreateNewListingViewModel, dm.Listing>()
+            .ForMember(l => l.Quantity, nl => nl.MapFrom(src => src.Quantity))
+            .ForMember(l => l.UserSetPrice, nl => nl.MapFrom(src => src.UserSetPrice))
+            .ForMember(l => l.Size, nl => nl.MapFrom(src => src.Size))
+            .ForMember(l => l.User.UserId, nl => nl.MapFrom(src => src.UserId))
+            .ForMember(l => l.ProductInfo.ProductInfoId, nl => nl.MapFrom(src => src.ProductInfoId))
+            .ForMember(l => l.ProductInfo.ProductTitle, nl => nl.MapFrom(src => src.ProductTitle))
+            .ForAllOtherMembers(c => c.Ignore()));
+
         public CreateNewListingViewModel MappingCreateListing(dm.ProductInfo item)
         {
             var listingMapper = listingConfig.CreateMapper();
             return listingMapper.Map<dm.ProductInfo, CreateNewListingViewModel>(item);
+        }
+
+        public dm.Listing MappingDomainListing(CreateNewListingViewModel listing)
+        {
+            var listingMapper = domainConfig.CreateMapper();
+            return listingMapper.Map<CreateNewListingViewModel, dm.Listing>(listing);
         }
     }
 }

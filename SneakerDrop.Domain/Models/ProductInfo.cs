@@ -28,5 +28,7 @@ namespace SneakerDrop.Domain.Models
 
         [StringLength(50)]
         public string Color { get; set; }
+
+        public string ImageUrl {get; set; }
     }
 }

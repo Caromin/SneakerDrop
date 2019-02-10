@@ -79,28 +79,6 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(test);
         }
-        [Fact]
-        public void Test_StreetValidator()
-        {
-            var sut = new AddressViewModel
-            {
-                Street = "4508 Burnhill Dr"
-            };
-            var test = sut.StreetValidator(sut);
-
-            Assert.True(test);
-        }
-        [Fact]
-        public void Test_PostalCodeValidator()
-        {
-            var sut = new AddressViewModel
-            {
-                PostalCode = "75024"
-            };
-            var test = sut.PostalCodeValidator(sut);
-            Assert.True(test);
-        }
-
     }
 }
 

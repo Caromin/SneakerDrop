@@ -33,8 +33,9 @@ namespace SneakerDrop.Domain.Models
         public bool ValidateEmail(User user)
         {
             string pattern = @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
-            var validate = user.Email;
-            Match match = Regex.Match(validate, pattern);
+            var validateEmail = user.Email;
+
+            Match match = Regex.Match(validateEmail, pattern);
 
             if (match.Success)
             {
@@ -47,28 +48,18 @@ namespace SneakerDrop.Domain.Models
         {
             string pattern = @"^[A-Za-z0-9]+(?:\s[A-Za-z0-9'_-]+)+$";
             var validate = address.Street;
-            Match match = Regex.Match(validate, pattern);
-            if (match.Success)
-            {
-                return true;
-            }
-            return false;
-        }
-        public bool ValidatePostalCode(Address address)
-        {
-            string pattern = @"^[0-9]+$";
-            var validate = address.PostalCode;
-            Match match = Regex.Match(validate, pattern);
-            if (match.Success)
-            {
-                return true;
-            }
-            return false;
-        }
 
-        public bool ValidateNewUser(User userModel)
-        {
-            return true;
+            string pattern2 = @"^[0-9]+$";
+            var validatePostalCode = address.PostalCode;
+
+            Match match = Regex.Match(validate, pattern);
+            Match match2 = Regex.Match(validatePostalCode, pattern2);
+
+            if (match.Success && match2.Success)
+            {
+                return true;
+            }
+            return false;
         }
 
         public bool EditString(User userModel)
@@ -78,6 +69,8 @@ namespace SneakerDrop.Domain.Models
 
         public bool ValidateNewPayment(Payment paymentView)
         {
+            var validateCCNumber = paymentView.CCNumber;
+
             return true;
         }
 
@@ -86,9 +79,5 @@ namespace SneakerDrop.Domain.Models
             return true;
         }
 
-        public bool ValidateNewAdddress(Address addressDomainModel)
-        {
-            return true;
-        }
     }
 }

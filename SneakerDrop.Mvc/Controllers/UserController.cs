@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using dm = SneakerDrop.Domain.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SneakerDrop.Mvc.Models;
 using SneakerDrop.Code.Helpers;
-
 
 namespace SneakerDrop.Mvc.Controllers
 {
@@ -45,37 +43,15 @@ namespace SneakerDrop.Mvc.Controllers
             ViewBag.Username = userviewmodel.Username;
             ViewBag.Password = userviewmodel.Password;
 
-            var domainuser = new dm.User();
+             foreach (var item in UserHelper.GetAllUsers())
+                {
+                    if (ViewBag.Username == item.Username && ViewBag.Password == item.Password)
+                    {
+                        return View("~/Views/User/Account.cshtml");
+                    }
+               }
+                 return View("~/Views/Home/Index.cshtml");
 
-           if (userviewmodel.LoginValidator(userviewmodel) != null)
-            {
-                return View("~/Views/User/Account.cshtml");
-            }
-            return View("~/Views/Home/Index.cshtml");
-
-         }
-
-        //[HttpPost]
-        //public ActionResult Login(UserViewModel userviewmodel)
-        //{
-          
-            
-            
-            
-            
-            
-            //if (ModelState.IsValid)
-            //{
-            //    var userdata = new UserViewModel
-            //    {
-            //        UserId = userviewmodel.UserId,
-            //        Username = userviewmodel.Username,
-            //        HelperType = userviewmodel.HelperType,
-            //        Firstname = userviewmodel.Firstname,
-            //        Lastname = userviewmodel.Lastname,
-            //        Email = userviewmodel.Email
-            //    };
-            //    this.S
-            //}
         }
     }
+}

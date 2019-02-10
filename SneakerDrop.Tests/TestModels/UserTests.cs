@@ -65,19 +65,18 @@ namespace SneakerDrop.Tests.TestModels
         [Fact]
         public void Test_AddEditUser()
         {
-            var sut = new UserViewModel
+            var sutAdd = new UserViewModel
             {
-                UserId= 2,
+                HelperType = "add",
                 Username = "ian25192",
                 Password = "Password",
                 Firstname = "Bob",
                 Lastname = "Jan",
                 Email = "Email@email.com"
             };
-            var test = sut.AddEditUser(sut);
+            var test = sutAdd.AddEditUser(sutAdd);
 
             Assert.True(test);
-
         }     
         [Fact]
         public void Test_EmailValidator()

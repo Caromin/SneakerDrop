@@ -62,21 +62,44 @@ namespace SneakerDrop.Domain.Models
             return false;
         }
 
-        public bool EditString(User userModel)
+        public bool EditExistingUser(User userModel)
         {
-            return true;
+            var editUser = new Regex(@"^[a-zA-Z0-9]+$");
+
+            if (editUser.IsMatch(userModel.Username) && string.IsNullOrWhiteSpace(userModel.Username))
+            {
+               return true;
+            }
+            return false;
         }
 
         public bool ValidateNewPayment(Payment paymentView)
         {
-            var validateCCNumber = paymentView.CCNumber;
+            var ccNumberValidation = new Regex (@"^(1298|1267|4512|4567|8901|8933)([\-\s]?[0-9]{4}){3}$");
+            var monthCheck = new Regex (@"^(0[1-9]|1[0-2])$");
+            var yearCheck = new Regex(@"^20[0-9]{2}$");
+            var cvvCheck = new Regex(@"^\d{3}$");
+            var ccUserNameCheck = new Regex(@"^[a-zA-Z]+$");
 
-            return true;
+
+            if (ccNumberValidation.IsMatch(paymentView.CCNumber.ToString()) && 
+                cvvCheck.IsMatch(paymentView.CVV.ToString()) && 
+                ccUserNameCheck.IsMatch(paymentView.CCUserName))
+            {
+                return true;
+            }
+
+            return false;
         }
-
         public bool ValidateProductTitle(ProductInfo productInfoDomainModel)
         {
-            return true;
+            var productTitleCheck = new Regex(@"^[a-zA-Z0-9]+$");
+
+            if (productTitleCheck.IsMatch(productInfoDomainModel.ProductTitle))
+            {
+                return true;
+            }
+            return false;
         }
 
     }

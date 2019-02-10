@@ -61,7 +61,7 @@ namespace SneakerDrop.Mvc.Models
         {
             dm.User userModel = createModel.MappingUser(userView);
             var valCheckAdd = validator.ValidateUserName(userModel);
-            var valCheckEdit = validator.EditString(userModel);
+            var valCheckEdit = validator.EditExistingUser(userModel);
 
             if (userView.HelperType == "add")
             {

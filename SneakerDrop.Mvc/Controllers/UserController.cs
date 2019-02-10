@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SneakerDrop.Mvc.Models;
 using SneakerDrop.Code.Helpers;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
+
 
 
 namespace SneakerDrop.Mvc.Controllers
@@ -42,40 +45,29 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("login")]
         public IActionResult LoginCheck(UserViewModel userviewmodel)
         {
-            ViewBag.Username = userviewmodel.Username;
-            ViewBag.Password = userviewmodel.Password;
-
-            var domainuser = new dm.User();
-
-           if (userviewmodel.LoginValidator(userviewmodel) != null)
+             if (userviewmodel.LoginValidator(userviewmodel) != null)
             {
-                return View("~/Views/User/Account.cshtml");
+                HttpContext.Session.SetInt32("UserId", userviewmodel.UserId);
+                return RedirectToAction("profile", "User");
+
             }
             return View("~/Views/Home/Index.cshtml");
 
          }
 
-        //[HttpPost]
-        //public ActionResult Login(UserViewModel userviewmodel)
-        //{
-          
-            
-            
-            
-            
-            
-            //if (ModelState.IsValid)
-            //{
-            //    var userdata = new UserViewModel
-            //    {
-            //        UserId = userviewmodel.UserId,
-            //        Username = userviewmodel.Username,
-            //        HelperType = userviewmodel.HelperType,
-            //        Firstname = userviewmodel.Firstname,
-            //        Lastname = userviewmodel.Lastname,
-            //        Email = userviewmodel.Email
-            //    };
-            //    this.S
-            //}
+        [HttpGet]
+        [ActionName("Profile")]
+        public IActionResult AccountPull()
+        {
+            var sessionuserid = HttpContext.Session.GetInt32("UserId");
+            int sessionuserid2;
+            sessionuserid2 = sessionuserid.Value;
+
+            var userdata = new UserViewModel
+            {
+                UserId = sessionuserid2
+            };
+            return RedirectToAction("Account", "Home", userdata);
+         }
         }
     }

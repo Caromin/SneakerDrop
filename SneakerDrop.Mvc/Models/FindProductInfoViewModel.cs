@@ -47,11 +47,11 @@ namespace SneakerDrop.Mvc.Models
             return null;
         }
 
-        //public FindProductInfoViewModel SelectedViewModel(FindProductInfoViewModel item)
-        //{
-        //    var productDomainModel = createModel.
-        //    return FindProductInfoHelper.SingleProductInfo(item);
-        //}
+        public dm.ProductInfo SelectedViewModel(FindProductInfoViewModel item)
+        {
+            var productDomainModel = createModel.MappingProductInfo(item);
+            return FindProductInfoHelper.SingleProductInfo(productDomainModel);
+        }
     }
 
     public class ConversionProduct : Profile
@@ -62,8 +62,7 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(p => p.Type.TypeId, f => f.MapFrom(src => src.TypeId))
             .ForMember(p => p.ProductTitle, f => f.MapFrom(src => src.ProductTitle))
             .ForMember(p => p.Description, f => f.MapFrom(src => src.Description))
-            .ForMember(p => p.Color, f => f.MapFrom(src => src.Color))
-        );
+            .ForMember(p => p.Color, f => f.MapFrom(src => src.Color)));
 
         public static MapperConfiguration viewConfig = new MapperConfiguration(cgf => cgf.CreateMap<dm.ProductInfo, FindProductInfoViewModel>()
             .ForMember(p => p.ProductInfoId, f => f.MapFrom(src => src.ProductInfoId))

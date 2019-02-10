@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using SneakerDrop.Domain.Models;
 
 namespace SneakerDrop.Code.Helpers
@@ -12,6 +14,11 @@ namespace SneakerDrop.Code.Helpers
             _db.Listings.Add(listing);
 
             return _db.SaveChanges() == 1;
+        }
+
+        public static List<Listing> GetAllListingsByProductName(Listing listing)
+        {
+            return _db.Listings.Where(l => l.ProductInfo.ProductTitle == listing.ProductInfo.ProductTitle).ToList();
         }
     }
 }

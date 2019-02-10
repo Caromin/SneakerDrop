@@ -1,6 +1,7 @@
 ﻿using System;
 using SneakerDrop.Code.Helpers;
 using SneakerDrop.Domain.Models;
+using SneakerDrop.Mvc.Models;
 using Xunit;
 
 namespace SneakerDrop.Tests.TestModels
@@ -48,6 +49,19 @@ namespace SneakerDrop.Tests.TestModels
             //var sut = PaymentHelper.DeletePaymentById(payment);
 
            // Assert.True(sut);
+        }
+
+        [Fact]
+        public void Test_ValidateNewPayment()
+        {
+            var sut = new PaymentViewModel
+            {
+                CCNumber = 1111222233334444
+            };
+            var test = sut.AddOrDeletePayments(sut);
+
+            Assert.True(test);
+
         }
     }
 

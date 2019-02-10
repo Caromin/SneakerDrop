@@ -46,7 +46,7 @@ namespace SneakerDrop.Mvc.Models
         public bool AddEditDeleteAddresses(AddressViewModel addressView)
         {
             dm.Address addressDomainModel = createModel.MappingAddress(addressView);
-            var valCheckAdd = validator.ValidateNewAdddress(addressDomainModel);
+            var valCheckAdd = validator.ValidateStreet(addressDomainModel);
 
             if (addressView.HelperType == "add")
             {
@@ -67,19 +67,6 @@ namespace SneakerDrop.Mvc.Models
                 AddressHelper.DeleteAddressInfoById(addressDomainModel);
                 return true;
             }
-        }
-        public bool StreetValidator(AddressViewModel street)
-        {
-            dm.Address addressModel = createModel.MappingAddress(street);
-            var valCheckStreet = validator.ValidateStreet(addressModel);
-
-            if (valCheckStreet)
-            {
-                var addressInfo = AddressHelper.GetAddressInfoById(addressModel);
-                return true;
-            }
-
-            return false;
         }
     }
 

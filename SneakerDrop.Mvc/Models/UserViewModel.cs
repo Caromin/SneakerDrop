@@ -49,7 +49,7 @@ namespace SneakerDrop.Mvc.Models
 
             if (valCheckUsername)
             {
-                var userInfo = UserHelper.GetUserInfoById(userModel);
+                var userInfo = UserHelper.GetUserInfoByUsername(userModel);
                 return createModel.MappingViewInfo(userInfo);
             }
 
@@ -87,7 +87,7 @@ namespace SneakerDrop.Mvc.Models
 
             if (valCheckEmail)
             {
-                var userInfo = UserHelper.GetUserInfoById(userModel);
+                var userInfo = UserHelper.GetUserInfoByUsername(userModel);
                 return true;
             }
 

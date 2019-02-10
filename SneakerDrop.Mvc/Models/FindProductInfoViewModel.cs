@@ -47,11 +47,11 @@ namespace SneakerDrop.Mvc.Models
             return null;
         }
 
-        public FindProductInfoViewModel SelectedViewModel(FindProductInfoViewModel item)
-        {
-            var productDomainModel = createModel.
-            return FindProductInfoHelper.SingleProductInfo(item);
-        }
+        //public FindProductInfoViewModel SelectedViewModel(FindProductInfoViewModel item)
+        //{
+        //    var productDomainModel = createModel.
+        //    return FindProductInfoHelper.SingleProductInfo(item);
+        //}
     }
 
     public class ConversionProduct : Profile

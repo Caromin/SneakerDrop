@@ -1,6 +1,9 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <style>
+    body { background-image: url("https://images.pexels.com/photos/235994/pexels-photo-235994.jpeg?cs=srgb&dl=board-bright-design-235994.jpg&fm=jpg"); background-size: cover }
+    </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SneakerDrop</title>
@@ -35,14 +38,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
-                        </li>
+                      
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Account">Account</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Store">Cart</a>
+                            <div class="nav-link text-capitalize">
+                                @{Html.RenderPartial("../Partials/BuyerSearch.cshtml");
+                                        }
+                            </div>
                         </li>
                     </ul>
                 </div>

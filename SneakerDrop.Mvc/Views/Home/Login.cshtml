@@ -1,5 +1,4 @@
-﻿@using SneakerDrop.Domain.Models;
-@model SneakerDrop.Mvc.Models.UserViewModel
+﻿@model SneakerDrop.Mvc.Models.UserViewModel
 
 
 @{
@@ -7,22 +6,21 @@
 }
 
 <div class="text-center">
-@using (@Html.BeginForm("login", "User"))
+    @using (@Html.BeginForm("login", "User"))
 {
     <div class="col-12">
-        @*@foreach (User item in Model.Users)*@
-        
-    @Html.LabelFor(u=> u.Username, "Username")
-    @Html.TextBoxFor(u => u.Username, new { @required = "required", placeholder = "Enter Your Username" })
-    @Html.ValidationMessageFor(u => u.Username)
-        
+
+        @Html.LabelFor(u=> u.Username, "Username")
+        @Html.TextBoxFor(u => u.Username, new { @required = "required", placeholder = "Enter Your Username" })
+        @Html.ValidationMessageFor(u => u.Username)
+
     </div>
 
     <div class=" col-12">
-    @Html.LabelFor(p => p.Password, "Password")
-    @Html.TextBoxFor(p => p.Password, new { @required = "required", placeholder = "Enter Your password" })
-    @Html.ValidationMessageFor(p => p.Password)
-     </div>
+        @Html.LabelFor(p => p.Password, "Password")
+        @Html.TextBoxFor(p => p.Password, new { @required = "required", placeholder = "Enter Your password" })
+        @Html.ValidationMessageFor(p => p.Password)
+    </div>
 
     <button type="submit">Login</button>
     <div><a class="signin" href="SignUp">New? SignUp! </a></div>

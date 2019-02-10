@@ -65,7 +65,7 @@ nav {
 header {
     height: 375px;
     background: url("../images/homeBanner.jpeg") no-repeat center;
-    background-size: cover
+    background-size: cover;
 }
 
 /* User Written Code
@@ -76,4 +76,27 @@ header {
 
 .fontWhite {
     color: #fff;
+}
+
+.bannerText {
+    font-size: 70px;
+    line-height: 1;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
+
+input {
+    margin: 0;
+    padding: 0;
+}
+
+#ProductTitle {
+    height: 35px;
+    width: 300px;
+}
+
+.homeBanner2 {
+    height: 200px;
+    width: 100vw;
+    background: url("../images/homeBanner2.jpg") no-repeat center;
+    background-size: cover;
 }

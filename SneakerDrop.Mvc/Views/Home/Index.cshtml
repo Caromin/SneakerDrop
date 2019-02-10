@@ -1,4 +1,13 @@
-﻿@{
+﻿@model SneakerDrop.Mvc.Models.FindProductInfoViewModel
+
+@{
     ViewData["Title"] = "SneakerDrop: Buy and Sell Sneakers and Streetwear";
 }
 
+@Html.Partial("../Partials/HomeHeader.cshtml")
+<div>
+    <partial name="_CookieConsentPartial" />
+    <main role="main">
+        <div class="homeBanner2"></div>
+    </main>
+</div>

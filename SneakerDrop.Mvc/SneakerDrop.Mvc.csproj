@@ -28,11 +28,9 @@
     <Content Remove="Views\Partials\BuyerSearch.cshtml" />
     <Content Remove="Views\Partials\ListingSearch.cshtml" />
     <Content Remove="wwwroot\images\homeBanner.jpeg" />
+    <Content Remove="wwwroot\images\HomeBanner2.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\images\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot\images\homeBanner.jpeg" />
+    <None Include="wwwroot\images\HomeBanner2.jpg" />
   </ItemGroup>
 </Project>

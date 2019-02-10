@@ -2,11 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using SneakerDrop.Code.Helpers;
 using AutoMapper;
-using System;
 
 namespace SneakerDrop.Mvc.Models
 {
-    [Serializable]
     public class UserViewModel
     {
         public int UserId { get; set; }

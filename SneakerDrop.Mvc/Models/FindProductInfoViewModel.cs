@@ -28,6 +28,8 @@ namespace SneakerDrop.Mvc.Models
         [Required]
         public string Color { get; set; }
 
+        public string ImageUrl {get; set; }
+
         public ConversionProduct createModel = new ConversionProduct();
 
         public dm.Validator validator = new dm.Validator();
@@ -62,7 +64,8 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(p => p.Type.TypeId, f => f.MapFrom(src => src.TypeId))
             .ForMember(p => p.ProductTitle, f => f.MapFrom(src => src.ProductTitle))
             .ForMember(p => p.Description, f => f.MapFrom(src => src.Description))
-            .ForMember(p => p.Color, f => f.MapFrom(src => src.Color)));
+            .ForMember(p => p.Color, f => f.MapFrom(src => src.Color))
+            .ForMember(p => p.ImageUrl, f => f.MapFrom(src => src.ImageUrl)));
 
         public static MapperConfiguration viewConfig = new MapperConfiguration(cgf => cgf.CreateMap<dm.ProductInfo, FindProductInfoViewModel>()
             .ForMember(p => p.ProductInfoId, f => f.MapFrom(src => src.ProductInfoId))
@@ -70,7 +73,8 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(p => p.TypeId, f => f.MapFrom(src => src.Type.TypeId))
             .ForMember(p => p.ProductTitle, f => f.MapFrom(src => src.ProductTitle))
             .ForMember(p => p.Description, f => f.MapFrom(src => src.Description))
-            .ForMember(p => p.Color, f => f.MapFrom(src => src.Color)));
+            .ForMember(p => p.Color, f => f.MapFrom(src => src.Color))
+            .ForMember(p => p.ImageUrl, f => f.MapFrom(src => src.ImageUrl)));
 
         public dm.ProductInfo MappingProductInfo(FindProductInfoViewModel findProduct)
         {

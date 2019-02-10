@@ -76,9 +76,9 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(o => o.Quantity, op => op.MapFrom(src => src.Quantity))
             .ForMember(o => o.ShippingStatus, op => op.MapFrom(src => src.ShippingStatus))
             .ForMember(o => o.Timestamp, op => op.MapFrom(src => src.Timestamp))
-            .ForMember(o => o.Payment.PaymentId, op => op.MapFrom(src => src.PaymentId))
-            .ForMember(o => o.User.UserId, op => op.MapFrom(src => src.UserId))
-            .ForMember(o => o.Listing.ListingId, op => op.MapFrom(src => src.ListingId)));
+            .ForPath(o => o.Payment.PaymentId, op => op.MapFrom(src => src.PaymentId))
+            .ForPath(o => o.User.UserId, op => op.MapFrom(src => src.UserId))
+            .ForPath(o => o.Listing.ListingId, op => op.MapFrom(src => src.ListingId)));
 
         public static MapperConfiguration viewConfig = new MapperConfiguration(cgf => cgf.CreateMap<dm.Orders, OrderAndPaymentViewModel>()
             .ForMember(o => o.OrderId, op => op.MapFrom(src => src.OrderId))
@@ -86,9 +86,9 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(o => o.Quantity, op => op.MapFrom(src => src.Quantity))
             .ForMember(o => o.ShippingStatus, op => op.MapFrom(src => src.ShippingStatus))
             .ForMember(o => o.Timestamp, op => op.MapFrom(src => src.Timestamp))
-            .ForMember(o => o.PaymentId, op => op.MapFrom(src => src.Payment.PaymentId))
-            .ForMember(o => o.UserId, op => op.MapFrom(src => src.User.UserId))
-            .ForMember(o => o.ListingId, op => op.MapFrom(src => src.Listing.ListingId)));
+            .ForPath(o => o.PaymentId, op => op.MapFrom(src => src.Payment.PaymentId))
+            .ForPath(o => o.UserId, op => op.MapFrom(src => src.User.UserId))
+            .ForPath(o => o.ListingId, op => op.MapFrom(src => src.Listing.ListingId)));
 
         //public static MapperConfiguration listingConfig = new MapperConfiguration(cgf => cgf.CreateMap<OrderAndPaymentViewModel, dm.Listing>()
         //.ForMember(l => l.ListingId, op => op.MapFrom(src => src.ListingId))

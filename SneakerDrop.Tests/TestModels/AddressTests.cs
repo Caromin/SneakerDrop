@@ -62,34 +62,24 @@ namespace SneakerDrop.Tests.TestModels
         {
 
         }
-        [Fact(Skip = "working")]
+        
+        [Fact]
         public void Test_AddEditDeleteAddresses()
         {
             var sut = new AddressViewModel
             {
-                AddressId = 2,
+                // Look up attach in entity framework
                 Street = "4508 Burnhill Dr",
                 City = "Plano",
                 State = "TX",
                 PostalCode = "75024",
-                UserId =2
+                HelperType = "add",
+                UserId = 2
             };
             var test = sut.AddEditDeleteAddresses(sut);
 
             Assert.True(test);
         }
-        [Fact]
-        public void Test_StreetValidator()
-        {
-            var sut = new AddressViewModel
-            {
-                Street = "!!4508 Burnhill Dr!!"
-            };
-            var test = sut.StreetValidator(sut);
-
-            Assert.True(test);
-        }
-
     }
 }
 

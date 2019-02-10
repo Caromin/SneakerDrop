@@ -32,6 +32,16 @@ namespace SneakerDrop.Mvc
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(mysession =>
+            {
+                mysession.IdleTimeout = TimeSpan.FromHours(1);
+                mysession.Cookie.Name = "SneakerDrop";
+                mysession.Cookie.HttpOnly = true;
+            });
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +61,7 @@ namespace SneakerDrop.Mvc
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

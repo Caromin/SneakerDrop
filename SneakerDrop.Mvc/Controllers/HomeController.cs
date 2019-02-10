@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using SneakerDrop.Mvc.Models;
 using c = SneakerDrop.Code.Helpers;
 using dm = SneakerDrop.Domain.Models;
@@ -29,7 +31,7 @@ namespace SneakerDrop.Mvc.Controllers
             return View();
         }
       
-        public IActionResult Account()
+         public IActionResult Account()
         {
             return View("~/Views/User/Account.cshtml");
         }

@@ -55,6 +55,8 @@ namespace SneakerDrop.Mvc.Models
         [Required]
         public string Color { get; set; }
 
+        public string ImageUrl {get; set; }
+
         public ConversionNewListing createModel = new ConversionNewListing();
 
         public dm.Validator validator = new dm.Validator();
@@ -84,6 +86,7 @@ namespace SneakerDrop.Mvc.Models
             .ForPath(c => c.TypeName, pf => pf.MapFrom(src => src.Type.TypeName))
             .ForMember(c => c.ProductTitle, pf => pf.MapFrom(src => src.ProductTitle))
             .ForMember(c => c.Color, pf => pf.MapFrom(src => src.Color))
+            .ForMember(c => c.ImageUrl, pf => pf.MapFrom(src => src.ImageUrl))
             .ForAllOtherMembers(c => c.Ignore()));
 
         public static MapperConfiguration domainConfig = new MapperConfiguration(cgf => cgf.CreateMap<CreateNewListingViewModel, dm.Listing>()
@@ -93,6 +96,7 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(l => l.User.UserId, nl => nl.MapFrom(src => src.UserId))
             .ForMember(l => l.ProductInfo.ProductInfoId, nl => nl.MapFrom(src => src.ProductInfoId))
             .ForMember(l => l.ProductInfo.ProductTitle, nl => nl.MapFrom(src => src.ProductTitle))
+            .ForMember(l => l.ProductInfo.ImageUrl, nl => nl.MapFrom(src => src.ImageUrl))
             .ForAllOtherMembers(c => c.Ignore()));
 
         public CreateNewListingViewModel MappingCreateListing(dm.ProductInfo item)

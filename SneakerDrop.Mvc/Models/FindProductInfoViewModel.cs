@@ -28,10 +28,12 @@ namespace SneakerDrop.Mvc.Models
         [Required]
         public string Color { get; set; }
 
+        public ConversionProduct createModel = new ConversionProduct();
+
+        public dm.Validator validator = new dm.Validator();
+
         public List<FindProductInfoViewModel> FindMatchingProductInfo(FindProductInfoViewModel findProduct)
         {
-            var createModel = new ConversionProduct();
-            var validator = new dm.Validator();
             var productInfoDomainModel = createModel.MappingProductInfo(findProduct);
             var checkValidation = validator.ValidateProductTitle(productInfoDomainModel);
 
@@ -43,6 +45,12 @@ namespace SneakerDrop.Mvc.Models
                 return productViewModel;
             }
             return null;
+        }
+
+        public FindProductInfoViewModel SelectedViewModel(FindProductInfoViewModel item)
+        {
+            var productDomainModel = createModel.
+            return FindProductInfoHelper.SingleProductInfo(item);
         }
     }
 

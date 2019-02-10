@@ -12,10 +12,15 @@ namespace SneakerDrop.Code.Helpers
 
         public static List<ProductInfo> FindPossibleMatches(ProductInfo productInfoDomainModel)
         {
-            // stop at 20 closes matches
-            var result = _db.ProductInfos.Where(p => p.ProductTitle == productInfoDomainModel.ProductTitle).ToList();
+            string inputPassed = productInfoDomainModel.ProductTitle;
 
-            return result;
+            var query = from item in _db.ProductInfos
+                        where item.ProductTitle.Contains(inputPassed)
+                        select item;
+
+            var productInfos = query.ToList<ProductInfo>().Take(10);
+
+            return (System.Collections.Generic.List<SneakerDrop.Domain.Models.ProductInfo>)productInfos;
         }
 
         public static ProductInfo SingleProductInfo(ProductInfo product)

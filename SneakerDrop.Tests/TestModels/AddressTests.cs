@@ -1,6 +1,6 @@
 ﻿using SneakerDrop.Code.Helpers;
 using SneakerDrop.Domain.Models;
-
+using SneakerDrop.Mvc.Models;
 using System;
 using Xunit;
 
@@ -12,7 +12,7 @@ namespace SneakerDrop.Tests.TestModels
         {
             AddressId = 2,
             Street = "4508 Burnhill Dr",
-            City = "Plano",
+            City = "Frisco",
             State = "TX",
             PostalCode = "75024",
             User = new User
@@ -25,16 +25,15 @@ namespace SneakerDrop.Tests.TestModels
                 Email = "Email@email.com"
             }
         };
-
-        [Fact(Skip = "Doesn't work")]
-        public void Test_AddAddressByUser()
+        [Fact(Skip = "need Identity Insert On")]
+        public void Test_AddAddresesById()
         {
             var sut = AddressHelper.AddAddressById(address);
 
             Assert.True(sut);
-        }
 
-        [Fact]
+        }
+        [Fact(Skip = "Is working")]
         public void Test_GetAddressInfoById()
         {
 
@@ -43,7 +42,7 @@ namespace SneakerDrop.Tests.TestModels
             Assert.NotNull(sut);
         }
 
-        [Fact(Skip = "Not working properly")]
+        [Fact(Skip = "working")]
         public void Test_EditAddressInfoById()
         {
             var sut = AddressHelper.EditAddressInfoById(address);
@@ -59,9 +58,36 @@ namespace SneakerDrop.Tests.TestModels
             Assert.True(sut);
         }
         [Fact]
-        public void Test_AddressMapper()
+        public void Test_GetAllAddresses()
         {
 
+        }
+        [Fact(Skip = "working")]
+        public void Test_AddEditDeleteAddresses()
+        {
+            var sut = new AddressViewModel
+            {
+                AddressId = 2,
+                Street = "4508 Burnhill Dr",
+                City = "Plano",
+                State = "TX",
+                PostalCode = "75024",
+                UserId =2
+            };
+            var test = sut.AddEditDeleteAddresses(sut);
+
+            Assert.True(test);
+        }
+        [Fact]
+        public void Test_StreetValidator()
+        {
+            var sut = new AddressViewModel
+            {
+                Street = "!!4508 Burnhill Dr!!"
+            };
+            var test = sut.StreetValidator(sut);
+
+            Assert.True(test);
         }
 
     }

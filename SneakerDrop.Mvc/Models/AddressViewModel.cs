@@ -68,6 +68,19 @@ namespace SneakerDrop.Mvc.Models
                 return true;
             }
         }
+        public bool StreetValidator(AddressViewModel street)
+        {
+            dm.Address addressModel = createModel.MappingAddress(street);
+            var valCheckStreet = validator.ValidateStreet(addressModel);
+
+            if (valCheckStreet)
+            {
+                var addressInfo = AddressHelper.GetAddressInfoById(addressModel);
+                return true;
+            }
+
+            return false;
+        }
     }
 
     public class ConversionAddress : Profile
@@ -78,7 +91,7 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(a => a.City, av => av.MapFrom(src => src.City))
             .ForMember(a => a.State, av => av.MapFrom(src => src.State))
             .ForMember(a => a.PostalCode, av => av.MapFrom(src => src.PostalCode))
-            .ForMember(a => a.User.UserId, av => av.MapFrom(src => src.UserId)));
+            .ForPath(a => a.User.UserId, av => av.MapFrom(src => src.UserId)));
 
         public static MapperConfiguration viewConfig = new MapperConfiguration(cgf => cgf.CreateMap<dm.Address, AddressViewModel>()
             .ForMember(a => a.AddressId, av => av.MapFrom(src => src.AddressId))
@@ -86,7 +99,7 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(a => a.City, av => av.MapFrom(src => src.City))
             .ForMember(a => a.State, av => av.MapFrom(src => src.State))
             .ForMember(a => a.PostalCode, av => av.MapFrom(src => src.PostalCode))
-            .ForMember(a => a.UserId, av => av.MapFrom(src => src.User.UserId)));
+            .ForPath(a => a.UserId, av => av.MapFrom(src => src.User.UserId)));
 
         public dm.Address MappingAddress(AddressViewModel addressView)
         {

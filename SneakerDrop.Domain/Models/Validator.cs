@@ -48,7 +48,22 @@ namespace SneakerDrop.Domain.Models
             string pattern = @"^[A-Za-z0-9]+(?:\s[A-Za-z0-9'_-]+)+$";
             var validate = address.Street;
             Match match = Regex.Match(validate, pattern);
-            return true;
+            if (match.Success)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool ValidatePostalCode(Address address)
+        {
+            string pattern = @"^[0-9]+$";
+            var validate = address.PostalCode;
+            Match match = Regex.Match(validate, pattern);
+            if (match.Success)
+            {
+                return true;
+            }
+            return false;
         }
 
         public bool ValidateNewUser(User userModel)

@@ -81,6 +81,18 @@ namespace SneakerDrop.Mvc.Models
 
             return false;
         }
+        public bool PostalCodeValidator(AddressViewModel postalcode)
+        {
+            dm.Address addressModel = createModel.MappingAddress(postalcode);
+            var valCheckPostalCode = validator.ValidatePostalCode(addressModel);
+
+            if (valCheckPostalCode)
+            {
+                var validPostal = AddressHelper.GetAddressInfoById(addressModel);
+                return true;
+            }
+            return false;
+        }
     }
 
     public class ConversionAddress : Profile

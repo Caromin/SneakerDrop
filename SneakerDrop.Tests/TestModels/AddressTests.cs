@@ -62,6 +62,7 @@ namespace SneakerDrop.Tests.TestModels
         {
 
         }
+        
         [Fact(Skip = "working")]
         public void Test_AddEditDeleteAddresses()
         {
@@ -83,10 +84,20 @@ namespace SneakerDrop.Tests.TestModels
         {
             var sut = new AddressViewModel
             {
-                Street = "!!4508 Burnhill Dr!!"
+                Street = "4508 Burnhill Dr"
             };
             var test = sut.StreetValidator(sut);
 
+            Assert.True(test);
+        }
+        [Fact]
+        public void Test_PostalCodeValidator()
+        {
+            var sut = new AddressViewModel
+            {
+                PostalCode = "75024"
+            };
+            var test = sut.PostalCodeValidator(sut);
             Assert.True(test);
         }
 

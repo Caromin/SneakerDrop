@@ -60,8 +60,8 @@ namespace SneakerDrop.Mvc.Models
         public bool AddEditUser(UserViewModel userView)
         {
             dm.User userModel = createModel.MappingUser(userView);
-            var valCheckAdd = validator.ValidateNewUser(userModel);
-            var valCheckEdit = validator.EditString(userModel);
+            var valCheckAdd = validator.ValidateUserName(userModel);
+            var valCheckEdit = validator.EditExistingUser(userModel);
 
             if (userView.HelperType == "add")
             {

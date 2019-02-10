@@ -72,7 +72,7 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(p => p.Month, pv => pv.MapFrom(src => src.Month))
             .ForMember(p => p.Year, pv => pv.MapFrom(src => src.Year))
             .ForMember(p => p.CVV, pv => pv.MapFrom(src => src.CVV))
-            .ForMember(p => p.User.UserId, pv => pv.MapFrom(src => src.UserId)));
+            .ForPath(p => p.User.UserId, pv => pv.MapFrom(src => src.UserId)));
 
         public static MapperConfiguration viewConfig = new MapperConfiguration(cgf => cgf.CreateMap<dm.Payment, PaymentViewModel>()
             .ForMember(p => p.PaymentId, pv => pv.MapFrom(src => src.PaymentId))
@@ -81,7 +81,7 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(p => p.Month, pv => pv.MapFrom(src => src.Month))
             .ForMember(p => p.Year, pv => pv.MapFrom(src => src.Year))
             .ForMember(p => p.CVV, pv => pv.MapFrom(src => src.CVV))
-            .ForMember(p => p.UserId, pv => pv.MapFrom(src => src.User.UserId)));
+            .ForPath(p => p.UserId, pv => pv.MapFrom(src => src.User.UserId)));
 
         public dm.Payment MappingPayment(PaymentViewModel paymentView)
         {
@@ -93,7 +93,6 @@ namespace SneakerDrop.Mvc.Models
         public List<PaymentViewModel> MappingView(List<dm.Payment> payment)
         {
             var paymentModel = viewConfig.CreateMapper();
-
             List<PaymentViewModel> convertedList = new List<PaymentViewModel>();
 
             foreach (var item in payment)

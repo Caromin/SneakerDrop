@@ -27,5 +27,7 @@ namespace SneakerDrop.Domain.Models
 
         public User User { get; set; }
 
+        public Listing Listing { get; set; }
+
     }
 }

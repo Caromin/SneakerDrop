@@ -8,7 +8,8 @@ namespace SneakerDrop.Domain.Models
     [Table("User", Schema = "User")]
     public class User : Validator , IUser
     {
-        
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
 
         [StringLength(50)]

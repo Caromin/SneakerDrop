@@ -14,7 +14,6 @@ namespace SneakerDrop.Code.Helpers
         {
             string inputPassed = productInfoDomainModel.ProductTitle;
 
-            // stop at 20 closes matches
             var query = from item in _db.ProductInfos
                         where item.ProductTitle.Contains(inputPassed)
                         select item;

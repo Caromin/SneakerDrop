@@ -12,6 +12,20 @@ namespace SneakerDrop.Mvc.Controllers
     {
         [HttpPost]
         [ActionName("seller")]
+        public IActionResult SearchAction(string SearchAction)
+        {
+            switch (SearchAction)
+            {
+                case "Search":
+                    return View("~/Views/Partials/ListingSearch.cshtml");
+                case "Next":
+                    return View("~/Views/Store/Listing.cshtml");
+                default:
+                    return View();
+            }
+        }
+        [HttpPost]
+        [ActionName("seller2")]
         public IActionResult ListingCheck(FindProductInfoViewModel productinfo)
         {
 

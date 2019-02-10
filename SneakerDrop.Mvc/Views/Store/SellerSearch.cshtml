@@ -20,14 +20,15 @@
             <div class="d-inline-block">
           
 
-                @Html.TextBoxFor(u => u.ProductTitle, new { @required = "required", placeholder = "Search for Items" })
+                @Html.TextBoxFor(u => u.ProductTitle, new { @required = "required", placeholder = "Search To Sell" })
                 @Html.ValidationMessageFor(u => u.ProductTitle)
 
             </div>
 
 
             <div class="d-inline-block float-right">
-                <button type="submit">Search</button>
+                <button type="submit" value ="Search" name="SearchAction">Search</button>
+                <button type="submit" value="Next" name="SearchAction">Next</button>
             </div>
 
 

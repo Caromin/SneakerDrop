@@ -23,6 +23,12 @@ namespace SneakerDrop.Code.Helpers
             return dbInfo;
         }
 
+        public static List<User> GetAllUsers()
+        {
+            var datauser = _db.Users.ToList();
+            return datauser;
+        }
+
         public static bool EditUserInfoById(User user)
         {
             var results = _db.Users.Where(u => u.UserId == user.UserId).FirstOrDefault();

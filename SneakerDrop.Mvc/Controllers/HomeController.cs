@@ -33,6 +33,7 @@ namespace SneakerDrop.Mvc.Controllers
       
          public IActionResult Account()
         {
+
             return View("~/Views/User/Account.cshtml");
         }
 

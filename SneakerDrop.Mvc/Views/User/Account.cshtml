@@ -7,29 +7,38 @@
     <title>Account</title>
 </head>
 <body>
-    @using (@Html.BeginForm("profile", "Home"))
+    @using (@Html.BeginForm("Logout", "User"))
     {
+        <div class="col-1">
+           <p> @{Html.RenderPartial("../Partials/PostUserName.cshtml");
+    }</p>
+        </div>
 
-<div class="col-1">
-    <a href="~/Home/SellerSearch">Sell</a>
-</div>
 
-    <div class="col-2">
-        <a href="~/Home/OrderHistory">See Your Orders</a>
-    </div>
+      <div class="col-1">
+            <a href="~/Home/SellerSearch">Sell</a>
+        </div>
 
-    <div class="col-3">
-        <a href="~/Home/ChangeUserInfo">User Options</a>
-    </div>
+        <div class="col-2">
+            <a href="~/Home/OrderHistory">See Your Orders</a>
+        </div>
 
-    <div class="col-4">
-        <a href="~/Home/ChangeUserInfo">Address Options</a>
-    </div>
+        <div class="col-3">
+            <a href="~/Home/ChangeUserInfo">User Options</a>
+        </div>
 
-    <div class="col-5">
-        <a href="~/Home/ChangePayment">Payment Options</a>
-    </div>
+        <div class="col-4">
+            <a href="~/Home/ChangeUserInfo">Address Options</a>
+        </div>
+
+        <div class="col-5">
+            <a href="~/Home/ChangePayment">Payment Options</a>
+        </div>
+
+        <button type="submit" value="LogOut" name="AccountLogOut">LogOut</button>
     }
+
+
 
 
 </body>

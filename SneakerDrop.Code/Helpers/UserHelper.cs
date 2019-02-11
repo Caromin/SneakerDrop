@@ -27,9 +27,10 @@ namespace SneakerDrop.Code.Helpers
 
             return null;
         }
-        public static User GetUserInfoByUserId(User user)
+        public static User GetUserInfoById(Address address)
         {
-            User dbInfo = _db.Users.Where(u => u.UserId == user.UserId).FirstOrDefault();
+            User dbInfo = _db.Users.Where(u => u.UserId == address.User.UserId).FirstOrDefault();
+
             return dbInfo;
         }
 

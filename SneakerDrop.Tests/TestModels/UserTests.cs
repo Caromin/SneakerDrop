@@ -78,7 +78,7 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(test);
         }     
-        [Fact]
+        [Fact(Skip ="needs working on")]
         public void Test_EmailValidator()
         {
             var sut = new UserViewModel

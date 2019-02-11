@@ -32,7 +32,6 @@ namespace SneakerDrop.Domain.Models
         [Required]
         public string Password { get; set; }
 
-
     }
 
 }

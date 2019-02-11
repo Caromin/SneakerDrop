@@ -63,12 +63,11 @@ namespace SneakerDrop.Tests.TestModels
 
         }
         
-        [Fact]
+        [Fact(Skip = "edit works")]
         public void Test_AddEditDeleteAddresses()
         {
             var sut = new AddressViewModel
             {
-                // Look up attach in entity framework
                 AddressId = 1,
                 Street = "4508 Burnhill Dr",
                 City = "Plano",

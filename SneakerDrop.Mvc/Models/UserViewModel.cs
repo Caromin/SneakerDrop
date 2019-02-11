@@ -56,6 +56,11 @@ namespace SneakerDrop.Mvc.Models
             return null;
         }
 
+        public void UserNametag(string username)
+        {
+            Username = username;
+        }
+
         // used to sent all info in UserViewModel format for add or edit
         public bool AddEditUser(UserViewModel userView)
         {

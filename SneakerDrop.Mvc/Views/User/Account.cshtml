@@ -1,13 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@model SneakerDrop.Mvc.Models.UserViewModel;
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>Account</title>
 </head>
 <body>
+    @using (@Html.BeginForm("profile", "Home"))
+    {
 
-    <div class="col-1">
-        <a href="~/Home/SellerSearch">Sell</a>
-    </div>
+<div class="col-1">
+    <a href="~/Home/SellerSearch">Sell</a>
+</div>
 
     <div class="col-2">
         <a href="~/Home/OrderHistory">See Your Orders</a>
@@ -24,6 +29,7 @@
     <div class="col-5">
         <a href="~/Home/ChangePayment">Payment Options</a>
     </div>
+    }
 
 
 </body>

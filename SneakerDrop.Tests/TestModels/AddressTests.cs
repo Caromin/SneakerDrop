@@ -69,12 +69,14 @@ namespace SneakerDrop.Tests.TestModels
             var sut = new AddressViewModel
             {
                 // Look up attach in entity framework
+                AddressId = 1,
                 Street = "4508 Burnhill Dr",
                 City = "Plano",
                 State = "TX",
-                PostalCode = "75024",
-                HelperType = "add",
-                UserId = 2
+                PostalCode = "75098",
+                HelperType = "edit",
+                UserId = 1
+
             };
             var test = sut.AddEditDeleteAddresses(sut);
 

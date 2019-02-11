@@ -1,4 +1,5 @@
-﻿using SneakerDrop.Domain.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SneakerDrop.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace SneakerDrop.Code.Helpers
             editAddress.City = address.City;
             editAddress.State = address.State;
             editAddress.PostalCode = address.PostalCode;
-            getUser.Entity;
+            getUser.State = EntityState.Modified;
 
          
             return _db.SaveChanges() == 1;

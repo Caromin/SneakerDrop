@@ -10,7 +10,7 @@ Our mission statement is to provide the latest and greatest in footwear ranging 
 ### Founders and Maintainers
 ---
 
-##### [Christian Aromin](https://github.com/Caromin), [Nick Vu] (https://github.com/nvu8), [Henok Tesfaye] (https://github.com/OaksTree1)
+##### [Christian Aromin](https://github.com/Caromin), [Nick Vu](https://github.com/nvu8), [Henok Tesfaye](https://github.com/OaksTree1)
 
 ### Technology Used
 ---

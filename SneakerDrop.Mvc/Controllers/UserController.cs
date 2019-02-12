@@ -28,19 +28,27 @@ namespace SneakerDrop.Mvc.Controllers
             {
                 if (ViewBag.Firstname != null
                     || ViewBag.Lastname != null
-                    || ViewBag.Username != null
-                    || ViewBag.Password != null
-                    || ViewBag.Email != null)
+                      || ViewBag.Username != null
+                      || ViewBag.Password != null
+                   || ViewBag.Email != null)
                 {
+                    if (userviewmodel.AddEditUser(userviewmodel) == false)
+                    {
+                        userviewmodel.HelperType = "add";
+                        ViewBag.Message = "No Special Characters";
+                        return View("~/Views/Home/Register.cshtml");
+                    }
                     userviewmodel.HelperType = "add";
                     userviewmodel.AddEditUser(userviewmodel);
-                    return View("~/Views/User/Account.cshtml");
+                    return View("~/Views/Home/Login.cshtml");
                 }
-
-                return View("~/Views/Home/Index.cshtml");
+                ViewBag.Message = "All Boxes must be filled";
+                return View("~/Views/Home/Register.cshtml");
             }
-            return View("~/Views/Home/Index.cshtml");
+            return View("~/Views/Home/Register.cshtml");
         }
+
+
 
         [HttpPost]
         [ActionName("login")]
@@ -99,6 +107,21 @@ namespace SneakerDrop.Mvc.Controllers
             userdata.UserNametag(ViewBag.Username);
 
             return View();
+        }
+
+        [HttpPost]
+        [ActionName("addaddress")]
+        public IActionResult AddAddress()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("changeaddress")]
+        public IActionResult ChangeAddress()
+        {
+            return View();
+
         }
     }
 }

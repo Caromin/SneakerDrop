@@ -33,7 +33,7 @@ namespace SneakerDrop.Tests.TestModels
             Assert.True(sut);
 
         }
-        [Fact(Skip = "Is working")]
+        [Fact]
         public void Test_GetAddressInfoById()
         {
 
@@ -61,6 +61,14 @@ namespace SneakerDrop.Tests.TestModels
         public void Test_GetAllAddresses()
         {
 
+            var sut = new AddressViewModel
+            {
+                UserId = 1
+            };
+            var test = sut.GetAllAddresses(sut);
+
+
+            Assert.NotEmpty(test);
         }
 
         [Fact(Skip = "edit works")]

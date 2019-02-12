@@ -38,10 +38,12 @@ namespace SneakerDrop.Mvc.Models
 
         public List<AddressViewModel> GetAllAddresses(AddressViewModel addressView)
         {
+            
             dm.Address addressDomainModel = createModel.MappingAddress(addressView);
             List<dm.Address> domainAddressList = AddressHelper.GetAddressInfoById(addressDomainModel);
 
             return createModel.MappingView(domainAddressList);
+            
         }
 
         public bool AddEditDeleteAddresses(AddressViewModel addressView)

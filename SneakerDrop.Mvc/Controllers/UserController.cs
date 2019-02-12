@@ -46,15 +46,24 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("login")]
         public IActionResult LoginCheck(UserViewModel userviewmodel)
         {
-            if (userviewmodel.LoginValidator(userviewmodel) != null)
+            foreach (var item in UserHelper.GetAllUsers())
             {
-                HttpContext.Session.SetInt32("UserId", userviewmodel.UserId);
-                HttpContext.Session.SetString("Username", userviewmodel.Username);
-                return RedirectToAction("profile", "User");
+                if (item.Username.ToString() != userviewmodel.Username)
+                {
+                    ViewBag.Message = "Username/Password is incorrect";
+                    return View("~/Views/Home/Login.cshtml");
+                }
+
+                if (userviewmodel.LoginValidator(userviewmodel) != null)
+                {
+                    HttpContext.Session.SetInt32("UserId", userviewmodel.UserId);
+                    HttpContext.Session.SetString("Username", userviewmodel.Username);
+                    return RedirectToAction("profile", "User");
+                }
+                return View("~/Views/Home/Register.cshtml");
 
             }
-            return View("~/Views/Home/Index.cshtml");
-
+            return View("~/Views/Home/Register.cshtml");
         }
 
         [HttpGet]
@@ -83,9 +92,9 @@ namespace SneakerDrop.Mvc.Controllers
             if (AccountLogOut == "LogOut")
             {
                 HttpContext.Session.Clear();
-                return View("~/Views/Home/Index.cshtml");
+                return View("~/Views/Home/Login.cshtml");
         }
-            return View("~/Views/Home/Index.cshtml");
+            return View("~/Views/Home/Login.cshtml");
         }
 
         [HttpPost]

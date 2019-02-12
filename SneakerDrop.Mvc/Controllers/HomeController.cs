@@ -61,6 +61,18 @@ namespace SneakerDrop.Mvc.Controllers
             return View("~/Views/User/ChangeUserInfo.cshtml");
         }
 
+        public IActionResult Catalog(FindProductInfoViewModel productinfo)
+        {
+            ViewBag.ProductName = productinfo.ProductTitle;
+            return View("~/Views/Store/Catalog.cshtml");
+        }
+
+        public IActionResult SingleItem(FindProductInfoViewModel productinfo)
+        {
+           
+            return View("~/Views/Store/SingleItem.cshtml");
+        }
+
 
         public IActionResult OrderHistory()
         {

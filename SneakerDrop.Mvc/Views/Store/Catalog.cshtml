@@ -1,7 +1,12 @@
-﻿
+﻿@model SneakerDrop.Mvc.Models.FindProductInfoViewModel;
 @{
     ViewData["Title"] = "Catalog";
 }
 
-<h1>Catalog</h1>
-
+<div class="search d-inline">
+@using (@Html.BeginForm("buyer2", "Store"))
+{
+    <p>@ViewBag.ProductName</p>
+    <button type ="submit">Pick</button>
+}
+</div>

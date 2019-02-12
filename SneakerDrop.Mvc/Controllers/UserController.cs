@@ -85,17 +85,14 @@ namespace SneakerDrop.Mvc.Controllers
             return RedirectToAction("Account", "Home", userdata);
         }
 
-        [HttpPost]
+        [HttpGet]
         [ActionName("Logout")]
-        public IActionResult AccountLogOut(string AccountLogOut)
+        public IActionResult AccountLogOut()
         {
-            if (AccountLogOut == "LogOut")
-            {
-                HttpContext.Session.Clear();
-                return View("~/Views/Home/Login.cshtml");
-        }
+            HttpContext.Session.Clear();
             return View("~/Views/Home/Login.cshtml");
         }
+            
 
         [HttpPost]
         [ActionName("showusername")]

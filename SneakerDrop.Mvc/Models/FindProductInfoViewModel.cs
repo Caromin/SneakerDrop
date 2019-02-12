@@ -28,7 +28,7 @@ namespace SneakerDrop.Mvc.Models
         [Required]
         public string Color { get; set; }
 
-        public string ImageUrl {get; set; }
+        public string ImageUrl { get; set; }
 
         public ConversionProduct createModel = new ConversionProduct();
 
@@ -54,14 +54,22 @@ namespace SneakerDrop.Mvc.Models
             var productDomainModel = createModel.MappingProductInfo(item);
             return FindProductInfoHelper.SingleProductInfo(productDomainModel);
         }
+
+        public List<FindProductInfoViewModel> FindMostRecentListings()
+        {
+            var domainList = FindProductInfoHelper.GetAllRecentProducts();
+            List<FindProductInfoViewModel> convertedList = createModel.MappingRecentListing(domainList);
+
+            return convertedList;
+        }
     }
 
     public class ConversionProduct : Profile
     {
         public static MapperConfiguration productInfoConfig = new MapperConfiguration(cgf => cgf.CreateMap<FindProductInfoViewModel, dm.ProductInfo>()
             .ForMember(p => p.ProductInfoId, f => f.MapFrom(src => src.ProductInfoId))
-            .ForMember(p => p.Brand.BrandId, f => f.MapFrom(src => src.BrandId))
-            .ForMember(p => p.Type.TypeId, f => f.MapFrom(src => src.TypeId))
+            .ForPath(p => p.Brand.BrandId, f => f.MapFrom(src => src.BrandId))
+            .ForPath(p => p.Type.TypeId, f => f.MapFrom(src => src.TypeId))
             .ForMember(p => p.ProductTitle, f => f.MapFrom(src => src.ProductTitle))
             .ForMember(p => p.Description, f => f.MapFrom(src => src.Description))
             .ForMember(p => p.Color, f => f.MapFrom(src => src.Color))
@@ -69,8 +77,8 @@ namespace SneakerDrop.Mvc.Models
 
         public static MapperConfiguration viewConfig = new MapperConfiguration(cgf => cgf.CreateMap<dm.ProductInfo, FindProductInfoViewModel>()
             .ForMember(p => p.ProductInfoId, f => f.MapFrom(src => src.ProductInfoId))
-            .ForMember(p => p.BrandId, f => f.MapFrom(src => src.Brand.BrandId))
-            .ForMember(p => p.TypeId, f => f.MapFrom(src => src.Type.TypeId))
+            .ForPath(p => p.BrandId, f => f.MapFrom(src => src.Brand.BrandId))
+            .ForPath(p => p.TypeId, f => f.MapFrom(src => src.Type.TypeId))
             .ForMember(p => p.ProductTitle, f => f.MapFrom(src => src.ProductTitle))
             .ForMember(p => p.Description, f => f.MapFrom(src => src.Description))
             .ForMember(p => p.Color, f => f.MapFrom(src => src.Color))
@@ -92,6 +100,20 @@ namespace SneakerDrop.Mvc.Models
             foreach (var item in product)
             {
                 var newItem = productInfo.Map<dm.ProductInfo, FindProductInfoViewModel>(item);
+                convertedList.Add(newItem);
+            }
+
+            return convertedList;
+        }
+
+        public List<FindProductInfoViewModel> MappingRecentListing(IEnumerable<dm.ProductInfo> domainList)
+        {
+            var viewMapper = viewConfig.CreateMapper();
+            List<FindProductInfoViewModel> convertedList = new List<FindProductInfoViewModel>();
+
+            foreach (var item in domainList)
+            {
+                var newItem = viewMapper.Map<dm.ProductInfo, FindProductInfoViewModel>(item);
                 convertedList.Add(newItem);
             }
 

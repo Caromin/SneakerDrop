@@ -38,7 +38,7 @@ namespace SneakerDrop.Mvc.Models
 
         public int SellerId { get; set; }
 
-        public string ImageUrl {get; set; }
+        public string ImageUrl { get; set; }
 
         public ConversionListing createModel = new ConversionListing();
 

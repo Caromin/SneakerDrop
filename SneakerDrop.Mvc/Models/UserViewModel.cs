@@ -39,6 +39,16 @@ namespace SneakerDrop.Mvc.Models
         public dm.Validator validator = new dm.Validator();
 
         public ConversionUser createModel = new ConversionUser();
+        
+        public UserViewModel()
+        {
+            UserId = UserId;
+            Firstname = Firstname;
+            Lastname = Lastname;
+            Email = Email;
+            Password = Password;
+            Email = Email;
+        }
 
 
         // receives only username and password in UserViewModel format

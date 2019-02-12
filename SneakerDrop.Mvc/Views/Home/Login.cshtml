@@ -1,31 +1,46 @@
 ﻿@model SneakerDrop.Mvc.Models.UserViewModel
 
-
 @{
     ViewData["Title"] = "Login";
 }
 
-<div class="text-center">
-    @using (@Html.BeginForm("login", "User"))
-{
-    <div class="col-12">
-
-        @Html.LabelFor(u=> u.Username, "Username")
-        @Html.TextBoxFor(u => u.Username, new { @required = "required", placeholder = "Enter Your Username" })
-        @Html.ValidationMessageFor(u => u.Username)
-
+<div class="w-100">
+    <div class="mt-5 text-center align-content-center">
+        <h4 class="mb-2">SneakerDrop</h4>
+        @using (@Html.BeginForm("login", "User"))
+        {
+            <div id="loginDiv" class="text-left p-3 box-shadow">
+                <div>
+                    <div class="d-block">
+                        @Html.LabelFor(u => u.Username, "Username")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(u => u.Username, new { @required = "required", placeholder = "Enter Your Username", @class = "w-100 form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(u => u.Username)
+                </div>
+                <div>
+                    <div class="d-block">
+                        @Html.LabelFor(p => p.Password, "Password")
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(p => p.Password, new { @required = "required", placeholder = "Enter Your password", @class = "w-100 form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(p => p.Password)
+                </div>
+                <div class="mt-3 text-center">
+                    <div>
+                        <button class="w-100 btn btn-warning btnText" type="submit">Sign In</button>
+                    </div>
+                    <div class="mt-5">
+                        <div class="mb-2">
+                            <small class="d-inline">New to SneakerDrop?</small>
+                        </div>
+                        <a class="signin btn btn-light w-100 btnText" href="SignUp">Create a SneakerDrop Account</a>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
-
-    <div class=" col-12">
-        @Html.LabelFor(p => p.Password, "Password")
-        @Html.TextBoxFor(p => p.Password, new { @required = "required", placeholder = "Enter Your password" })
-        @Html.ValidationMessageFor(p => p.Password)
-    </div>
-
-    <button type="submit">Login</button>
-    <div><a class="signin" href="~/Home/Register">New? SignUp! </a></div>
-
-
-}
 </div>
 

@@ -43,6 +43,20 @@ namespace SneakerDrop.Mvc.Controllers
                 }
                 return View("~/Views/Store/SellerSearch.cshtml");
             }
+
+        [HttpPost]
+        [ActionName("buyer")]
+        public IActionResult BuyerSearch(FindProductInfoViewModel productinfo)
+        {
+            ViewBag.ProductName = productinfo.ProductTitle;
+           return RedirectToAction("Catalog", "Home", ViewBag.ProductName);
+        }
+        [HttpPost]
+        [ActionName("buyer2")]
+        public IActionResult buyeritem(FindProductInfoViewModel productinfo)
+        {
+            return RedirectToAction("SingleItem", "Home", productinfo.ProductTitle);
+        }
        }
     }
 

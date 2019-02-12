@@ -36,7 +36,7 @@ namespace SneakerDrop.Mvc.Controllers
                     userviewmodel.AddEditUser(userviewmodel);
                     return View("~/Views/User/Account.cshtml");
                 }
-
+             
                 return View("~/Views/Home/Index.cshtml");
             }
             return View("~/Views/Home/Index.cshtml");
@@ -46,15 +46,24 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("login")]
         public IActionResult LoginCheck(UserViewModel userviewmodel)
         {
-            if (userviewmodel.LoginValidator(userviewmodel) != null)
+            foreach (var item in UserHelper.GetAllUsers())
             {
-                HttpContext.Session.SetInt32("UserId", userviewmodel.UserId);
-                HttpContext.Session.SetString("Username", userviewmodel.Username);
-                return RedirectToAction("profile", "User");
+                if (item.Username.ToString() != userviewmodel.Username)
+                {
+                    ViewBag.Message = "Username/Password is incorrect";
+                    return View("~/Views/Home/Login.cshtml");
+                }
+
+                if (userviewmodel.LoginValidator(userviewmodel) != null)
+                {
+                    HttpContext.Session.SetInt32("UserId", userviewmodel.UserId);
+                    HttpContext.Session.SetString("Username", userviewmodel.Username);
+                    return RedirectToAction("profile", "User");
+                }
+                return View("~/Views/Home/Register.cshtml");
 
             }
-            return View("~/Views/Home/Index.cshtml");
-
+            return View("~/Views/Home/Register.cshtml");
         }
 
         [HttpGet]
@@ -65,13 +74,13 @@ namespace SneakerDrop.Mvc.Controllers
             var sessionusername = HttpContext.Session.GetString("Username");
             int sessionuserid2;
             sessionuserid2 = sessionuserid.Value;
-
+            
 
             var userdata = new UserViewModel
             {
                 UserId = sessionuserid2,
                 Username = sessionusername
-
+                
             };
             return RedirectToAction("Account", "Home", userdata);
         }
@@ -83,6 +92,7 @@ namespace SneakerDrop.Mvc.Controllers
             HttpContext.Session.Clear();
             return View("~/Views/Home/Login.cshtml");
         }
+            
 
         [HttpPost]
         [ActionName("showusername")]
@@ -92,7 +102,7 @@ namespace SneakerDrop.Mvc.Controllers
 
             var userdata = new UserViewModel();
 
-            string useruser = sessionusername;
+           string useruser = sessionusername;
 
             ViewBag.Username = useruser;
 

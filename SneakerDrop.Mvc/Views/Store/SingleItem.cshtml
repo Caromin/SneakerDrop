@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "SingleItem";
 }
-
-<h1>@ViewBag.ProductName</h1>
-
+@using (@Html.BeginForm("orderinitial", "Store"))
+{
+    <h1>@ViewBag.ProductName</h1>
+    <button type ="submit" >Buy</button>
+}

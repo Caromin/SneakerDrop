@@ -8,7 +8,6 @@ using SneakerDrop.Mvc.Models;
 using SneakerDrop.Code.Helpers;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
-using c = SneakerDrop.Code;
 
 
 
@@ -16,8 +15,7 @@ namespace SneakerDrop.Mvc.Controllers
 {
     public class UserController : Controller
     {
-        
-         [HttpPost]
+        [HttpPost]
         [ActionName("register")]
         public IActionResult RegisterFilter(UserViewModel userviewmodel)
         {
@@ -34,55 +32,45 @@ namespace SneakerDrop.Mvc.Controllers
                     || ViewBag.Password != null
                     || ViewBag.Email != null)
                 {
-                    if (userviewmodel.AddEditUser(userviewmodel) == false)
-                    {
-                        userviewmodel.HelperType = "add";
-                        ViewBag.Message = "No Special Characters";
-                        return View("~/Views/Home/Register.cshtml");
-                    }
                     userviewmodel.HelperType = "add";
                     userviewmodel.AddEditUser(userviewmodel);
-                    return View("~/Views/Home/Login.cshtml");
+                    return View("~/Views/User/Account.cshtml");
                 }
-                ViewBag.Message = "All Boxes must be filled";
-                return View("~/Views/Home/Register.cshtml");
+
+                return View("~/Views/Home/Index.cshtml");
             }
-            return View("~/Views/Home/Register.cshtml");
+            return View("~/Views/Home/Index.cshtml");
         }
 
         [HttpPost]
         [ActionName("login")]
         public IActionResult LoginCheck(UserViewModel userviewmodel)
         {
+            var user = userviewmodel.LoginValidator(userviewmodel);
 
-            if (userviewmodel.LoginValidator(userviewmodel) != null)
-                {
+            if (user != null)
+            {
+                HttpContext.Session.SetInt32("UserId", user.UserId);
                 HttpContext.Session.SetString("Username", userviewmodel.Username);
-
-                
-                HttpContext.Session.SetInt32("UserId", userviewmodel.UserId);
                 return RedirectToAction("profile", "User");
-                }
-                ViewBag.Message = "Username/Password is incorrect";
-                return View("~/Views/Home/Login.cshtml");
-         }
-        
+            }
+            ViewBag.Message = "Username and/or Password is incorrect";
+
+            return View("~/Views/Home/Login.cshtml");
+        }
+
         [HttpGet]
         [ActionName("profile")]
         public IActionResult AccountPull()
         {
-            var sessionusername = HttpContext.Session.GetString("Username");
             var sessionuserid = HttpContext.Session.GetInt32("UserId");
-           
-            int sessionuserid2;
-            sessionuserid2 = sessionuserid.Value;
-            
+            var sessionusername = HttpContext.Session.GetString("Username");
 
             var userdata = new UserViewModel
             {
-                UserId = sessionuserid2,
+                UserId = (int)sessionuserid,
                 Username = sessionusername
-                
+
             };
             return RedirectToAction("Account", "Home", userdata);
         }
@@ -94,7 +82,7 @@ namespace SneakerDrop.Mvc.Controllers
             HttpContext.Session.Clear();
             return View("~/Views/Home/Login.cshtml");
         }
-            
+
 
         [HttpPost]
         [ActionName("showusername")]
@@ -104,7 +92,7 @@ namespace SneakerDrop.Mvc.Controllers
 
             var userdata = new UserViewModel();
 
-           string useruser = sessionusername;
+            string useruser = sessionusername;
 
             ViewBag.Username = useruser;
 
@@ -112,7 +100,5 @@ namespace SneakerDrop.Mvc.Controllers
 
             return View();
         }
-
-   
     }
 }

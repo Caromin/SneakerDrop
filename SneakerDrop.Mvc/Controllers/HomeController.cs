@@ -38,8 +38,11 @@ namespace SneakerDrop.Mvc.Controllers
         public IActionResult Account()
         {
             var sessionusername = HttpContext.Session.GetString("Username");
+            var sessionuserid = HttpContext.Session.GetInt32("UserId");
 
             ViewBag.Username = sessionusername;
+            ViewBag.UserId = sessionuserid;
+
             if (ViewBag.Username != null)
             {
                 return View("~/Views/User/Account.cshtml");
@@ -70,7 +73,7 @@ namespace SneakerDrop.Mvc.Controllers
 
         public IActionResult SingleItem(FindProductInfoViewModel productinfo)
         {
-           
+
             return View("~/Views/Store/SingleItem.cshtml");
         }
 
@@ -88,6 +91,13 @@ namespace SneakerDrop.Mvc.Controllers
 
         public IActionResult ChangeAddress()
         {
+            var getAddress = new AddressViewModel
+            {
+                UserId = (int)HttpContext.Session.GetInt32("UserId")
+            };
+
+            List<AddressViewModel> list = getAddress.GetAllAddresses(getAddress);
+
             return View("/Views/Partials/ChangeAddress.cshtml");
         }
 

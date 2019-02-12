@@ -36,6 +36,7 @@ namespace SneakerDrop.Mvc.Controllers
                     userviewmodel.AddEditUser(userviewmodel);
                     return View("~/Views/User/Account.cshtml");
                 }
+             
                 return View("~/Views/Home/Index.cshtml");
             }
             return View("~/Views/Home/Index.cshtml");

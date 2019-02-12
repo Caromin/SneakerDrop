@@ -36,8 +36,14 @@ namespace SneakerDrop.Mvc.Controllers
 
         public IActionResult Account()
         {
+            var sessionusername = HttpContext.Session.GetString("Username");
 
-            return View("~/Views/User/Account.cshtml");
+            ViewBag.Username = sessionusername;
+            if (ViewBag.Username != null)
+            {
+                return View("~/Views/User/Account.cshtml");
+            }
+            return View("~/Views/Home/Login.cshtml");
         }
 
         public IActionResult SellerSearch()

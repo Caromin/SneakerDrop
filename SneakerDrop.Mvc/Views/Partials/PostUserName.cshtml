@@ -1,26 +1,6 @@
-﻿@model  SneakerDrop.Mvc.Models.UserViewModel;
+﻿@model SneakerDrop.Mvc.Models.UserViewModel;
 
-@{
-    ViewBag.Title = "PostUserName";
+@using (@Html.BeginForm("showusername", "User"))
+{
+    <h4>WELCOME, @ViewBag.Username.ToUpper()!</h4>
 }
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>PostUserName</title>
-</head>
-<body>
-    <div>
-        @using (@Html.BeginForm("showusername", "User"))
-        {
-            <div class="d-inline-block">
-        <p>@ViewBag.Username</p>
-
-            </div>
-
-
-            }
-      </div>
-   
-</body>
-</html>

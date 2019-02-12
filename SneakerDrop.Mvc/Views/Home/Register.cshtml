@@ -1,49 +1,73 @@
 ﻿@model SneakerDrop.Mvc.Models.UserViewModel
 
-
 @{
     ViewData["Title"] = "Register";
 }
 
-<div class="text-center">
-    @using (@Html.BeginForm("register", "User"))
-    {
-        <div class="col-12">
-            @Html.LabelFor(u => u.Firstname, "First Name")
-            @Html.TextBoxFor(u => u.Firstname, new { @required = "required", placeholder = "Enter Your First Name" })
-            @Html.ValidationMessageFor(u => u.Firstname)
-        </div>
+<div class="w-100">
+    <div class="mt-5 text-center align-content-center">
+        <h4 class="mb-2">SneakerDrop</h4>
+        @using (@Html.BeginForm("register", "User"))
+        {
+            <div id="registerDiv" class="text-left p-3 box-shadow">
+                <div>
+                    <div>
+                        @Html.LabelFor(u => u.Firstname, "First Name", new { @class = "btnText" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(u => u.Firstname, new { @required = "required", placeholder = "John", @class = "w-100 form-control" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(u => u.Firstname)
+                    </div>
+                    <div>
+                        @Html.LabelFor(u => u.Lastname, "Last Name", new { @class = "btnText" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(u => u.Lastname, new { @required = "required", placeholder = "Smith", @class = "w-100 form-control" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(u => u.Lastname)
+                    </div>
 
-        <div class="col-12">
-            @Html.LabelFor(u => u.Lastname, "Last Name")
-            @Html.TextBoxFor(u => u.Lastname, new { @required = "required", placeholder = "Enter Your Last Name" })
-            @Html.ValidationMessageFor(u => u.Lastname)
-        </div>
+                    <div>
+                        @Html.LabelFor(u => u.Email, "Email", new { @class = "btnText" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(u => u.Email, new { @required = "required", placeholder = "Smith123@aol.com", @class = "w-100 form-control" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(u => u.Email)
+                    </div>
 
-        <div class="col-12">
-            @Html.LabelFor(u => u.Email, "Email")
-            @Html.TextBoxFor(u => u.Email, new { @required = "required", placeholder = "Enter Your Email" })
-            @Html.ValidationMessageFor(u => u.Email)
-        </div>
+                    <div>
+                        @Html.LabelFor(u => u.Username, "Username", new { @class = "btnText" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(u => u.Username, new { @required = "required", placeholder = "Smith123", @class = "w-100 form-control" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(u => u.Username)
+                    </div>
 
-        <div class="col-12">
-            @Html.LabelFor(u => u.Username, "Username")
-            @Html.TextBoxFor(u => u.Username, new { @required = "required", placeholder = "Enter Your Username" })
-            @Html.ValidationMessageFor(u => u.Username)
-        </div>
+                    <div>
+                        @Html.LabelFor(p => p.Password, "Password", new { @class = "btnText" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(p => p.Password, new { @required = "required", placeholder = "Password123", @class = "w-100 form-control" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(p => p.Password)
+                    </div>
+                    <div class="text-center mt-5">
+                        <button class="w-100 btn btn-warning btnText" type="submit">Create your SneakerDrop Account</button>
+                        <div><span class="btnText">Already have an account? </span><a class="signin w-100 btnText" href="~/Home/Login">Sign in</a></div>
+                    </div>
+                </div>
+            </div>
+        }
 
-        <div class=" col-12">
-            @Html.LabelFor(p => p.Password, "Password")
-            @Html.TextBoxFor(p => p.Password, new { @required = "required", placeholder = "Enter Your password" })
-            @Html.ValidationMessageFor(p => p.Password)
-        </div>
-
-
-        <button type="submit">Sign Up</button>
-        <div><a class="signin" href="~/Home/Login">Already have an account? Click Here!</a></div>
-
-
-    }
+    </div>
 </div>
 
 

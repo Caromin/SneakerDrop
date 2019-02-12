@@ -36,7 +36,7 @@ namespace SneakerDrop.Mvc.Controllers
                     userviewmodel.AddEditUser(userviewmodel);
                     return View("~/Views/User/Account.cshtml");
                 }
-             
+
                 return View("~/Views/Home/Index.cshtml");
             }
             return View("~/Views/Home/Index.cshtml");
@@ -65,27 +65,23 @@ namespace SneakerDrop.Mvc.Controllers
             var sessionusername = HttpContext.Session.GetString("Username");
             int sessionuserid2;
             sessionuserid2 = sessionuserid.Value;
-            
+
 
             var userdata = new UserViewModel
             {
                 UserId = sessionuserid2,
                 Username = sessionusername
-                
+
             };
             return RedirectToAction("Account", "Home", userdata);
         }
 
-        [HttpPost]
+        [HttpGet]
         [ActionName("Logout")]
-        public IActionResult AccountLogOut(string AccountLogOut)
+        public IActionResult AccountLogOut()
         {
-            if (AccountLogOut == "LogOut")
-            {
-                HttpContext.Session.Clear();
-                return View("~/Views/Home/Index.cshtml");
-        }
-            return View("~/Views/Home/Index.cshtml");
+            HttpContext.Session.Clear();
+            return View("~/Views/Home/Login.cshtml");
         }
 
         [HttpPost]
@@ -96,7 +92,7 @@ namespace SneakerDrop.Mvc.Controllers
 
             var userdata = new UserViewModel();
 
-           string useruser = sessionusername;
+            string useruser = sessionusername;
 
             ViewBag.Username = useruser;
 

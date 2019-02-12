@@ -44,6 +44,7 @@ html {
 }
 
 body {
+    width: 100vw;
     /* Margin bottom by footer height */
     margin-bottom: 60px;
 }
@@ -70,6 +71,18 @@ header {
 
 /* User Written Code
 -------------------------------------------------- */
+form {
+    display: inline;
+}
+
+small {
+    font-size: 10px;
+}
+
+label {
+    margin-bottom: 2px;
+}
+
 #navbarWidth {
     margin: 0 30px;
 }
@@ -126,14 +139,31 @@ a:hover {
     border-radius: 10px;
 }
 
-form {
-    display: inline;
+#registerDiv {
+    width: 350px;
+    height: 500px;
+    display: inline-block;
+    border: solid 1px #DCDCDC;
+    border-radius: 10px;
 }
 
 .btnText {
     font-size: 12px;
 }
 
-small {
-    font-size: 10px;
+#generalHeader {
+    height: 50px;
+}
+
+.userPageDiv {
+    height: 125px;
+    border: solid 1px #DCDCDC;
+    border-radius: 5px;
+    margin: 10px;
+    width: 275px;
+    color: #000;
+}
+
+.userText {
+    width: 150px;
 }

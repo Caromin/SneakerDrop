@@ -52,7 +52,7 @@ namespace SneakerDrop.Mvc.Controllers
                     HttpContext.Session.SetString("Username", userviewmodel.Username);
                     return RedirectToAction("profile", "User");
                 }
-                ViewBag.Message = "Username/Password is incorrect";
+                ViewBag.Message = "Username /Password is incorrect";
                 return View("~/Views/Home/Login.cshtml");
          }
         

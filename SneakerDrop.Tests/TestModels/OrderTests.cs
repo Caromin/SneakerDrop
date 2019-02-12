@@ -1,6 +1,7 @@
 ﻿using System;
 using SneakerDrop.Code.Helpers;
 using SneakerDrop.Domain.Models;
+using SneakerDrop.Mvc.Models;
 using Xunit;
 
 namespace SneakerDrop.Tests.TestModels
@@ -64,6 +65,20 @@ namespace SneakerDrop.Tests.TestModels
             var sut = OrderHelper.CancelOrderByOrderId(order);
 
             Assert.True(sut);
+        }
+        [Fact]
+        public void Test_AddOrders()
+        {
+            var sut = new OrderAndPaymentViewModel
+            {
+                OrderGroupNumber = 23,
+                Quantity = 1,
+                ShippingStatus = "pending",
+                PaymentId = 1,
+                UserId = 1,
+                Size = "8",
+
+            };
         }
     }
 }

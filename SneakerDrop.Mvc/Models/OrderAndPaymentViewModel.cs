@@ -90,14 +90,6 @@ namespace SneakerDrop.Mvc.Models
             .ForPath(o => o.UserId, op => op.MapFrom(src => src.User.UserId))
             .ForPath(o => o.ListingId, op => op.MapFrom(src => src.Listing.ListingId)));
 
-        //public static MapperConfiguration listingConfig = new MapperConfiguration(cgf => cgf.CreateMap<OrderAndPaymentViewModel, dm.Listing>()
-        //.ForMember(l => l.ListingId, op => op.MapFrom(src => src.ListingId))
-        //.ForMember(l => l.UserSetPrice, op => op.MapFrom(src => src.UserSetPrice))
-        //.ForMember(l => l.Quantity, op => op.MapFrom(src => src.Quantity))
-        //.ForMember(l => l.Size, op => op.MapFrom(src => src.Size))
-        //.ForMember(l => l.User.UserId, op => op.MapFrom(src => src.UserId))
-        //.ForMember(l => l.ProductInfo.ProductInfoId, op => op.MapFrom(src => src.ProductInfoId))
-        //);
 
         public dm.Orders MappingOrders(OrderAndPaymentViewModel orderView)
         {

@@ -10,7 +10,6 @@ namespace SneakerDrop.Tests.TestModels
     {
         public static Payment payment = new Payment()
         {
-            PaymentId = 1,
             CCNumber = 1111222233334444,
             CCUserName = "Christian Aromin",
             Month = 01,
@@ -26,15 +25,6 @@ namespace SneakerDrop.Tests.TestModels
                 Email = "Email@email.com"
             }
         };
-
-        [Fact(Skip = "paused for now")]
-        public void Test_AddUser()
-        {
-            var sut = PaymentHelper.AddPaymentById(payment);
-
-            Assert.True(sut);
-        }
-
         [Fact(Skip = "no dummy db data")]
         public void Test_GetPaymentById()
         {
@@ -46,12 +36,12 @@ namespace SneakerDrop.Tests.TestModels
         [Fact(Skip = "working, avoid deleting from db")]
         public void Test_DeletePaymentById()
         {
-            //var sut = PaymentHelper.DeletePaymentById(payment);
+            var sut = PaymentHelper.DeletePaymentByPaymentId(payment);
 
-           // Assert.True(sut);
+            Assert.True(sut);
         }
 
-        [Fact]
+        [Fact(Skip ="working")]
         public void Test_ValidateNewPayment()
         {
             var sut = new PaymentViewModel
@@ -62,6 +52,44 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(test);
 
+        }
+        [Fact]
+        public void Test_AddPayment()
+        {
+            var sut = new PaymentViewModel
+            {
+                CCNumber = 4444333322221111,
+                CCUserName = "Christian Aromin",
+                Month = 01,
+                Year = 22,
+                CVV = 123,
+                UserId = 1,
+                HelperType = "add",
+            };
+            var test = sut.AddOrDeletePayments(sut);
+            Assert.True(test);
+        }
+        [Fact(Skip ="Is working")]
+        public void Test_DeletePayment()
+        {
+            var sut = new PaymentViewModel
+            {
+                PaymentId = 13
+            };
+            var test = sut.AddOrDeletePayments(sut);
+
+            Assert.True(test);
+        }
+        [Fact]
+        public void Test_GetAllPayment()
+        {
+            var sut = new PaymentViewModel
+            {
+                UserId = 1
+            };
+            var test = sut.GetAllPayments(sut);
+
+            Assert.NotEmpty(test);
         }
     }
 

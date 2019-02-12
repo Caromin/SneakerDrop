@@ -55,14 +55,32 @@ namespace SneakerDrop.Mvc.Models
             {
                 if (valCheckAdd)
                 {
-                    AddressHelper.AddAddressById(addressDomainModel);
+                    var addedAddress = new dm.Address
+                    {
+                        AddressId = addressDomainModel.AddressId,
+                        Street = addressDomainModel.Street,
+                        City = addressDomainModel.City,
+                        State = addressDomainModel.State,
+                        PostalCode = addressDomainModel.PostalCode,
+
+                        User = new User
+                        {
+                            UserId = getUser.UserId,
+                            Username = getUser.Username,
+                            Password = getUser.Password,
+                            Firstname = getUser.Firstname,
+                            Lastname = getUser.Lastname,
+                            Email = getUser.Email
+                        }
+                    };
+                    AddressHelper.AddAddressById(addedAddress);
                     return true;
                 }
                 return false;
             }
             else if (addressView.HelperType == "edit")
             {
-                var test = new dm.Address
+                var editedAddress = new dm.Address
                 {
                     AddressId = addressDomainModel.AddressId,
                     Street = addressDomainModel.Street,
@@ -78,11 +96,10 @@ namespace SneakerDrop.Mvc.Models
                         Firstname = getUser.Firstname,
                         Lastname = getUser.Lastname,
                         Email = getUser.Email
-
                     }
                 };
 
-                AddressHelper.EditAddressInfoById(test);
+                AddressHelper.EditAddressInfoById(editedAddress);
                 return true;
             }
             else

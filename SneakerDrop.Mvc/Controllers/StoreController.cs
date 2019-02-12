@@ -57,6 +57,13 @@ namespace SneakerDrop.Mvc.Controllers
         {
             return RedirectToAction("SingleItem", "Home", productinfo.ProductTitle);
         }
+
+        [HttpPost]
+        [ActionName("orderinitial")]
+        public IActionResult OrderInitial(FindProductInfoViewModel productinfo)
+        {
+            return RedirectToAction("Order", "Home", productinfo.ProductTitle);
+        }
        }
     }
 

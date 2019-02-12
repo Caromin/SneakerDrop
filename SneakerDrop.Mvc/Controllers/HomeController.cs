@@ -24,6 +24,7 @@ namespace SneakerDrop.Mvc.Controllers
             return View(mostRecentList);
         }
 
+
         public IActionResult Login()
         {
             return View();
@@ -71,6 +72,12 @@ namespace SneakerDrop.Mvc.Controllers
         {
            
             return View("~/Views/Store/SingleItem.cshtml");
+        }
+
+        
+        public IActionResult Order(FindProductInfoViewModel productinfo)
+        {
+            return View("~/Views/Store/Order.cshtml");
         }
 
 

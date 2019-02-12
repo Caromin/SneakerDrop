@@ -11,6 +11,8 @@ namespace SneakerDrop.Mvc.Models
     {
         public int ProductInfoId { get; set; }
 
+        public string HelperType { get; set; }
+
         public int BrandId { get; set; }
 
         public int TypeId { get; set; }
@@ -18,6 +20,8 @@ namespace SneakerDrop.Mvc.Models
         [StringLength(50)]
         [Required]
         public string ProductTitle { get; set; }
+
+        public decimal DisplayPrice { get; set; }
 
 
         [StringLength(500)]
@@ -73,7 +77,9 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(p => p.ProductTitle, f => f.MapFrom(src => src.ProductTitle))
             .ForMember(p => p.Description, f => f.MapFrom(src => src.Description))
             .ForMember(p => p.Color, f => f.MapFrom(src => src.Color))
-            .ForMember(p => p.ImageUrl, f => f.MapFrom(src => src.ImageUrl)));
+            .ForMember(p => p.ImageUrl, f => f.MapFrom(src => src.ImageUrl))
+             .ForMember(p => p.DisplayPrice, f => f.MapFrom(src => src.DisplayPrice)));
+         
 
         public static MapperConfiguration viewConfig = new MapperConfiguration(cgf => cgf.CreateMap<dm.ProductInfo, FindProductInfoViewModel>()
             .ForMember(p => p.ProductInfoId, f => f.MapFrom(src => src.ProductInfoId))
@@ -82,7 +88,8 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(p => p.ProductTitle, f => f.MapFrom(src => src.ProductTitle))
             .ForMember(p => p.Description, f => f.MapFrom(src => src.Description))
             .ForMember(p => p.Color, f => f.MapFrom(src => src.Color))
-            .ForMember(p => p.ImageUrl, f => f.MapFrom(src => src.ImageUrl)));
+            .ForMember(p => p.ImageUrl, f => f.MapFrom(src => src.ImageUrl))
+             .ForMember(p => p.DisplayPrice, f => f.MapFrom(src => src.DisplayPrice)));
 
         public dm.ProductInfo MappingProductInfo(FindProductInfoViewModel findProduct)
         {
@@ -118,6 +125,27 @@ namespace SneakerDrop.Mvc.Models
             }
 
             return convertedList;
+        }
+        public decimal TotalPrice(FindProductInfoViewModel findproductinfo)
+        {
+            var productsingle = findproductinfo.FindMatchingProductInfo(findproductinfo);
+            decimal Price = 0;
+            if (findproductinfo.HelperType == "buy")
+            {
+                foreach (var item in productsingle)
+                {
+                    if (item.ProductTitle == findproductinfo.ProductTitle)
+                    {
+                        Price += item.DisplayPrice;
+                    }
+                    Price += 0;
+                }
+            }
+        if (findproductinfo.HelperType == "remove")
+            {
+                Price -= findproductinfo.DisplayPrice;
+            }
+            return Price;
         }
     }
 

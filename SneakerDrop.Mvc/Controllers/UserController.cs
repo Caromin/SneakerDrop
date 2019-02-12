@@ -46,26 +46,16 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("login")]
         public IActionResult LoginCheck(UserViewModel userviewmodel)
         {
-            foreach (var item in UserHelper.GetAllUsers())
-            {
-                if (item.Username.ToString() != userviewmodel.Username)
-                {
-                    ViewBag.Message = "Username/Password is incorrect";
-                    return View("~/Views/Home/Login.cshtml");
-                }
-
-                if (userviewmodel.LoginValidator(userviewmodel) != null)
+            if (userviewmodel.LoginValidator(userviewmodel) != null)
                 {
                     HttpContext.Session.SetInt32("UserId", userviewmodel.UserId);
                     HttpContext.Session.SetString("Username", userviewmodel.Username);
                     return RedirectToAction("profile", "User");
                 }
-                return View("~/Views/Home/Register.cshtml");
-
-            }
-            return View("~/Views/Home/Register.cshtml");
-        }
-
+                ViewBag.Message = "Username/Password is incorrect";
+                return View("~/Views/Home/Login.cshtml");
+         }
+        
         [HttpGet]
         [ActionName("profile")]
         public IActionResult AccountPull()

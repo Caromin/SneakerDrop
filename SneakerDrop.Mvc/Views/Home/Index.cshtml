@@ -9,12 +9,12 @@
     @*<partial name="_CookieConsentPartial" />*@
     <main role="main">
         <div class="homeBanner2"></div>
-        <div class="container  mt-4 box-shadow">
+        <div class="container  mt-5 box-shadow">
             <h4>RECENTLY ADDED PRODUCTS</h4>
             <div class="d-flex align-content-start flex-wrap">
                 @foreach (var item in Model)
                 {
-                    <a class="d-inline flex-grow-1">
+                    <a href="#" class="d-inline flex-grow-1 pl-1 m-1">
                         <div>
                             <img class="productImage" src="@item.ImageUrl" alt="@item.ProductInfoId" />
                             <span class="d-block productText">@item.ProductTitle</span>

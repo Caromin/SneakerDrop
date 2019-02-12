@@ -111,4 +111,29 @@ input {
     width: 150px;
     font-size: 14px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+#loginDiv {
+    width: 350px;
+    height: 400px;
+    display: inline-block;
+    border: solid 1px #DCDCDC;
+    border-radius: 10px;
+}
+
+form {
+    display: inline;
+}
+
+.btnText {
+    font-size: 12px;
+}
+
+small {
+    font-size: 10px;
 }

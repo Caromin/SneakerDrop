@@ -18,7 +18,10 @@ namespace SneakerDrop.Mvc.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            FindProductInfoViewModel createFindProductModel = new FindProductInfoViewModel();
+            List<FindProductInfoViewModel> mostRecentList = createFindProductModel.FindMostRecentListings();
+
+            return View(mostRecentList);
         }
 
         public IActionResult Login()
@@ -30,8 +33,8 @@ namespace SneakerDrop.Mvc.Controllers
         {
             return View();
         }
-      
-         public IActionResult Account()
+
+        public IActionResult Account()
         {
 
             return View("~/Views/User/Account.cshtml");
@@ -73,7 +76,7 @@ namespace SneakerDrop.Mvc.Controllers
             return View("/Views/Partials/ChangeUser.cshtml");
         }
 
-         public IActionResult Privacy()
+        public IActionResult Privacy()
         {
             return View();
         }

@@ -89,8 +89,8 @@ input {
     padding: 0;
 }
 
-#ProductTitle {
-    height: 35px;
+.searchbar {
+    height: 36px;
     width: 300px;
 }
 
@@ -99,4 +99,16 @@ input {
     width: 100vw;
     background: url("../images/homeBanner2.jpg") no-repeat center;
     background-size: cover;
+}
+
+.productImage {
+    width: 150px;
+    height: 100px;
+    background-size: contain;
+}
+
+.productText {
+    width: 150px;
+    font-size: 14px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }

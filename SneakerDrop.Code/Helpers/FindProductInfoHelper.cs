@@ -7,7 +7,6 @@ namespace SneakerDrop.Code.Helpers
 {
     public static class FindProductInfoHelper
     {
-
         public static SneakerDropDbContext _db = new SneakerDropDbContext();
 
         public static List<ProductInfo> FindPossibleMatches(ProductInfo productInfoDomainModel)
@@ -28,6 +27,14 @@ namespace SneakerDrop.Code.Helpers
             var result = _db.ProductInfos.Where(p => p.ProductTitle == product.ProductTitle).FirstOrDefault();
 
             return result;
+        }
+
+        public static IEnumerable<ProductInfo> GetAllRecentProducts()
+        {
+            var query = _db.ProductInfos.Where(x => x.ProductInfoId > 1)
+                .OrderByDescending(x => x.ProductInfoId).ToList().Take(4);
+
+            return query;
         }
     }
 }

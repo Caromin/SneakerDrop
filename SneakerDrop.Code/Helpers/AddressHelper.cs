@@ -18,16 +18,14 @@ namespace SneakerDrop.Code.Helpers
             _db.Addresses.Add(address);
             getUser.State = EntityState.Modified;
 
-
-            
-
             return _db.SaveChanges() == 1;
         }
         public static List<Address> GetAddressInfoById(Address address)
         {
             var dbAddressInfo = _db.Addresses.Where(a => a.User.UserId == address.User.UserId).ToList();
-
+    
             return dbAddressInfo;
+
         }
         public static bool EditAddressInfoById(Address address)
         {

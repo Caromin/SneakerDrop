@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using SneakerDrop.Code.Helpers;
+using SneakerDrop.Domain.Models;
 using dm = SneakerDrop.Domain.Models;
 
 namespace SneakerDrop.Mvc.Models
@@ -46,14 +47,35 @@ namespace SneakerDrop.Mvc.Models
         // add requires all properties, delete only needs
         public bool AddOrDeletePayments(PaymentViewModel paymentView)
         {
+            
             dm.Payment paymentDomainModel = createModel.MappingPayment(paymentView);
+            dm.User getUser = UserHelper.GetUserInfoByIdForPayment(paymentDomainModel);
             var valCheckAdd = validator.ValidateNewPayment(paymentDomainModel);
-
+            
             if (paymentView.HelperType == "add")
             {
                 if (valCheckAdd)
                 {
-                    PaymentHelper.AddPaymentById(paymentDomainModel);
+                    var addedPayment = new dm.Payment
+                    {
+                        PaymentId = paymentDomainModel.PaymentId,
+                        CCNumber = paymentDomainModel.CCNumber,
+                        CCUserName = paymentDomainModel.CCUserName,
+                        Month = paymentDomainModel.Month,
+                        Year = paymentDomainModel.Year,
+                        CVV = paymentDomainModel.CVV,
+
+                        User = new User
+                        {
+                            UserId = getUser.UserId,
+                            Username = getUser.Username,
+                            Password = getUser.Password,
+                            Firstname = getUser.Firstname,
+                            Lastname = getUser.Lastname,
+                            Email = getUser.Email
+                        }
+                    };
+                    PaymentHelper.AddPaymentById(addedPayment);
                     return true;
                 }
                 return false;

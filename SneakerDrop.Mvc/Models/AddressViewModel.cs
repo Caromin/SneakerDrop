@@ -38,17 +38,19 @@ namespace SneakerDrop.Mvc.Models
 
         public List<AddressViewModel> GetAllAddresses(AddressViewModel addressView)
         {
+            
             dm.Address addressDomainModel = createModel.MappingAddress(addressView);
             List<dm.Address> domainAddressList = AddressHelper.GetAddressInfoById(addressDomainModel);
 
             return createModel.MappingView(domainAddressList);
+            
         }
 
         public bool AddEditDeleteAddresses(AddressViewModel addressView)
         {
             dm.Address addressDomainModel = createModel.MappingAddress(addressView);
             // gets userinfo for edit
-            dm.User getUser = UserHelper.GetUserInfoById(addressDomainModel);
+            dm.User getUser = UserHelper.GetUserInfoByIdForAddress(addressDomainModel);
             var valCheckAdd = validator.ValidateStreet(addressDomainModel);
             
             if (addressView.HelperType == "add")

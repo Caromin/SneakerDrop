@@ -18,14 +18,10 @@ namespace SneakerDrop.Code.Helpers
         }
         public static User GetUserInfoByUsername(User user)
         {
-            User dbInfo = _db.Users.Where(u => u.Username == user.Username).FirstOrDefault();
+            User dbInfo = _db.Users.Where(u => u.Username == user.Username && u.Password == user.Password).FirstOrDefault();
 
-            if (dbInfo.Password == user.Password)
-            {
-                return dbInfo;
-            }
-
-            return null;
+            return dbInfo;
+              
         }
         public static User GetUserInfoByIdForAddress(Address address)
         {

@@ -37,9 +37,10 @@ namespace SneakerDrop.Mvc
 
             services.AddSession(mysession =>
             {
-                mysession.IdleTimeout = TimeSpan.FromSeconds(20);
+                mysession.IdleTimeout = TimeSpan.FromHours(3);
                 mysession.Cookie.Name = "SneakerDrop";
                 mysession.Cookie.HttpOnly = true;
+                
             });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }

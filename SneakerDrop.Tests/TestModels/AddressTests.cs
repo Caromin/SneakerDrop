@@ -62,9 +62,9 @@ namespace SneakerDrop.Tests.TestModels
         {
 
         }
-        
+
         [Fact(Skip = "edit works")]
-        public void Test_AddEditDeleteAddresses()
+        public void Test_EditAddresses()
         {
             var sut = new AddressViewModel
             {
@@ -80,6 +80,20 @@ namespace SneakerDrop.Tests.TestModels
             var test = sut.AddEditDeleteAddresses(sut);
 
             Assert.True(test);
+        }
+        [Fact]
+        public void Test_AddAddress()
+        {
+            var sut = new AddressViewModel
+            {
+                Street = "4508 Burnhill Dr",
+                City = "Plano",
+                State = "TX",
+                PostalCode = "75098",
+                HelperType = "add",
+                UserId = 1
+            };
+            var test = sut.AddEditDeleteAddresses(sut);
         }
     }
 }

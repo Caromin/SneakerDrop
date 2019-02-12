@@ -7,15 +7,20 @@
     <title>Account</title>
 </head>
 <body>
+
+    <div class="col-1">
+
+        
+        <p>
+            @{Html.RenderPartial("../Partials/PostUserName.cshtml");
+            }
+        </p>
+    </div>
+
     @using (@Html.BeginForm("Logout", "User"))
     {
-        <div class="col-1">
-           <p> @{Html.RenderPartial("../Partials/PostUserName.cshtml");
-    }</p>
-        </div>
 
-
-      <div class="col-1">
+         <div class="col-1">
             <a href="~/Home/SellerSearch">Sell</a>
         </div>
 

@@ -35,7 +35,7 @@ namespace SneakerDrop.Mvc.Controllers
                     if (userviewmodel.AddEditUser(userviewmodel) == false)
                     {
                         userviewmodel.HelperType = "add";
-                        ViewBag.Message = "No Special Characters";
+                        ViewBag.Message = "No Special Kharacters";
                         return View("~/Views/Home/Register.cshtml");
                     }
                     userviewmodel.HelperType = "add";

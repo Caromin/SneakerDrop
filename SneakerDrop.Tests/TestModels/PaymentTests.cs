@@ -10,7 +10,6 @@ namespace SneakerDrop.Tests.TestModels
     {
         public static Payment payment = new Payment()
         {
-            PaymentId = 1,
             CCNumber = 1111222233334444,
             CCUserName = "Christian Aromin",
             Month = 01,
@@ -27,8 +26,8 @@ namespace SneakerDrop.Tests.TestModels
             }
         };
 
-        [Fact(Skip = "paused for now")]
-        public void Test_AddUser()
+        [Fact]
+        public void Test_AddressHelperAddPayment()
         {
             var sut = PaymentHelper.AddPaymentById(payment);
 
@@ -46,9 +45,9 @@ namespace SneakerDrop.Tests.TestModels
         [Fact(Skip = "working, avoid deleting from db")]
         public void Test_DeletePaymentById()
         {
-            //var sut = PaymentHelper.DeletePaymentById(payment);
+            var sut = PaymentHelper.DeletePaymentByPaymentId(payment);
 
-           // Assert.True(sut);
+            Assert.True(sut);
         }
 
         [Fact]
@@ -60,6 +59,33 @@ namespace SneakerDrop.Tests.TestModels
             };
             var test = sut.AddOrDeletePayments(sut);
 
+            Assert.True(test);
+
+        }
+        [Fact]
+        public void Test_AddPayment()
+        {
+            var sut = new PaymentViewModel
+            {
+                CCNumber = 4444333322221111,
+                CCUserName = "Christian Aromin",
+                Month = 01,
+                Year = 22,
+                CVV = 123,
+                UserId = 1,
+                HelperType = "add",
+            };
+            var test = sut.AddOrDeletePayments(sut);
+            Assert.True(test);
+        }
+        [Fact]
+        public void Test_DeletePayment()
+        {
+            var sut = new PaymentViewModel
+            {
+                PaymentId = 13
+            };
+            var test = sut.AddOrDeletePayments(sut);
             Assert.True(test);
 
         }

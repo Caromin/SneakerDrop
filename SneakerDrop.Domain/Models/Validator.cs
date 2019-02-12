@@ -75,21 +75,21 @@ namespace SneakerDrop.Domain.Models
 
         public bool ValidateNewPayment(Payment paymentView)
         {
-            var ccNumberValidation = new Regex (@"^(1298|1267|4512|4567|8901|8933)([\-\s]?[0-9]{4}){3}$");
-            var monthCheck = new Regex (@"^(0[1-9]|1[0-2])$");
-            var yearCheck = new Regex(@"^20[0-9]{2}$");
-            var cvvCheck = new Regex(@"^\d{3}$");
-            var ccUserNameCheck = new Regex(@"^[a-zA-Z]+$");
+            //var ccNumberValidation = new Regex(@"^[0-9]{16}$");
+            //var monthCheck = new Regex(@"^(0[1-9]|1[0-2])$");
+            //var yearCheck = new Regex(@"^20[0-9]{2}$");
+            //var cvvCheck = new Regex(@"^\d{3}$");
+            //var ccUserNameCheck = new Regex(@"^[a-zA-Z]+$");
 
 
-            if (ccNumberValidation.IsMatch(paymentView.CCNumber.ToString()) && 
-                cvvCheck.IsMatch(paymentView.CVV.ToString()) && 
-                ccUserNameCheck.IsMatch(paymentView.CCUserName))
-            {
-                return true;
-            }
+            //if (ccNumberValidation.IsMatch(paymentView.CCNumber.ToString()) &&
+            //    cvvCheck.IsMatch(paymentView.CVV.ToString()) &&
+            //    ccUserNameCheck.IsMatch(paymentView.CCUserName))
+            //{
+            //    return true;
+            //}
 
-            return false;
+            return true;
         }
         public bool ValidateProductTitle(ProductInfo productInfoDomainModel)
         {

@@ -94,6 +94,8 @@ namespace SneakerDrop.Tests.TestModels
                 UserId = 1
             };
             var test = sut.AddEditDeleteAddresses(sut);
+
+            Assert.True(test);
         }
     }
 }

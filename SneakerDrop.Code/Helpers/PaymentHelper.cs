@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SneakerDrop.Domain.Models;
 
 namespace SneakerDrop.Code.Helpers
@@ -11,7 +12,10 @@ namespace SneakerDrop.Code.Helpers
 
         public static bool AddPaymentById(Payment payment)
         {
+            var getUser = _db.Attach(payment.User);
+
             _db.Payment.Add(payment);
+            getUser.State = EntityState.Modified;
 
             return _db.SaveChanges() == 1;
         }

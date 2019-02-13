@@ -105,7 +105,13 @@ namespace SneakerDrop.Mvc.Controllers
 
         public IActionResult ChangePayment()
         {
-            return View("/Views/Partials/ChangePayment.cshtml");
+            var getPayment = new PaymentViewModel
+            {
+                UserId = (int)HttpContext.Session.GetInt32("UserId")
+            };
+            List<PaymentViewModel> list = getPayment.GetAllPayments(getPayment);
+
+            return View("/Views/Partials/ChangePayment.cshtml", list);
         }
 
         public IActionResult ChangeUser()
@@ -118,6 +124,57 @@ namespace SneakerDrop.Mvc.Controllers
             return View();
         }
 
+        public IActionResult AddPayment(string payment)
+        {
+            string pattern1 = @"delete";
+            string pattern2 = @"add";
+            string validate = payment;
+            Match match = Regex.Match(validate, pattern1);
+            var paymentId = Regex.Match(payment, @"\d+").Value;
+            string helperType = Regex.Match(payment, pattern2).Value;
+            HttpContext.Session.SetString("HelperType", helperType);
+            HttpContext.Session.SetString("PaymentId", paymentId);
+
+            if (match.Success)
+            {
+                var result = Int32.Parse(paymentId);
+                dm.Payment paymentInfo = new dm.Payment
+                {
+                    PaymentId = result
+                };
+                PaymentHelper.DeletePaymentByPaymentId(paymentInfo);
+
+                return RedirectToAction("ChangePayment", "Home");
+            }
+            return RedirectToAction("AddPaymentView", "Home");
+        }
+
+        public IActionResult AddPaymentView()
+        {
+            return View("~/Views/User/AddPayment.cshtml");
+        }
+
+        public IActionResult CompletePayment(PaymentViewModel payment)
+        {
+            var sessionHelper = HttpContext.Session.GetString("HelperType");
+            var sessionAddressId = HttpContext.Session.GetString("PaymentId");
+            var sessionUserId = HttpContext.Session.GetInt32("UserId");
+            int userId = (int)sessionUserId;
+
+            var newModel = new PaymentViewModel
+            {
+                HelperType = sessionHelper,
+                UserId = userId,
+                CCNumber = payment.CCNumber,
+                CCUserName = payment.CCUserName,
+                Month = payment.Month,
+                Year = payment.Year,
+                CVV = payment.CVV
+            };
+            newModel.AddOrDeletePayments(newModel);
+
+            return RedirectToAction("ChangePayment", "Home");
+        }
 
         public IActionResult AddEditAddress(string address)
         {
@@ -170,6 +227,8 @@ namespace SneakerDrop.Mvc.Controllers
                 };
 
                 newModel.AddEditDeleteAddresses(newModel);
+
+                return RedirectToAction("ChangeAddress", "Home");
             }
 
             var newModel2 = new AddressViewModel

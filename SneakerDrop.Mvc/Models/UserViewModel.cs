@@ -42,12 +42,12 @@ namespace SneakerDrop.Mvc.Models
         
         public UserViewModel()
         {
-            UserId = UserId;
-            Firstname = Firstname;
-            Lastname = Lastname;
-            Email = Email;
-            Password = Password;
-            Email = Email;
+            this.UserId = UserId;
+            this.Firstname = Firstname;
+            this.Lastname = Lastname;
+            this.Email = Email;
+            this.Password = Password;
+            this.Email = Email;
         }
 
 

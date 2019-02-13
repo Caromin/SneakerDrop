@@ -82,6 +82,18 @@ namespace SneakerDrop.Mvc.Controllers
                 ViewData.Add(catalogcreate);
 
            }
+            var createcatalog2 = db.Type.Where(t => t.TypeName.Contains(sessionproduct)).ToList();
+            foreach(var item2 in createcatalog2)
+            {
+                var typeid = item2.TypeId;
+                var createcatalog3 = db.ProductInfos.Where(p => p.Type.TypeId == typeid).ToList();
+                foreach(var item3 in createcatalog3)
+                {
+                    KeyValuePair<string, object> typecatalogcreate = new KeyValuePair<string, object>(item3.ProductTitle, item3.ImageUrl);
+                    ViewData.Add(typecatalogcreate);
+                }
+            }
+            
 
             return View("~/Views/Store/Catalog.cshtml");
         }

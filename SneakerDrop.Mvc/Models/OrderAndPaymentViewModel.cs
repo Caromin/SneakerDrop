@@ -87,19 +87,8 @@ namespace SneakerDrop.Mvc.Models
                         Quantity = getListing.Quantity,
                         Size = getListing.Size,
                         UserSetPrice = getListing.UserSetPrice,
-                        ProductInfo = getListing.ProductInfo
-                        User = getListing.User
-                        
-                        //ProductInfo = new dm.ProductInfo
-                        //{
-                        //    ProductInfoId = getProduct.ProductInfoId,
-                        //    ProductTitle = getProduct.ProductTitle,
-                        //    Description = getProduct.Description,
-                        //    DisplayPrice = getProduct.DisplayPrice,
-                        //    ReleaseDate = getProduct.ReleaseDate,
-                        //    Color = getProduct.Color,
-                        //    Brand = getProduct.Brand,                       
-                        //}
+                        ProductInfo = getListing.ProductInfo,
+                        User = getListing.User,                        
                     },
                     Payment = new dm.Payment
                     {

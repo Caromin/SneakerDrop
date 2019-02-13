@@ -26,6 +26,8 @@ namespace SneakerDrop.Code.Helpers
             Listing dbInfo = _db.Listings.Where(l => l.ListingId == order.Listing.ListingId)
                                          .Include(l => l.ProductInfo)
                                          .Include(l => l.User)
+                                         .Include(l => l.ProductInfo.Brand)
+                                         .Include(l => l.ProductInfo.Type)
                                          .FirstOrDefault();
 
             return dbInfo;

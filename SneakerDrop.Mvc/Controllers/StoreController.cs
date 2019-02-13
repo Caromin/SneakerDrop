@@ -53,13 +53,18 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("buyer")]
         public IActionResult BuyerSearch(List<FindProductInfoViewModel> findProductInfos)
         {
+            c.SneakerDropDbContext db = new c.SneakerDropDbContext();
+
             foreach (var item in findProductInfos)
             {
                 string PTitle = item.ProductTitle;
                 HttpContext.Session.SetString("ProductName", PTitle);
-                
+
+
             }
+
             return RedirectToAction("buyer2", "Store");
+            
         }
 
         [HttpGet]
@@ -67,9 +72,11 @@ namespace SneakerDrop.Mvc.Controllers
         public IActionResult BuyerSearchPull()
         {
             var sessionproduct = HttpContext.Session.GetString("ProductName");
+           
 
             var productdata = new FindProductInfoViewModel
             {
+                
                 ProductTitle = sessionproduct
             };
             return RedirectToAction("Catalog", "Home", productdata);

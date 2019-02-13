@@ -5,9 +5,10 @@ using dm = SneakerDrop.Domain.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SneakerDrop.Mvc.Models;
-using SneakerDrop.Code.Helpers;
+using c = SneakerDrop.Code;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
+
 
 namespace SneakerDrop.Mvc.Controllers
 {
@@ -51,8 +52,15 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("buyer")]
         public IActionResult BuyerSearch(FindProductInfoViewModel productinfo)
         {
-           HttpContext.Session.SetString("ProductName", productinfo.ProductTitle);
-           return RedirectToAction("buyer2", "Store");
+            var productsearch = productinfo.FindMatchingProductInfo(productinfo).FirstOrDefault();
+
+            if (productsearch != null)
+            {
+                HttpContext.Session.SetString("ProductName", productinfo.ProductTitle);
+                return RedirectToAction("buyer2", "Store");
+            }
+            return RedirectToAction("Catalog", "Home");
+           
         }
 
         [HttpGet]

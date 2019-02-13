@@ -35,11 +35,7 @@ namespace SneakerDrop.Mvc.Controllers
                 return View("~/Views/Home/Register.cshtml");
             }
             
-        
-
-
-
-        [HttpPost]
+         [HttpPost]
         [ActionName("login")]
         public IActionResult LoginCheck(UserViewModel userviewmodel)
         {
@@ -77,8 +73,9 @@ namespace SneakerDrop.Mvc.Controllers
         public IActionResult AccountLogOut()
         {
             HttpContext.Session.Clear();
-            return View("~/Views/Home/Login.cshtml");
+           return RedirectToAction("Login", "Home");
         }
+
 
 
         [HttpPost]

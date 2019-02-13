@@ -36,5 +36,18 @@ namespace SneakerDrop.Code.Helpers
 
             return query;
         }
+
+        public static IEnumerable<ProductInfo>FindSearch(string input)
+        {
+
+            var query = from item in _db.ProductInfos
+                        where item.ProductTitle.Contains(input)
+                        select item;
+
+            var searchstuff = query.ToList<ProductInfo>().Take(20);
+
+            return searchstuff;
+
+        }
     }
 }

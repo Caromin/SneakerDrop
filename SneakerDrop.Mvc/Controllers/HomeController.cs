@@ -67,11 +67,22 @@ namespace SneakerDrop.Mvc.Controllers
             return View("~/Views/User/ChangeUserInfo.cshtml");
         }
 
-        public IActionResult Catalog(FindProductInfoViewModel productinfo)
+        public IActionResult Catalog()
         {
-            ViewBag.ProductName = productinfo.ProductTitle;
             return View("~/Views/Store/Catalog.cshtml");
         }
+
+        [HttpGet]
+        [ActionName("Catalog")]
+        public IActionResult CatalogSearch()
+        {
+            var sessionproduct = HttpContext.Session.GetString("ProductName");
+
+            FindProductInfoViewModel createcatalog = new FindProductInfoViewModel();
+            List<FindProductInfoViewModel> expandcatalog = createcatalog.SearchFind(sessionproduct);
+            return View(expandcatalog);
+        }
+
 
         public IActionResult SingleItem(FindProductInfoViewModel productinfo)
         {

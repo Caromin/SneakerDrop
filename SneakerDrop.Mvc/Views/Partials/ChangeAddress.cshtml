@@ -8,19 +8,18 @@
         <h4 class="mt-4">Your Addresses</h4>
         <button name="address" class="w-25 btn btn-primary d-inline" type="submit" value="add">Add New Address</button>
     </div>
-    <div class="d-flex flex-wrap container pb-4">
+    <div class="d-flex flex-wrap container">
 
         @foreach (var item in Model)
         {
-            <div class="boxDiv m-1 d-inline-block box-shadow pt-3">
+            <div class="boxDiv m-1 d-inline-block box-shadow pt-3 d-flex align-content-between flex-wrap">
                 <div class="container">
-                    <p>@item.Street</p>
-                    <p>@item.City, @item.State</p>
-                    <p>@item.PostalCode</p>
+                    <p class="boxText">@item.Street.ToUpper()</p>
+                    <p>@item.City.ToUpper(), @item.State.ToUpper() @item.PostalCode.ToUpper()</p>
                 </div>
-                <div class="pl-2">
-                    <button name="address" class="btn-warning rounded" type="submit" value="edit-@item.AddressId">Edit</button>
-                    <button name="address" class="btn-danger rounded" type="submit" value="delete-@item.AddressId">Delete</button>
+                <div class="pl-2 pb-2">
+                    <button name="address" class="btn-link noBorder" type="submit" value="edit-@item.AddressId">Edit</button> |
+                    <button name="address" class="btn-link noBorder" type="submit" value="delete-@item.AddressId">Delete</button>
                 </div>
             </div>
         }

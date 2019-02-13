@@ -11,11 +11,17 @@ namespace SneakerDrop.Code.Helpers
 
         public static bool AddOrderById(Orders orders)
         {
-            //var getUserId = _db.Attach(orders.User);
-            //var getPaymentId = _db.Attach(orders.Payment);
-            //var getListingId = _db.Attach(orders.Listing);
-            //var getProductInfoId = _db.Attach(orders.Listing);
             _db.Orders.Add(orders);
+            _db.Attach(orders.Listing);
+            _db.Attach(orders.Listing.ProductInfo);
+            _db.Attach(orders.Listing.ProductInfo.Brand);
+            _db.Attach(orders.Listing.ProductInfo.Type);
+            _db.Attach(orders.Listing.User);
+            _db.Attach(orders.Payment);
+            _db.Attach(orders.Payment.User);
+            _db.Attach(orders.User);
+
+
 
             return _db.SaveChanges() == 1;
         }

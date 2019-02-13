@@ -13,6 +13,8 @@ namespace SneakerDrop.Code.Helpers
         public static bool AddListingById(Listing listing)
         {
             _db.Listings.Add(listing);
+            _db.Attach(listing.User);
+            _db.Entry(listing.User).State = EntityState.Detached;
 
             return _db.SaveChanges() == 1;
         }
@@ -37,6 +39,16 @@ namespace SneakerDrop.Code.Helpers
             ProductInfo dbInfo = _db.ProductInfos.Where(p => p.ProductInfoId == listing.ProductInfo.ProductInfoId).FirstOrDefault();
 
             return dbInfo;
+        }
+        public static List<Listing> GetListingById(Listing listing)
+        {
+            List<Listing> results = _db.Listings.Where(p => p.User.UserId == listing.User.UserId).ToList();
+
+            if (results != null)
+            {
+                return results;
+            }
+            return null;
         }
     }
 }

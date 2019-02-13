@@ -36,5 +36,12 @@ namespace SneakerDrop.Code.Helpers
 
             return _db.SaveChanges() == 1;
         }
+        public static Payment GetPaymentByOrderId(Orders order)
+        {
+            Payment dbInfo = _db.Payment.Where(p => p.PaymentId == order.Payment.PaymentId)
+                                        .Include(p => p.User)
+                                        .FirstOrDefault();
+            return dbInfo;
+        }
     }
 }

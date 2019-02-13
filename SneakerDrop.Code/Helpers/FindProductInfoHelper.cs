@@ -49,5 +49,6 @@ namespace SneakerDrop.Code.Helpers
             return (System.Collections.Generic.List<SneakerDrop.Domain.Models.ProductInfo>)searchstuff;
 
         }
+
     }
 }

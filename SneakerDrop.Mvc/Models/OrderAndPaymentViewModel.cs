@@ -57,10 +57,11 @@ namespace SneakerDrop.Mvc.Models
         public bool AddOrCancelOrders(OrderAndPaymentViewModel orderView)
         {
             dm.Orders orderDomainModel = createModel.MappingOrders(orderView); 
-            dm.Payment getPayment = PaymentHelper.GetPaymentInfoByIdForOrder(orderDomainModel);
+
             dm.User getUser = UserHelper.GetUserInfoByIdForOrder(orderDomainModel);
             dm.Listing getListing = ListingHelper.GetListingInfoByIdForOrder(orderDomainModel);
-           // dm.User getUserListing = UserHelper.GetUserInfobyIdForListing(getListing);
+            dm.User getUserListing = UserHelper.GetUserInfobyIdForListing(getListing);
+            dm.Payment getPayment = PaymentHelper.GetPaymentByOrderId(orderDomainModel);
 
             if (orderView.HelperType == "add")
             {

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using cd = SneakerDrop.Code;
 using SneakerDrop.Mvc.Models;
 using c = SneakerDrop.Code.Helpers;
 using dm = SneakerDrop.Domain.Models;
@@ -66,22 +67,37 @@ namespace SneakerDrop.Mvc.Controllers
         {
             return View("~/Views/User/ChangeUserInfo.cshtml");
         }
+    
 
         public IActionResult Catalog()
         {
+            cd.SneakerDropDbContext db = new cd.SneakerDropDbContext();
+
+            var sessionproduct = HttpContext.Session.GetString("ProductName");
+
+            var createcatalog = db.ProductInfos.Where(p => p.ProductTitle.Contains(sessionproduct)).ToList();
+              foreach(var item in createcatalog)
+            { 
+               KeyValuePair<string, object> catalogcreate = new KeyValuePair<string, object>(item.ProductTitle, item.ImageUrl);
+                ViewData.Add(catalogcreate);
+
+           }
+            var createcatalog2 = db.Type.Where(t => t.TypeName.Contains(sessionproduct)).ToList();
+            foreach(var item2 in createcatalog2)
+            {
+                var typeid = item2.TypeId;
+                var createcatalog3 = db.ProductInfos.Where(p => p.Type.TypeId == typeid).ToList();
+                foreach(var item3 in createcatalog3)
+                {
+                    KeyValuePair<string, object> typecatalogcreate = new KeyValuePair<string, object>(item3.ProductTitle, item3.ImageUrl);
+                    ViewData.Add(typecatalogcreate);
+                }
+            }
+            
+
             return View("~/Views/Store/Catalog.cshtml");
         }
 
-        [HttpGet]
-        [ActionName("Catalog")]
-        public IActionResult CatalogSearch()
-        {
-            var sessionproduct = HttpContext.Session.GetString("ProductName");
-
-            FindProductInfoViewModel createcatalog = new FindProductInfoViewModel();
-            List<FindProductInfoViewModel> expandcatalog = createcatalog.SearchFind(sessionproduct);
-            return View(expandcatalog);
-        }
 
 
         public IActionResult SingleItem(FindProductInfoViewModel productinfo)
@@ -123,11 +139,6 @@ namespace SneakerDrop.Mvc.Controllers
             List<PaymentViewModel> list = getPayment.GetAllPayments(getPayment);
 
             return View("/Views/Partials/ChangePayment.cshtml", list);
-        }
-
-        public IActionResult ChangeUser()
-        {
-            return View("/Views/Partials/ChangeUser.cshtml");
         }
 
         public IActionResult Privacy()
@@ -256,6 +267,25 @@ namespace SneakerDrop.Mvc.Controllers
             newModel2.AddEditDeleteAddresses(newModel2);
 
             return RedirectToAction("ChangeAddress", "Home");
+        }
+
+        public IActionResult EditUserInfo(UserViewModel user)
+        {
+            var sessionUserId = HttpContext.Session.GetInt32("UserId");
+
+            var editedUser = new UserViewModel
+            {
+                UserId = (int)sessionUserId,
+                Firstname = user.Firstname,
+                Lastname = user.Lastname,
+                Email = user.Email,
+                Username = user.Username,
+                Password = user.Password
+            };
+
+            editedUser.AddEditUser(editedUser);
+
+            return RedirectToAction("Account", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

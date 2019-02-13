@@ -12,9 +12,9 @@ namespace SneakerDrop.Code.Helpers
 
         public static bool AddPaymentById(Payment payment)
         {
-            var getUser = _db.Attach(payment.User);
+            _db.Attach(payment.User);
             _db.Payment.Add(payment);
-
+            _db.Entry(payment.User).State = EntityState.Detached;
 
             return _db.SaveChanges() == 1;
         }
@@ -35,14 +35,6 @@ namespace SneakerDrop.Code.Helpers
             _db.Payment.RemoveRange(_db.Payment.Where(p => p.PaymentId == payment.PaymentId));
 
             return _db.SaveChanges() == 1;
-        }
-        public static Payment GetPaymentInfoByIdForOrder(Orders order)
-        {
-            Payment dbInfo = _db.Payment.Where(p => p.PaymentId == order.Payment.PaymentId)
-                                        .Include(p => p.User)
-                                        .FirstOrDefault();
-
-            return dbInfo;
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SneakerDrop.Mvc.Models;
 using c = SneakerDrop.Code;
+using SneakerDrop.Code.Helpers;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 
@@ -50,17 +51,20 @@ namespace SneakerDrop.Mvc.Controllers
 
         [HttpPost]
         [ActionName("buyer")]
-        public IActionResult BuyerSearch(FindProductInfoViewModel productinfo)
+        public IActionResult BuyerSearch(List<FindProductInfoViewModel> findProductInfos)
         {
-            var productsearch = productinfo.FindMatchingProductInfo(productinfo).FirstOrDefault();
+            c.SneakerDropDbContext db = new c.SneakerDropDbContext();
 
-            if (productsearch != null)
+            foreach (var item in findProductInfos)
             {
-                HttpContext.Session.SetString("ProductName", productinfo.ProductTitle);
-                return RedirectToAction("buyer2", "Store");
+                string PTitle = item.ProductTitle;
+                HttpContext.Session.SetString("ProductName", PTitle);
+
+
             }
-            return RedirectToAction("Catalog", "Home");
-           
+
+            return RedirectToAction("buyer2", "Store");
+            
         }
 
         [HttpGet]
@@ -68,9 +72,11 @@ namespace SneakerDrop.Mvc.Controllers
         public IActionResult BuyerSearchPull()
         {
             var sessionproduct = HttpContext.Session.GetString("ProductName");
+           
 
             var productdata = new FindProductInfoViewModel
             {
+                
                 ProductTitle = sessionproduct
             };
             return RedirectToAction("Catalog", "Home", productdata);

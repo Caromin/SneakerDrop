@@ -15,6 +15,7 @@ namespace SneakerDrop.Code
         public DbSet <dm.Payment> Payment { get; set;}
         public DbSet<dm.Listing> Listings { get; set;}
         public DbSet<dm.ProductInfo> ProductInfos { get; set; }
+        public DbSet<dm.Type> Type { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
@@ -29,7 +30,7 @@ namespace SneakerDrop.Code
             builder.Entity<dm.Payment>().HasKey(e => e.PaymentId);
             builder.Entity<dm.Listing>().HasKey(e => e.ListingId);
             builder.Entity<dm.ProductInfo>().HasKey(e => e.ProductInfoId);
-            
+            builder.Entity<dm.Type>().HasKey(e => e.TypeId);
         }
 
 

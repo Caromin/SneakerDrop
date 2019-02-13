@@ -64,11 +64,12 @@ namespace SneakerDrop.Domain.Models
 
         public bool EditExistingUser(User userModel)
         {
-            var editUser = new Regex(@"^[a-zA-Z0-9]+$");
+            string editUser = @"^[a-zA-Z0-9]+$";
+            Match match = Regex.Match(userModel.Username, editUser);
 
-            if (editUser.IsMatch(userModel.Username) && string.IsNullOrWhiteSpace(userModel.Username))
+            if (match.Success)
             {
-               return true;
+                return true;
             }
             return false;
         }

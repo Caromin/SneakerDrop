@@ -13,10 +13,9 @@ namespace SneakerDrop.Code.Helpers
 
         public static bool AddAddressById(Address address)
         {
-            var getUser = _db.Attach(address.User);
-
+            _db.Attach(address.User);
             _db.Addresses.Add(address);
-            getUser.State = EntityState.Modified;
+            _db.Entry(address.User).State = EntityState.Detached;
 
             return _db.SaveChanges() == 1;
         }
@@ -27,17 +26,16 @@ namespace SneakerDrop.Code.Helpers
             return dbAddressInfo;
 
         }
+
+        // working, back to original
         public static bool EditAddressInfoById(Address address)
         {
             var editAddress = _db.Addresses.Where(a => a.AddressId == address.AddressId).FirstOrDefault();
-            var getUser = _db.Attach(address.User);
 
             editAddress.Street = address.Street;
             editAddress.City = address.City;
             editAddress.State = address.State;
             editAddress.PostalCode = address.PostalCode;
-            getUser.State = EntityState.Modified;
-
 
             return _db.SaveChanges() == 1;
         }

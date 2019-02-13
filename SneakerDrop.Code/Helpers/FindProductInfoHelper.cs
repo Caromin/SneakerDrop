@@ -37,7 +37,7 @@ namespace SneakerDrop.Code.Helpers
             return query;
         }
 
-        public static IEnumerable<ProductInfo>FindSearch(string input)
+        public static List<ProductInfo>FindSearch(string input)
         {
 
             var query = from item in _db.ProductInfos
@@ -46,7 +46,7 @@ namespace SneakerDrop.Code.Helpers
 
             var searchstuff = query.ToList<ProductInfo>().Take(20);
 
-            return searchstuff;
+            return (System.Collections.Generic.List<SneakerDrop.Domain.Models.ProductInfo>)searchstuff;
 
         }
     }

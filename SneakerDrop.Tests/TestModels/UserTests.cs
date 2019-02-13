@@ -50,11 +50,11 @@ namespace SneakerDrop.Tests.TestModels
         {
             var sut = new UserViewModel
             {
-                UserId = 1,
+                UserId = 67,
                 Username = "ian25192",
                 Password = "Password",
-                Firstname = "Ian",
-                Lastname = "Nai",
+                Firstname = "Bob",
+                Lastname = "Jan",
                 Email = "Email@email.com"
             };
 

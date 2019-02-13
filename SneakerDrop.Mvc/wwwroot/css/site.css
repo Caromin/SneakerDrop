@@ -167,3 +167,14 @@ a:hover {
 .userText {
     width: 140px;
 }
+
+.boxDiv {
+    width: 200px;
+    height: 175px;
+    border: solid 1px #DCDCDC;
+    border-radius: 5px;
+}
+
+p {
+    margin-bottom: 5px;
+}

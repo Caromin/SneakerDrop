@@ -38,12 +38,13 @@ namespace SneakerDrop.Mvc.Models
 
         public List<AddressViewModel> GetAllAddresses(AddressViewModel addressView)
         {
-            
+
             dm.Address addressDomainModel = createModel.MappingAddress(addressView);
             List<dm.Address> domainAddressList = AddressHelper.GetAddressInfoById(addressDomainModel);
+            List<AddressViewModel> viewAddressList = createModel.MappingView(domainAddressList);
 
-            return createModel.MappingView(domainAddressList);
-            
+            return viewAddressList;
+
         }
 
         public bool AddEditDeleteAddresses(AddressViewModel addressView)
@@ -52,7 +53,7 @@ namespace SneakerDrop.Mvc.Models
             // gets userinfo for edit
             dm.User getUser = UserHelper.GetUserInfoByIdForAddress(addressDomainModel);
             var valCheckAdd = validator.ValidateStreet(addressDomainModel);
-            
+
             if (addressView.HelperType == "add")
             {
                 if (valCheckAdd)
@@ -64,7 +65,6 @@ namespace SneakerDrop.Mvc.Models
                         City = addressDomainModel.City,
                         State = addressDomainModel.State,
                         PostalCode = addressDomainModel.PostalCode,
-
                         User = new User
                         {
                             UserId = getUser.UserId,
@@ -75,40 +75,33 @@ namespace SneakerDrop.Mvc.Models
                             Email = getUser.Email
                         }
                     };
+
                     AddressHelper.AddAddressById(addedAddress);
                     return true;
                 }
                 return false;
             }
-            else if (addressView.HelperType == "edit")
+            var editedAddress = new dm.Address
             {
-                var editedAddress = new dm.Address
+                AddressId = addressDomainModel.AddressId,
+                Street = addressDomainModel.Street,
+                City = addressDomainModel.City,
+                State = addressDomainModel.State,
+                PostalCode = addressDomainModel.PostalCode,
+
+                User = new User
                 {
-                    AddressId = addressDomainModel.AddressId,
-                    Street = addressDomainModel.Street,
-                    City = addressDomainModel.City,
-                    State = addressDomainModel.State,
-                    PostalCode = addressDomainModel.PostalCode,
+                    UserId = getUser.UserId,
+                    Username = getUser.Username,
+                    Password = getUser.Password,
+                    Firstname = getUser.Firstname,
+                    Lastname = getUser.Lastname,
+                    Email = getUser.Email
+                }
+            };
 
-                    User = new User
-                    {
-                        UserId = getUser.UserId,
-                        Username = getUser.Username,
-                        Password = getUser.Password,
-                        Firstname = getUser.Firstname,
-                        Lastname = getUser.Lastname,
-                        Email = getUser.Email
-                    }
-                };
-
-                AddressHelper.EditAddressInfoById(editedAddress);
-                return true;
-            }
-            else
-            {
-                AddressHelper.DeleteAddressInfoById(addressDomainModel);
-                return true;
-            }
+            AddressHelper.EditAddressInfoById(editedAddress);
+            return true;
         }
     }
 

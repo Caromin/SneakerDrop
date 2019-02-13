@@ -141,11 +141,6 @@ namespace SneakerDrop.Mvc.Controllers
             return View("/Views/Partials/ChangePayment.cshtml", list);
         }
 
-        public IActionResult ChangeUser()
-        {
-            return View("/Views/Partials/ChangeUser.cshtml");
-        }
-
         public IActionResult Privacy()
         {
             return View();
@@ -272,6 +267,25 @@ namespace SneakerDrop.Mvc.Controllers
             newModel2.AddEditDeleteAddresses(newModel2);
 
             return RedirectToAction("ChangeAddress", "Home");
+        }
+
+        public IActionResult EditUserInfo(UserViewModel user)
+        {
+            var sessionUserId = HttpContext.Session.GetInt32("UserId");
+
+            var editedUser = new UserViewModel
+            {
+                UserId = (int)sessionUserId,
+                Firstname = user.Firstname,
+                Lastname = user.Lastname,
+                Email = user.Email,
+                Username = user.Username,
+                Password = user.Password
+            };
+
+            editedUser.AddEditUser(editedUser);
+
+            return RedirectToAction("Account", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

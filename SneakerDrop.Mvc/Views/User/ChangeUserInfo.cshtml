@@ -1,17 +1,77 @@
-﻿
-@{
-    ViewData["Title"] = "ChangeAccountInfo";
+﻿@model SneakerDrop.Mvc.Models.UserViewModel
+
+<partial name="../Partials/GeneralHeader.cshtml" />
+
+@using (@Html.BeginForm("EditUserInfo", "Home"))
+{
+    <div class="w-100">
+        <div class="mt-5 text-center align-content-center">
+            <h4 class="mb-2">SneakerDrop</h4>
+            <div id="loginDiv" class="text-left p-3 box-shadow">
+                <div>
+                    <div class="d-block">
+                        @Html.LabelFor(u => u.Firstname, new { @class = "btnText" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(u => u.Firstname, new { @required = "required", placeholder = "Christian", @class = "w-100 form-control" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(u => u.Firstname)
+                    </div>
+                </div>
+                <div>
+                    <div class="d-block">
+                        @Html.LabelFor(u => u.Lastname, new { @class = "btnText" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(u => u.Lastname, new { @required = "required", placeholder = "Smith", @class = "w-100 form-control" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(u => u.Lastname)
+                    </div>
+                </div>
+                <div>
+                    <div class="d-block">
+                        @Html.LabelFor(u => u.Username, new { @class = "btnText" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(u => u.Username, new { @required = "required", placeholder = "MeowCat123", @class = "w-100 form-control" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(u => u.Username)
+                    </div>
+                </div>
+                <div>
+                    <div class="d-block">
+                        @Html.LabelFor(u => u.Email, new { @class = "btnText" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(u => u.Email, new { @required = "required", placeholder = "MeowMix123@aol.com", @class = "w-100 form-control" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(u => u.Email)
+                    </div>
+                    <small class="d-inline text-danger">@ViewBag.Message</small>
+                </div>
+                <div>
+                    <div class="d-block">
+                        @Html.LabelFor(u => u.Password, new { @class = "btnText" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(u => u.Password, new { @required = "required", placeholder = "Password123", @class = "w-100 form-control" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(u => u.Password)
+                    </div>
+                    <small class="d-inline text-danger">@ViewBag.Message</small>
+                </div>
+                <div class="mt-3 text-center">
+                    <div>
+                        <button class="w-100 btn btn-warning btnText" type="submit">Update User</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
-
-@{Html.RenderPartial("../Partials/ChangeUser.cshtml");
-}
-
-@{Html.RenderPartial("../Partials/ChangeAddress.cshtml");
-}
-
-
-@{Html.RenderPartial("../Partials/ChangePayment.cshtml");
-}
-
-
 

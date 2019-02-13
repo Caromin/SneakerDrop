@@ -57,10 +57,10 @@ namespace SneakerDrop.Mvc.Models
         public bool AddOrCancelOrders(OrderAndPaymentViewModel orderView)
         {
             dm.Orders orderDomainModel = createModel.MappingOrders(orderView);
-            dm.User getUser = UserHelper.GetUserInfoByIdForOrder(orderDomainModel);
-            dm.Listing getListing = ListingHelper.GetListingInfoByIdForOrder(orderDomainModel);
+            dm.Listing getListing = ListingHelper.GetListingInfoByIdForOrder(orderDomainModel);    
             dm.Payment getPayment = PaymentHelper.GetPaymentInfoByIdForOrder(orderDomainModel);
-            dm.ProductInfo getProductInfo = FindProductInfoHelper.GetProductInfoIdByListing(getListing);
+            dm.ProductInfo getProduct = FindProductInfoHelper.GetProductInfoByListing(orderDomainModel);
+            dm.User getUser = UserHelper.GetUserInfoByIdForOrder(orderDomainModel);
 
             if (orderView.HelperType == "add")
             {
@@ -87,23 +87,16 @@ namespace SneakerDrop.Mvc.Models
                         Quantity = getListing.Quantity,
                         Size = getListing.Size,
                         UserSetPrice = getListing.UserSetPrice,
-                        User = new dm.User
-                        {
-                            UserId = getUser.UserId,
-                            Username = getUser.Username,
-                            Password = getUser.Password,
-                            Firstname = getUser.Firstname,
-                            Lastname = getUser.Lastname,
-                            Email = getUser.Email,
-                        },
+                        User = getUser,                       
                         ProductInfo = new dm.ProductInfo
                         {
-                            ProductInfoId = getProductInfo.ProductInfoId,
-                            ProductTitle = getProductInfo.ProductTitle,
-                            Description = getProductInfo.Description,
-                            DisplayPrice = getProductInfo.DisplayPrice,
-                            ReleaseDate = getProductInfo.ReleaseDate,
-                            Color = getProductInfo.Color,
+                            ProductInfoId = getProduct.ProductInfoId,
+                            ProductTitle = getProduct.ProductTitle,
+                            Description = getProduct.Description,
+                            DisplayPrice = getProduct.DisplayPrice,
+                            ReleaseDate = getProduct.ReleaseDate,
+                            Color = getProduct.Color,
+                            Brand = getProduct.Brand,                       
                         }
                     },
                     Payment = new dm.Payment

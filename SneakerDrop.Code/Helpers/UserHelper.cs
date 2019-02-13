@@ -41,6 +41,11 @@ namespace SneakerDrop.Code.Helpers
 
             return dbInfo;
         }
+        public static Listing GetUserInfobyIdForListing(User userlisting)
+        {
+            Listing dbInfo = _db.Listings.Where(l => l.User.UserId == userlisting.UserId).FirstOrDefault();
+            return dbInfo;
+        }
 
         public static List<User> GetAllUsers()
         {

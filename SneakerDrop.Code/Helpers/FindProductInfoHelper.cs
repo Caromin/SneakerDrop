@@ -36,16 +36,11 @@ namespace SneakerDrop.Code.Helpers
 
             return query;
         }
-        public static ProductInfo GetProductInfoIdByListing(Listing listing)
+        public static ProductInfo GetProductInfoByListing(Orders order)
         {
-            ProductInfo dbInfo = _db.ProductInfos.Where(p => p.ProductInfoId == listing.ProductInfo.ProductInfoId).FirstOrDefault();
-
+            ProductInfo dbInfo = _db.ProductInfos.Where(p => p.ProductInfoId == order.Listing.ProductInfo.ProductInfoId).FirstOrDefault();
             return dbInfo;
-        }      
-        public static  Brand GetBrandInfoByIdByProductInfo(ProductInfo product)
-        {
-            //Brand dbInfo = _db.ProductInfos.
-            return null;
         }
     }
 }
+

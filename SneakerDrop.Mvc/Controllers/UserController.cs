@@ -19,34 +19,23 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("register")]
         public IActionResult RegisterFilter(UserViewModel userviewmodel)
         {
-            ViewBag.Firstname = userviewmodel.Firstname;
-            ViewBag.Lastname = userviewmodel.Lastname;
-            ViewBag.Username = userviewmodel.Username;
-            ViewBag.Password = userviewmodel.Password;
-            ViewBag.Email = userviewmodel.Email;
+          
             if (ModelState.IsValid)
             {
-                if (ViewBag.Firstname != null
-                    || ViewBag.Lastname != null
-                      || ViewBag.Username != null
-                      || ViewBag.Password != null
-                   || ViewBag.Email != null)
-                {
-                    if (userviewmodel.AddEditUser(userviewmodel) == false)
+                    userviewmodel.HelperType = "add";
+                    if (userviewmodel.AddEditUser(userviewmodel) == false || userviewmodel.EmailValidator(userviewmodel) == false)
                     {
-                        userviewmodel.HelperType = "add";
-                        ViewBag.Message = "No Special Kharacters";
+                        ViewBag.Message = "No Special Characters";
                         return View("~/Views/Home/Register.cshtml");
                     }
-                    userviewmodel.HelperType = "add";
                     userviewmodel.AddEditUser(userviewmodel);
-                    return View("~/Views/Home/Login.cshtml");
+                return RedirectToAction("Login", "Home");
                 }
                 ViewBag.Message = "All Boxes must be filled";
                 return View("~/Views/Home/Register.cshtml");
             }
-            return View("~/Views/Home/Register.cshtml");
-        }
+            
+        
 
 
 

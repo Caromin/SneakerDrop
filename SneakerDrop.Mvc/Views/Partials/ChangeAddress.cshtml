@@ -1,38 +1,29 @@
 ﻿@model List<SneakerDrop.Mvc.Models.AddressViewModel>
 
 <partial name="./GeneralHeader.cshtml" />
-<div class="container">
-    <h4 class="mt-4">Your Addresses</h4>
-</div>
-@using (@Html.BeginForm("userchange", "Home"))
+
+@using (@Html.BeginForm("AddEditAddress", "Home"))
 {
-    @*foreach (var item in Model)
+    <div class="container  mb-5">
+        <h4 class="mt-4">Your Addresses</h4>
+        <button name="address" class="w-25 btn btn-primary d-inline" type="submit" value="add">Add New Address</button>
+    </div>
+    <div class="d-flex flex-wrap container pb-4">
+
+        @foreach (var item in Model)
         {
-            <div>
-                <p></p>
+            <div class="boxDiv m-1 d-inline-block box-shadow pt-3">
+                <div class="container">
+                    <p>@item.Street</p>
+                    <p>@item.City, @item.State</p>
+                    <p>@item.PostalCode</p>
+                </div>
+                <div class="pl-2">
+                    <button name="address" class="btn-warning rounded" type="submit" value="edit-@item.AddressId">Edit</button>
+                    <button name="address" class="btn-danger rounded" type="submit" value="delete-@item.AddressId">Delete</button>
+                </div>
             </div>
-        }*@
-    @*<div class="text-center">
-            @Html.LabelFor(u => u.Street, "Street")
-            @Html.TextBoxFor(u => u.Street, new { @required = "required", placeholder = "320 Peter Parker Lane" })
-            @Html.ValidationMessageFor(u => u.Street)
-        </div>
-        <div class="text-center">
-            @Html.LabelFor(u => u.City, "City")
-            @Html.TextBoxFor(u => u.City, new { @required = "required", placeholder = "Tampa" })
-            @Html.ValidationMessageFor(u => u.City)
-        </div>
-        <div class="text-center">
-            @Html.LabelFor(u => u.State, "State")
-            @Html.TextBoxFor(u => u.State, new { @required = "required", placeholder = "Florida" })
-            @Html.ValidationMessageFor(u => u.State)
-        </div>
-        <div class="text-center">
-            @Html.LabelFor(u => u.PostalCode, "ZipCode")
-            @Html.TextBoxFor(u => u.PostalCode, new { @required = "required", placeholder = "37451" })
-            @Html.ValidationMessageFor(u => u.PostalCode)
-        </div>
-        <div class="text-center">
-            <button type="submit">Submit</button>
-        </div>*@
+        }
+
+    </div>
 }

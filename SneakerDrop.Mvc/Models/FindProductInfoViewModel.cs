@@ -66,6 +66,13 @@ namespace SneakerDrop.Mvc.Models
 
             return convertedList;
         }
+
+        public List<FindProductInfoViewModel> SearchFind(string Search)
+        {
+            var searchlist = FindProductInfoHelper.FindSearch(Search);
+            List<FindProductInfoViewModel> searchconverted = createModel.MappingRecentListing(searchlist);
+            return searchconverted;
+        }
     }
 
     public class ConversionProduct : Profile
@@ -147,6 +154,9 @@ namespace SneakerDrop.Mvc.Models
             }
             return Price;
         }
+
+       
+        
     }
 
 }

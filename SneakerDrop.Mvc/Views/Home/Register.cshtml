@@ -59,10 +59,10 @@
                     <div>
                         @Html.ValidationMessageFor(p => p.Password)
                     </div>
+                    <small class="d-inline text-danger">@ViewBag.Message</small>
                     <div class="text-center mt-5">
                         <button class="w-100 btn btn-warning btnText" type="submit">Create your SneakerDrop Account</button>
                         <div><span class="btnText">Already have an account? </span><a class="signin w-100 btnText" href="~/Home/Login">Sign in</a></div>
-                        <small class="d-inline bg-danger">@ViewBag.Message</small>
                     </div>
                 </div>
             </div>

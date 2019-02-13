@@ -23,7 +23,7 @@ namespace SneakerDrop.Code.Helpers
         public static List<Address> GetAddressInfoById(Address address)
         {
             var dbAddressInfo = _db.Addresses.Where(a => a.User.UserId == address.User.UserId).ToList();
-    
+
             return dbAddressInfo;
 
         }
@@ -38,14 +38,14 @@ namespace SneakerDrop.Code.Helpers
             editAddress.PostalCode = address.PostalCode;
             getUser.State = EntityState.Modified;
 
-         
+
             return _db.SaveChanges() == 1;
         }
         public static bool DeleteAddressInfoById(Address address)
         {
             _db.Addresses.RemoveRange(_db.Addresses.Where(a => a.AddressId == address.AddressId));
 
-            return _db.SaveChanges() ==1;
+            return _db.SaveChanges() == 1;
         }
 
     }

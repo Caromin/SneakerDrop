@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using cd = SneakerDrop.Code;
 using SneakerDrop.Mvc.Models;
 using c = SneakerDrop.Code.Helpers;
 using dm = SneakerDrop.Domain.Models;
@@ -66,22 +67,25 @@ namespace SneakerDrop.Mvc.Controllers
         {
             return View("~/Views/User/ChangeUserInfo.cshtml");
         }
+    
 
         public IActionResult Catalog()
         {
+            cd.SneakerDropDbContext db = new cd.SneakerDropDbContext();
+
+            var sessionproduct = HttpContext.Session.GetString("ProductName");
+
+            var createcatalog = db.ProductInfos.Where(p => p.ProductTitle.Contains(sessionproduct)).ToList();
+              foreach(var item in createcatalog)
+            { 
+               KeyValuePair<string, object> catalogcreate = new KeyValuePair<string, object>(item.ProductTitle, item.ImageUrl);
+                ViewData.Add(catalogcreate);
+
+           }
+
             return View("~/Views/Store/Catalog.cshtml");
         }
 
-        [HttpGet]
-        [ActionName("Catalog")]
-        public IActionResult CatalogSearch()
-        {
-            var sessionproduct = HttpContext.Session.GetString("ProductName");
-
-            FindProductInfoViewModel createcatalog = new FindProductInfoViewModel();
-            List<FindProductInfoViewModel> expandcatalog = createcatalog.SearchFind(sessionproduct);
-            return View(expandcatalog);
-        }
 
 
         public IActionResult SingleItem(FindProductInfoViewModel productinfo)

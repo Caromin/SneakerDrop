@@ -56,11 +56,11 @@ namespace SneakerDrop.Mvc.Models
         // add order needs userId, cancel order needs orderId, no validation setup
         public bool AddOrCancelOrders(OrderAndPaymentViewModel orderView)
         {
-            dm.Orders orderDomainModel = createModel.MappingOrders(orderView);
-            dm.Listing getListing = ListingHelper.GetListingInfoByIdForOrder(orderDomainModel);    
+            dm.Orders orderDomainModel = createModel.MappingOrders(orderView); 
             dm.Payment getPayment = PaymentHelper.GetPaymentInfoByIdForOrder(orderDomainModel);
-            dm.ProductInfo getProduct = FindProductInfoHelper.GetProductInfoByListing(orderDomainModel);
             dm.User getUser = UserHelper.GetUserInfoByIdForOrder(orderDomainModel);
+            dm.Listing getListing = ListingHelper.GetListingInfoByIdForOrder(orderDomainModel);
+           // dm.User getUserListing = UserHelper.GetUserInfobyIdForListing(getListing);
 
             if (orderView.HelperType == "add")
             {
@@ -87,17 +87,19 @@ namespace SneakerDrop.Mvc.Models
                         Quantity = getListing.Quantity,
                         Size = getListing.Size,
                         UserSetPrice = getListing.UserSetPrice,
-                        User = getUser,                       
-                        ProductInfo = new dm.ProductInfo
-                        {
-                            ProductInfoId = getProduct.ProductInfoId,
-                            ProductTitle = getProduct.ProductTitle,
-                            Description = getProduct.Description,
-                            DisplayPrice = getProduct.DisplayPrice,
-                            ReleaseDate = getProduct.ReleaseDate,
-                            Color = getProduct.Color,
-                            Brand = getProduct.Brand,                       
-                        }
+                        ProductInfo = getListing.ProductInfo
+                        User = getListing.User
+                        
+                        //ProductInfo = new dm.ProductInfo
+                        //{
+                        //    ProductInfoId = getProduct.ProductInfoId,
+                        //    ProductTitle = getProduct.ProductTitle,
+                        //    Description = getProduct.Description,
+                        //    DisplayPrice = getProduct.DisplayPrice,
+                        //    ReleaseDate = getProduct.ReleaseDate,
+                        //    Color = getProduct.Color,
+                        //    Brand = getProduct.Brand,                       
+                        //}
                     },
                     Payment = new dm.Payment
                     {
@@ -107,7 +109,7 @@ namespace SneakerDrop.Mvc.Models
                         Month = getPayment.Month,
                         Year = getPayment.Year,
                         CVV = getPayment.CVV,
-                        User = getUser,
+                        User = getPayment.User,
                         
                     },
                 };

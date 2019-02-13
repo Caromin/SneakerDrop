@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SneakerDrop.Domain.Models;
 
 namespace SneakerDrop.Code.Helpers
@@ -22,7 +23,10 @@ namespace SneakerDrop.Code.Helpers
         }
         public static Listing GetListingInfoByIdForOrder(Orders order)
         {
-            Listing dbInfo = _db.Listings.Where(l => l.ListingId == order.Listing.ListingId).FirstOrDefault();
+            Listing dbInfo = _db.Listings.Where(l => l.ListingId == order.Listing.ListingId)
+                                         .Include(l => l.ProductInfo)
+                                         .Include(l => l.User)
+                                         .FirstOrDefault();
 
             return dbInfo;
         }

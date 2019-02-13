@@ -47,7 +47,11 @@ namespace SneakerDrop.Code.Helpers
             var searchstuff = query.ToList<ProductInfo>().Take(20);
 
             return searchstuff;
-
+        }
+        public static ProductInfo GetProductInfoByListingId(Orders order)
+        {
+            ProductInfo dbInfo = _db.ProductInfos.Where(p => p.ProductInfoId == order.Listing.ProductInfo.ProductInfoId).FirstOrDefault();
+            return dbInfo;
         }
     }
 }

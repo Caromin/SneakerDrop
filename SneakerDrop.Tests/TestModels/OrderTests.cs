@@ -78,8 +78,8 @@ namespace SneakerDrop.Tests.TestModels
                 ShippingStatus = "pending",
                 PaymentId = 2,
                 ListingId = 12,
-                UserId = 2,
-                ProductInfoId = 1
+                UserId = 1,
+
             };
             var test = sut.AddOrCancelOrders(sut);
             Assert.True(test);

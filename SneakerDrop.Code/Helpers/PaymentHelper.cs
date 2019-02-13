@@ -13,7 +13,6 @@ namespace SneakerDrop.Code.Helpers
         public static bool AddPaymentById(Payment payment)
         {
             var getUser = _db.Attach(payment.User);
-            getUser.State = EntityState.Modified;
             _db.Payment.Add(payment);
 
 
@@ -39,7 +38,9 @@ namespace SneakerDrop.Code.Helpers
         }
         public static Payment GetPaymentInfoByIdForOrder(Orders order)
         {
-            Payment dbInfo = _db.Payment.Where(p => p.PaymentId == order.Payment.PaymentId).FirstOrDefault();
+            Payment dbInfo = _db.Payment.Where(p => p.PaymentId == order.Payment.PaymentId)
+                                        .Include(p => p.User)
+                                        .FirstOrDefault();
 
             return dbInfo;
         }

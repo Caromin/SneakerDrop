@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 using SneakerDrop.Mvc.Models;
 using c = SneakerDrop.Code.Helpers;
 using dm = SneakerDrop.Domain.Models;
+using System.Text.RegularExpressions;
+using SneakerDrop.Code.Helpers;
 
 namespace SneakerDrop.Mvc.Controllers
 {
@@ -77,7 +79,7 @@ namespace SneakerDrop.Mvc.Controllers
             return View("~/Views/Store/SingleItem.cshtml");
         }
 
-        
+
         public IActionResult Order(FindProductInfoViewModel productinfo)
         {
             return View("~/Views/Store/Order.cshtml");
@@ -98,12 +100,18 @@ namespace SneakerDrop.Mvc.Controllers
 
             List<AddressViewModel> list = getAddress.GetAllAddresses(getAddress);
 
-            return View("/Views/Partials/ChangeAddress.cshtml");
+            return View("/Views/Partials/ChangeAddress.cshtml", list);
         }
 
         public IActionResult ChangePayment()
         {
-            return View("/Views/Partials/ChangePayment.cshtml");
+            var getPayment = new PaymentViewModel
+            {
+                UserId = (int)HttpContext.Session.GetInt32("UserId")
+            };
+            List<PaymentViewModel> list = getPayment.GetAllPayments(getPayment);
+
+            return View("/Views/Partials/ChangePayment.cshtml", list);
         }
 
         public IActionResult ChangeUser()
@@ -114,6 +122,129 @@ namespace SneakerDrop.Mvc.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult AddPayment(string payment)
+        {
+            string pattern1 = @"delete";
+            string pattern2 = @"add";
+            string validate = payment;
+            Match match = Regex.Match(validate, pattern1);
+            var paymentId = Regex.Match(payment, @"\d+").Value;
+            string helperType = Regex.Match(payment, pattern2).Value;
+            HttpContext.Session.SetString("HelperType", helperType);
+            HttpContext.Session.SetString("PaymentId", paymentId);
+
+            if (match.Success)
+            {
+                var result = Int32.Parse(paymentId);
+                dm.Payment paymentInfo = new dm.Payment
+                {
+                    PaymentId = result
+                };
+                PaymentHelper.DeletePaymentByPaymentId(paymentInfo);
+
+                return RedirectToAction("ChangePayment", "Home");
+            }
+            return RedirectToAction("AddPaymentView", "Home");
+        }
+
+        public IActionResult AddPaymentView()
+        {
+            return View("~/Views/User/AddPayment.cshtml");
+        }
+
+        public IActionResult CompletePayment(PaymentViewModel payment)
+        {
+            var sessionHelper = HttpContext.Session.GetString("HelperType");
+            var sessionAddressId = HttpContext.Session.GetString("PaymentId");
+            var sessionUserId = HttpContext.Session.GetInt32("UserId");
+            int userId = (int)sessionUserId;
+
+            var newModel = new PaymentViewModel
+            {
+                HelperType = sessionHelper,
+                UserId = userId,
+                CCNumber = payment.CCNumber,
+                CCUserName = payment.CCUserName,
+                Month = payment.Month,
+                Year = payment.Year,
+                CVV = payment.CVV
+            };
+            newModel.AddOrDeletePayments(newModel);
+
+            return RedirectToAction("ChangePayment", "Home");
+        }
+
+        public IActionResult AddEditAddress(string address)
+        {
+            string pattern1 = @"delete";
+            string pattern2 = @"add";
+            string validate = address;
+            Match match = Regex.Match(validate, pattern1);
+            var addressId = Regex.Match(address, @"\d+").Value;
+            string helperType = Regex.Match(address, pattern2).Value;
+            HttpContext.Session.SetString("HelperType", helperType);
+            HttpContext.Session.SetString("AddressId", addressId);
+
+            if (match.Success)
+            {
+                var result = Int32.Parse(addressId);
+                dm.Address addressInfo = new dm.Address
+                {
+                    AddressId = result
+                };
+                AddressHelper.DeleteAddressInfoById(addressInfo);
+
+                return RedirectToAction("ChangeAddress", "Home");
+            }
+
+            return RedirectToAction("AddEditView", "Home");
+        }
+
+        public IActionResult AddEditView(string match)
+        {
+            return View("~/Views/User/AddEditAddress.cshtml");
+        }
+
+        public IActionResult AddEditInfo(AddressViewModel address)
+        {
+            var sessionHelper = HttpContext.Session.GetString("HelperType");
+            var sessionAddressId = HttpContext.Session.GetString("AddressId");
+            var sessionUserId = HttpContext.Session.GetInt32("UserId");
+            int userId = (int)sessionUserId;
+
+            if (sessionHelper == "add")
+            {
+                var newModel = new AddressViewModel
+                {
+                    HelperType = sessionHelper,
+                    UserId = userId,
+                    Street = address.Street,
+                    City = address.City,
+                    State = address.State,
+                    PostalCode = address.PostalCode
+                };
+
+                newModel.AddEditDeleteAddresses(newModel);
+
+                return RedirectToAction("ChangeAddress", "Home");
+            }
+
+            var newModel2 = new AddressViewModel
+            {
+                AddressId = Int32.Parse(sessionAddressId),
+                HelperType = "edit",
+                UserId = (int)sessionUserId,
+                Street = address.Street,
+                City = address.City,
+                State = address.State,
+                PostalCode = address.PostalCode
+            };
+
+            newModel2.AddEditDeleteAddresses(newModel2);
+
+            return RedirectToAction("ChangeAddress", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -173,8 +173,13 @@ a:hover {
     height: 175px;
     border: solid 1px #DCDCDC;
     border-radius: 5px;
+    font-size: 12px;
 }
 
 p {
     margin-bottom: 5px;
+}
+
+.noBorder {
+    border: none;
 }

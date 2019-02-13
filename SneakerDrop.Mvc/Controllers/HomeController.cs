@@ -67,7 +67,7 @@ namespace SneakerDrop.Mvc.Controllers
         {
             return View("~/Views/User/ChangeUserInfo.cshtml");
         }
-    
+
 
         public IActionResult Catalog()
         {
@@ -76,24 +76,24 @@ namespace SneakerDrop.Mvc.Controllers
             var sessionproduct = HttpContext.Session.GetString("ProductName");
 
             var createcatalog = db.ProductInfos.Where(p => p.ProductTitle.Contains(sessionproduct)).ToList();
-              foreach(var item in createcatalog)
-            { 
-               KeyValuePair<string, object> catalogcreate = new KeyValuePair<string, object>(item.ProductTitle, item.ImageUrl);
+            foreach (var item in createcatalog)
+            {
+                KeyValuePair<string, object> catalogcreate = new KeyValuePair<string, object>(item.ProductTitle, item.ImageUrl);
                 ViewData.Add(catalogcreate);
 
-           }
+            }
             var createcatalog2 = db.Type.Where(t => t.TypeName.Contains(sessionproduct)).ToList();
-            foreach(var item2 in createcatalog2)
+            foreach (var item2 in createcatalog2)
             {
                 var typeid = item2.TypeId;
                 var createcatalog3 = db.ProductInfos.Where(p => p.Type.TypeId == typeid).ToList();
-                foreach(var item3 in createcatalog3)
+                foreach (var item3 in createcatalog3)
                 {
                     KeyValuePair<string, object> typecatalogcreate = new KeyValuePair<string, object>(item3.ProductTitle, item3.ImageUrl);
                     ViewData.Add(typecatalogcreate);
                 }
             }
-            
+
 
             return View("~/Views/Store/Catalog.cshtml");
         }
@@ -283,7 +283,10 @@ namespace SneakerDrop.Mvc.Controllers
                 Password = user.Password
             };
 
-            editedUser.AddEditUser(editedUser);
+            if (editedUser.AddEditUser(editedUser))
+            {
+                HttpContext.Session.SetString("Username", user.Username);
+            }
 
             return RedirectToAction("Account", "Home");
         }

@@ -35,6 +35,12 @@ namespace SneakerDrop.Code.Helpers
 
             return dbInfo;
         }
+        public static User GetUserInfoByIdForOrder(Orders order)
+        {
+            User dbInfo = _db.Users.Where(u => u.UserId == order.User.UserId).FirstOrDefault();
+
+            return dbInfo;
+        }
 
         public static List<User> GetAllUsers()
         {

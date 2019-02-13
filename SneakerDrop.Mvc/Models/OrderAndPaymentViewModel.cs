@@ -57,10 +57,68 @@ namespace SneakerDrop.Mvc.Models
         public bool AddOrCancelOrders(OrderAndPaymentViewModel orderView)
         {
             dm.Orders orderDomainModel = createModel.MappingOrders(orderView);
+            dm.User getUser = UserHelper.GetUserInfoByIdForOrder(orderDomainModel);
+            dm.Listing getListing = ListingHelper.GetListingInfoByIdForOrder(orderDomainModel);
+            dm.Payment getPayment = PaymentHelper.GetPaymentInfoByIdForOrder(orderDomainModel);
+            dm.ProductInfo getProductInfo = FindProductInfoHelper.GetProductInfoIdByListing(getListing);
 
             if (orderView.HelperType == "add")
             {
-                OrderHelper.AddOrderById(orderDomainModel);
+                var addedOrder = new dm.Orders
+                {
+                    OrderId = orderDomainModel.OrderId,
+                    OrderGroupNumber = orderDomainModel.OrderGroupNumber,
+                    Quantity = orderDomainModel.Quantity,
+                    ShippingStatus = orderDomainModel.ShippingStatus,
+                    Timestamp = orderDomainModel.Timestamp,
+
+                    User = new dm.User
+                    {
+                        UserId = getUser.UserId,
+                        Username = getUser.Username,
+                        Password = getUser.Password,
+                        Firstname = getUser.Firstname,
+                        Lastname = getUser.Lastname,
+                        Email = getUser.Email,
+                    },
+                    Listing = new dm.Listing
+                    {
+                        ListingId = getListing.ListingId,
+                        Quantity = getListing.Quantity,
+                        Size = getListing.Size,
+                        UserSetPrice = getListing.UserSetPrice,
+                        User = new dm.User
+                        {
+                            UserId = getUser.UserId,
+                            Username = getUser.Username,
+                            Password = getUser.Password,
+                            Firstname = getUser.Firstname,
+                            Lastname = getUser.Lastname,
+                            Email = getUser.Email,
+                        },
+                        ProductInfo = new dm.ProductInfo
+                        {
+                            ProductInfoId = getProductInfo.ProductInfoId,
+                            ProductTitle = getProductInfo.ProductTitle,
+                            Description = getProductInfo.Description,
+                            DisplayPrice = getProductInfo.DisplayPrice,
+                            ReleaseDate = getProductInfo.ReleaseDate,
+                            Color = getProductInfo.Color,
+                        }
+                    },
+                    Payment = new dm.Payment
+                    {
+                        PaymentId = getPayment.PaymentId,
+                        CCNumber = getPayment.CCNumber,
+                        CCUserName = getPayment.CCUserName,
+                        Month = getPayment.Month,
+                        Year = getPayment.Year,
+                        CVV = getPayment.CVV,
+                        User = getUser,
+                        
+                    },
+                };
+                OrderHelper.AddOrderById(addedOrder);
                 return true;
             }
             OrderHelper.CancelOrderByOrderId(orderDomainModel);

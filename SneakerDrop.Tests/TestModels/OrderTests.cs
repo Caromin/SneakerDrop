@@ -71,14 +71,18 @@ namespace SneakerDrop.Tests.TestModels
         {
             var sut = new OrderAndPaymentViewModel
             {
+                HelperType = "add",
+                Timestamp = DateTime.UtcNow,
                 OrderGroupNumber = 23,
                 Quantity = 1,
                 ShippingStatus = "pending",
-                PaymentId = 1,
+                PaymentId = 2,
+                ListingId = 12,
                 UserId = 1,
-                Size = "8",
-
+                ProductInfoId = 1,
             };
+            var test = sut.AddOrCancelOrders(sut);
+            Assert.True(test);
         }
     }
 }

@@ -20,5 +20,17 @@ namespace SneakerDrop.Code.Helpers
         {
             return _db.Listings.Where(l => l.ProductInfo.ProductTitle == listing.ProductInfo.ProductTitle).ToList();
         }
+        public static Listing GetListingInfoByIdForOrder(Orders order)
+        {
+            Listing dbInfo = _db.Listings.Where(l => l.ListingId == order.Listing.ListingId).FirstOrDefault();
+
+            return dbInfo;
+        }
+        public static ProductInfo GetProductInfoByIdForListing(Listing listing)
+        {
+            ProductInfo dbInfo = _db.ProductInfos.Where(p => p.ProductInfoId == listing.ProductInfo.ProductInfoId).FirstOrDefault();
+
+            return dbInfo;
+        }
     }
 }

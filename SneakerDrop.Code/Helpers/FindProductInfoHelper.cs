@@ -29,6 +29,13 @@ namespace SneakerDrop.Code.Helpers
             return result;
         }
 
+        public static ProductInfo SingleProductById(int id)
+        {
+            var result = _db.ProductInfos.Where(p => p.ProductInfoId == id).FirstOrDefault();
+
+            return result;
+        }
+
         public static IEnumerable<ProductInfo> GetAllRecentProducts()
         {
             var query = _db.ProductInfos.Where(x => x.ProductInfoId > 1)

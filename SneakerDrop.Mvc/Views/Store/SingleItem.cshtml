@@ -1,9 +1,15 @@
-﻿@model SneakerDrop.Mvc.Models.FindProductInfoViewModel;
+﻿@model List<SneakerDrop.Mvc.Models.SingleProductViewModel>
+
 @{
     ViewData["Title"] = "SingleItem";
 }
+
+<partial name="../Partials/GeneralHeader" />
+<div class="container">
+    <h1>@Model[0].ProductTitle</h1>
+</div>
+
 @using (@Html.BeginForm("orderinitial", "Store"))
 {
-    <h1>@ViewBag.ProductName</h1>
-    <button type ="submit" >Buy</button>
+
 }

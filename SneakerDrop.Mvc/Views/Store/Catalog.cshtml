@@ -4,7 +4,7 @@
 }
 
 <partial name="../Partials/GeneralHeader.cshtml" />
-@using (Html.BeginForm("Catalog", "Home", FormMethod.Get))
+@using (Html.BeginForm("Product", "Store", FormMethod.Get))
 {
     <div class="search d-inline">
         <div>
@@ -15,8 +15,15 @@
                     <div class="d-flex align-content-start flex-wrap">
                         @foreach (var item in Model)
                         {
-                            <span class="d-block productText">@item.ProductTitle</span>
-                            <img class="productImage" src="@item.ImageUrl" />
+                            <div>
+                                <div class="d-block">
+                                    <img class="productImage" src="@item.ImageUrl" />
+                                </div>
+                                <div class="d-block productText smallBox">@item.ProductTitle</div>
+                                <div class="d-block smallBox">
+                                    <button name="viewItem" class="btn-link noBorder" type="submit" value="@item.ProductInfoId">More Details</button>
+                                </div>
+                            </div>
                         }
                     </div>
                 </div>

@@ -274,7 +274,7 @@ namespace SneakerDrop.Mvc.Controllers
             var sessionUserId = HttpContext.Session.GetInt32("UserId");
             
             
-            ViewBag.editedUser = new UserViewModel
+            var editedUser = new UserViewModel
             {
                 UserId = (int)sessionUserId,
                 Firstname = user.Firstname,
@@ -284,7 +284,7 @@ namespace SneakerDrop.Mvc.Controllers
                 Password = user.Password
             };
 
-            if (ViewBag.editedUser.AddEditUser(ViewBag.editedUser))
+            if (editedUser.AddEditUser(editedUser))
             {
                 HttpContext.Session.SetString("Username", user.Username);
             }

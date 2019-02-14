@@ -132,6 +132,20 @@ namespace SneakerDrop.Mvc.Controllers
                 item.ProductTitle = productInfo.ProductTitle;
             }
 
+            if (convertedList.Count == 0)
+            {
+                convertedList.Add(new SingleProductViewModel
+                {
+                    Color = productInfo.Color,
+                    Description = productInfo.Description,
+                    ImageUrl = productInfo.ImageUrl,
+                    DisplayPrice = productInfo.DisplayPrice,
+                    ReleaseDate = productInfo.ReleaseDate,
+                    ProductTitle = productInfo.ProductTitle
+                });
+            }
+
+
             return View("~/Views/Store/SingleItem.cshtml", convertedList);
         }
 
@@ -141,19 +155,19 @@ namespace SneakerDrop.Mvc.Controllers
         {
             var checklistinginfo = listinginfo.ListofListing(listinginfo);
             var PriceHelper = new FindProductInfoViewModel();
-            
+
 
             if (checklistinginfo != null)
             {
                 StaticCartViewModel.CartOfListId.Add(listinginfo.ListingId);
                 PriceHelper.HelperType = "buy";
                 StaticCartViewModel.TotalPrice(PriceHelper);
-               
+
 
             }
             return View();
-                
-            
+
+
         }
     }
 }

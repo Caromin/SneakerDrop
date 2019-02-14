@@ -53,6 +53,12 @@ namespace SneakerDrop.Mvc.Models
             return null;
         }
 
+        public List<FindProductInfoViewModel> ConvertListOnly(List<dm.ProductInfo> list)
+        {
+            return createModel.MappingViewInfo(list);
+
+        }
+
         public dm.ProductInfo SelectedViewModel(FindProductInfoViewModel item)
         {
             var productDomainModel = createModel.MappingProductInfo(item);
@@ -86,7 +92,7 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(p => p.Color, f => f.MapFrom(src => src.Color))
             .ForMember(p => p.ImageUrl, f => f.MapFrom(src => src.ImageUrl))
              .ForMember(p => p.DisplayPrice, f => f.MapFrom(src => src.DisplayPrice)));
-         
+
 
         public static MapperConfiguration viewConfig = new MapperConfiguration(cgf => cgf.CreateMap<dm.ProductInfo, FindProductInfoViewModel>()
             .ForMember(p => p.ProductInfoId, f => f.MapFrom(src => src.ProductInfoId))
@@ -148,15 +154,15 @@ namespace SneakerDrop.Mvc.Models
                     Price += 0;
                 }
             }
-        if (findproductinfo.HelperType == "remove")
+            if (findproductinfo.HelperType == "remove")
             {
                 Price -= findproductinfo.DisplayPrice;
             }
             return Price;
         }
 
-       
-        
+
+
     }
 
 }

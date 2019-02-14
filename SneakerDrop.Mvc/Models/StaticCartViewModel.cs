@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SneakerDrop.Mvc.Models
 {
-    public static class StaticCartViewModel
+    public class StaticCartViewModel
     {
         public static List<int> CartOfListId { get; set; }
 
@@ -14,6 +14,11 @@ namespace SneakerDrop.Mvc.Models
         public static List<CreateNewListingViewModel> CartOfProducts { get; set; }
 
         public static List<int> QuantityBasedOnListId { get; set; }
+
+        public StaticCartViewModel()
+        {
+            CartOfListId = new List<int>();
+        }
 
         public static decimal TotalPrice(FindProductInfoViewModel findproductinfo)
         {

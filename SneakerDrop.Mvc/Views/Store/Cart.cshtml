@@ -1,5 +1,4 @@
-﻿@using SneakerDrop.Mvc.Models
-@{
+﻿@{
     ViewData["Title"] = "Catalog";
 }
 
@@ -13,12 +12,12 @@
                 <div class="container  mt-5 box-shadow">
                     <h4>Cart Items</h4>
                     <div class="d-flex align-content-start flex-wrap">
-                        @foreach (var item in StaticCartViewModel.CartOfProducts)
+                        @foreach (var item in ViewData)
                         {
-                            <span class="d-block productText">@item.ProductTitle</span>
-                            <img class="productImage" src="@item.ImageUrl" />
-                            <span class="d-block productText"> @item.Quantity</span>
-                            <span class="d-block productText"> @item.UserSetPrice</span>
+                            <span class="d-block productText">@item.Key</span>
+                            @*<img class="productImage" src="@item.ImageUrl" />*@
+                            <span class="d-block productText"> @item.Value</span>
+                            
                         }
                     </div>
                 </div>

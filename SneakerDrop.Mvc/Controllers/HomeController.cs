@@ -116,8 +116,12 @@ namespace SneakerDrop.Mvc.Controllers
 
         public IActionResult Cart()
         {
+            var getProduct = JsonConvert.DeserializeObject<CreateNewListingViewModel>(HttpContext.Session.GetString("ProductTime"));
 
-            return View("~/Views/Store/Cart.cshtml");
+            KeyValuePair<string, object> ProductView = new KeyValuePair<string, object>("Your item", getProduct);
+            ViewData.Add(ProductView);
+
+            return View("~/Views/Store/Cart.cshtml" );
         }
 
 

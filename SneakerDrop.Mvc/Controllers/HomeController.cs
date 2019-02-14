@@ -97,6 +97,12 @@ namespace SneakerDrop.Mvc.Controllers
             return View("~/Views/Store/SingleItem.cshtml");
         }
 
+        public IActionResult Cart()
+        {
+            
+            return View("~/Views/Store/Cart.cshtml");
+        }
+
 
         public IActionResult Order(FindProductInfoViewModel productinfo)
         {

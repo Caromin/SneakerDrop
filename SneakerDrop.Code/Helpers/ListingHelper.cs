@@ -20,5 +20,7 @@ namespace SneakerDrop.Code.Helpers
         {
             return _db.Listings.Where(l => l.ProductInfo.ProductTitle == listing.ProductInfo.ProductTitle).ToList();
         }
+
+       
     }
 }

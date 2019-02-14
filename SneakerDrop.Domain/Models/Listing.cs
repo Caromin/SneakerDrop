@@ -25,6 +25,8 @@ namespace SneakerDrop.Domain.Models
 
         public ProductInfo ProductInfo { get; set; }
 
+        public int ProductInfoId { get; set; }
+
         public bool AddListing(Listing listing)
         {
             // add validation here before sending to db

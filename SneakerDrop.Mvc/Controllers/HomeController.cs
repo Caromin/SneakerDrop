@@ -61,8 +61,8 @@ namespace SneakerDrop.Mvc.Controllers
         public IActionResult Listing(string sellItem)
         {
             var productId = Int32.Parse(sellItem);
+            HttpContext.Session.SetInt32("SellingProductId", productId);
             dm.ProductInfo domainModel = FindProductInfoHelper.SingleProductById(productId);
-            domainModel.ProductInfoId = productId;
             var viewModel = new ConversionNewListing();
             CreateNewListingViewModel listing = viewModel.MappingCreateListing(domainModel);
 

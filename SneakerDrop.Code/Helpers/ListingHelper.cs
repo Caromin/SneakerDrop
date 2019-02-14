@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SneakerDrop.Domain.Models;
 
 namespace SneakerDrop.Code.Helpers
@@ -11,7 +12,11 @@ namespace SneakerDrop.Code.Helpers
 
         public static bool AddListingById(Listing listing)
         {
+            _db.Attach(listing.User);
+            _db.Attach(listing.ProductInfo);
             _db.Listings.Add(listing);
+            _db.Entry(listing.User).State = EntityState.Detached;
+            _db.Entry(listing.ProductInfo).State = EntityState.Detached;
 
             return _db.SaveChanges() == 1;
         }
@@ -26,7 +31,7 @@ namespace SneakerDrop.Code.Helpers
             return _db.Listings.Where(l => l.ProductInfo.ProductInfoId == selectedProductId).ToList();
         }
 
-        public static List<Listing>GetallListingsByListingId(int selectedListingId)
+        public static List<Listing> GetallListingsByListingId(int selectedListingId)
         {
             return _db.Listings.Where(l => l.ListingId == selectedListingId).ToList();
         }

@@ -9,11 +9,12 @@
             <h4 class="mb-2">SneakerDrop</h4>
             <div id="loginDiv" class="text-left p-3 box-shadow">
                 <div>
+
                     <div class="d-block">
                         @Html.LabelFor(u => u.Firstname, new { @class = "btnText" })
                     </div>
                     <div>
-                        @Html.TextBoxFor(u => u.Firstname, new { @required = "required", placeholder = "Christian", @class = "w-100 form-control" })
+                        @Html.TextBoxFor(u => u.Firstname, new { @required = "required", placeholder = ViewData.Model.Firstname, @class = "w-100 form-control" })
                     </div>
                     <div>
                         @Html.ValidationMessageFor(u => u.Firstname)
@@ -24,7 +25,7 @@
                         @Html.LabelFor(u => u.Lastname, new { @class = "btnText" })
                     </div>
                     <div>
-                        @Html.TextBoxFor(u => u.Lastname, new { @required = "required", placeholder = "Smith", @class = "w-100 form-control" })
+                        @Html.TextBoxFor(u => u.Lastname, new { @required = "required", placeholder = "Chung", @class = "w-100 form-control" })
                     </div>
                     <div>
                         @Html.ValidationMessageFor(u => u.Lastname)

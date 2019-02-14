@@ -272,8 +272,9 @@ namespace SneakerDrop.Mvc.Controllers
         public IActionResult EditUserInfo(UserViewModel user)
         {
             var sessionUserId = HttpContext.Session.GetInt32("UserId");
-
-            var editedUser = new UserViewModel
+            
+            
+            ViewBag.editedUser = new UserViewModel
             {
                 UserId = (int)sessionUserId,
                 Firstname = user.Firstname,
@@ -283,11 +284,10 @@ namespace SneakerDrop.Mvc.Controllers
                 Password = user.Password
             };
 
-            if (editedUser.AddEditUser(editedUser))
+            if (ViewBag.editedUser.AddEditUser(ViewBag.editedUser))
             {
                 HttpContext.Session.SetString("Username", user.Username);
             }
-
             return RedirectToAction("Account", "Home");
         }
 

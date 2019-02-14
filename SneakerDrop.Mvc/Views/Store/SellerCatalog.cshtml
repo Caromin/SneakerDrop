@@ -1,6 +1,6 @@
 ﻿@model List<SneakerDrop.Mvc.Models.FindProductInfoViewModel>
 @{
-    ViewData["Title"] = "Catalog";
+    ViewData["Title"] = "Seller Catalog";
 }
 
 <partial name="../Partials/GeneralHeader.cshtml" />
@@ -8,13 +8,14 @@
     <div>
         <main role="main">
             <div class="homeBanner2"></div>
-            <div class="container text-center pt-5">
-                <partial name="../Partials/SearchBuyer.cshtml" />
+            <div class="container pt-5">
+                @*<partial name="../Partials/SearchBuyer.cshtml" />*@
+                <a class="btn btn-warning w-25" asp-area="" asp-controller="Home" asp-action="Account">Return to Homepage</a>
             </div>
-            @using (Html.BeginForm("Product", "Store", FormMethod.Get))
+            @using (Html.BeginForm("Listing", "Home", FormMethod.Get))
             {
                 <div class="container  mt-5 box-shadow">
-                    <h4>SEARCH RESULTS</h4>
+                    <h4>SELECT PRODUCT TO SELL</h4>
                     <div class="pl-3 d-flex align-content-start flex-wrap">
                         @foreach (var item in Model)
                         {
@@ -24,7 +25,7 @@
                                 </div>
                                 <div class="d-block productText smallBox">@item.ProductTitle</div>
                                 <div class="d-block smallBox">
-                                    <button name="viewItem" class="btn-link noBorder" type="submit" value="@item.ProductInfoId">More Details</button>
+                                    <button name="sellItem" class="btn btn-success" type="submit" value="@item.ProductInfoId">Create a Listing</button>
                                 </div>
                             </div>
                         }

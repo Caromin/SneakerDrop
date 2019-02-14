@@ -58,15 +58,19 @@ namespace SneakerDrop.Mvc.Controllers
             return View("~/Views/Store/SellerSearch.cshtml");
         }
 
-        public IActionResult Listing()
+        public IActionResult Listing(string sellItem)
         {
-            return View("~/Views/Store/Listing.cshtml");
+            var productId = Int32.Parse(sellItem);
+            dm.ProductInfo domainModel = FindProductInfoHelper.SingleProductById(productId);
+            var viewModel = new ConversionNewListing();
+            CreateNewListingViewModel listing = viewModel.MappingCreateListing(domainModel);
+
+            return View("~/Views/Store/Listing.cshtml", listing);
         }
 
         public IActionResult ChangeUserInfo()
         {
             var sessionuserid = HttpContext.Session.GetInt32("UserId");
-
             var userInfo = UserHelper.GetUserInfoById((int)sessionuserid);
             var model = new ConversionUser();
             UserViewModel viewModel = model.MappingViewInfo(userInfo);
@@ -94,6 +98,13 @@ namespace SneakerDrop.Mvc.Controllers
                     var typeList = model.ConvertListOnly(createcatalog3);
                     onlyType.AddRange(typeList);
                 }
+                if (HttpContext.Session.GetString("Selling") == "seller")
+                {
+                    HttpContext.Session.SetString("Selling", "");
+                    return View("~/Views/Store/SellerCatalog.cshtml", onlyType);
+
+                }
+
                 return View("~/Views/Store/Catalog.cshtml", onlyType);
             }
             foreach (var item2 in createcatalog2)
@@ -103,6 +114,20 @@ namespace SneakerDrop.Mvc.Controllers
                 var typeList = model.ConvertListOnly(createcatalog3);
                 results.AddRange(typeList);
             }
+
+            // for if user inputs something that doesnt exist in db
+            if (results.Count == 0 && createcatalog2.Count == 0)
+            {
+                return View("~/Views/Store/SellerCatalog.cshtml", onlyType);
+            }
+
+            if (HttpContext.Session.GetString("Selling") == "seller")
+            {
+                HttpContext.Session.SetString("Selling", "");
+                return View("~/Views/Store/SellerCatalog.cshtml", results);
+
+            }
+
             return View("~/Views/Store/Catalog.cshtml", results);
         }
 

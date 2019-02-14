@@ -9,38 +9,26 @@ using c = SneakerDrop.Code;
 using SneakerDrop.Code.Helpers;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Session;
 
 
 namespace SneakerDrop.Mvc.Controllers
 {
     public class StoreController : Controller
     {
-        public static List<int> ListOfIds { get; set; }
-
-        public static List<dm.ProductInfo> ListOfProducts { get; set; }
-
-        static StoreController()
-        {
-            ListOfIds = new List<int>();
-            ListOfProducts = new List<dm.ProductInfo>();
-        }
-
-
-        [HttpPost]
-        [ActionName("seller")]
-        public IActionResult SearchAction(string SearchAction)
-        {
-            switch (SearchAction)
-            {
-                case "Search":
-                    return View("~/Views/Partials/ListingSearch.cshtml");
-                case "Next":
-                    return View("~/Views/Store/Listing.cshtml");
-                default:
-                    return View();
-            }
-        }
+        //[HttpPost]
+        //[ActionName("seller")]
+        //public IActionResult SearchAction(string SearchAction)
+        //{
+        //    switch (SearchAction)
+        //    {
+        //        case "Search":
+        //            return View("~/Views/Partials/ListingSearch.cshtml");
+        //        case "Next":
+        //            return View("~/Views/Store/Listing.cshtml");
+        //        default:
+        //            return View();
+        //    }
+        //}
         [HttpPost]
         [ActionName("seller2")]
         public IActionResult ListingCheck(FindProductInfoViewModel productinfo)
@@ -98,52 +86,8 @@ namespace SneakerDrop.Mvc.Controllers
         {
             int listingId = Int32.Parse(buy);
 
-            ListOfIds.Add(listingId);
-
-            HttpContext.Session.SetString("ListOfIds", JsonConvert.SerializeObject(ListOfIds));
-            //var PriceHelper = new FindProductInfoViewModel();
-
-            //StaticCartViewModel.CartOfListId.Add(listingId);
-            ////PriceHelper.HelperType = "buy";
-            ////StaticCartViewModel.TotalPrice(PriceHelper);
-
-
-            return RedirectToAction("CartPull", "Store");
+            return RedirectToAction("Product", "Store");
         }
-
-        [HttpGet]
-        [ActionName("CartPull")]
-        public IActionResult CartInfo()
-        {
-            c.SneakerDropDbContext db = new c.SneakerDropDbContext();
-            var getIdList = JsonConvert.DeserializeObject<List<int>>(HttpContext.Session.GetString("ListOfIds"));
-
-            foreach (var item in getIdList)
-            {
-                var cartstuff = db.Listings.Where(l => l.ListingId == item).ToList();
-                var cartstufffirst = cartstuff.FirstOrDefault();
-                foreach (var item2 in cartstuff)
-                {
-                    var cartstuff2 = db.ProductInfos.Where(p => p.ProductInfoId == item2.ProductInfoId).FirstOrDefault();
-                    ListOfProducts.Add(cartstuff2);
-                   
-                    HttpContext.Session.SetString("ProductTime", JsonConvert.SerializeObject(ListOfProducts));
-                }
-
-            }
-
-            return RedirectToAction("Cart", "Home");
-
-        }
-
-        //[HttpGet]
-        //[ActionName("CartPull2")]
-        //public IActionResult CartInfoPull()
-        //{
-        //    var getProduct = JsonConvert.DeserializeObject<CreateNewListingViewModel>(HttpContext.Session.GetString("ProductTime"));
-        //    return RedirectToAction("Cart", "Home", getProduct);
-            
-        //}
 
         [HttpGet]
         [ActionName("Product")]
@@ -195,8 +139,53 @@ namespace SneakerDrop.Mvc.Controllers
             return View("~/Views/Store/SingleItem.cshtml", convertedList);
         }
 
-      
+        [HttpGet]
+        [ActionName("CartPull")]
+        public IActionResult CartInfo(CreateNewListingViewModel listinginfo)
+        {
+            var checklistinginfo = listinginfo.ListofListing(listinginfo);
+            var PriceHelper = new FindProductInfoViewModel();
 
+
+            if (checklistinginfo != null)
+            {
+                StaticCartViewModel.CartOfListId.Add(listinginfo.ListingId);
+                PriceHelper.HelperType = "buy";
+                StaticCartViewModel.TotalPrice(PriceHelper);
+
+
+            }
+            return View();
+
+
+        }
+
+        [HttpPost]
+        [ActionName("CreateListing")]
+        public IActionResult CreateListing(CreateNewListingViewModel passedInfo)
+        {
+            var model = new dm.Listing();
+            var id = HttpContext.Session.GetInt32("SellingProductId");
+            dm.ProductInfo productInfo = FindProductInfoHelper.SingleProductById((int)id);
+
+            var listing = new dm.Listing
+            {
+                UserSetPrice = passedInfo.UserSetPrice,
+                Quantity = passedInfo.Quantity,
+                Size = passedInfo.Size,
+                User = new dm.User
+                {
+                    UserId = (int)HttpContext.Session.GetInt32("UserId")
+                },
+                ProductInfo = new dm.ProductInfo
+                {
+                    ProductInfoId = (int)HttpContext.Session.GetInt32("SellingProductId")
+                }
+            };
+            model.AddListing(listing);
+
+            return RedirectToAction("Account", "Home");
+        }
     }
 }
 

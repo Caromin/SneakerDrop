@@ -12,7 +12,11 @@ namespace SneakerDrop.Code.Helpers
 
         public static bool AddListingById(Listing listing)
         {
+            _db.Attach(listing.User);
+            _db.Attach(listing.ProductInfo);
             _db.Listings.Add(listing);
+            _db.Entry(listing.User).State = EntityState.Detached;
+            _db.Entry(listing.ProductInfo).State = EntityState.Detached;
 
             return _db.SaveChanges() == 1;
         }

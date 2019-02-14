@@ -16,5 +16,8 @@
     <Reference Include="System.ComponentModel.Annotations">
       <HintPath>..\..\..\..\..\usr\local\share\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.2.0\ref\netcoreapp2.2\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
+    <Reference Include="SneakerDrop.Code">
+      <HintPath>..\SneakerDrop.Code\bin\Debug\netstandard2.0\SneakerDrop.Code.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

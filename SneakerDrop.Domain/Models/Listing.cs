@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SneakerDrop.Code.Helpers;
 
 namespace SneakerDrop.Domain.Models
 {
@@ -24,7 +25,13 @@ namespace SneakerDrop.Domain.Models
 
         public ProductInfo ProductInfo { get; set; }
 
-        public int ProductInfoId { get; set; }
+        public bool AddListing(Listing listing)
+        {
+            // add validation here before sending to db
+            ListingHelper.AddListingById(listing);
+
+            return true;
+        }
 
         public static decimal CartTotal(Listing productinfo, Listing buyerinfo)
         {

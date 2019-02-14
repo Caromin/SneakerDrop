@@ -203,6 +203,11 @@ p {
     width: 600px;
 }
 
+.singleItemPhotoSell {
+    height: 300px;
+    width: 450px;
+}
+
 tr:nth-child(even) {
     background-color: #dddddd;
 }

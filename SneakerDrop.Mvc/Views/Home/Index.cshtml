@@ -11,17 +11,25 @@
         <div class="homeBanner2"></div>
         <div class="container  mt-5 box-shadow">
             <h4>RECENTLY ADDED PRODUCTS</h4>
-            <div class="d-flex align-content-start flex-wrap">
-                @foreach (var item in Model)
-                {
-                    <a href="#" class="d-inline flex-grow-1 pl-1 m-1">
-                        <div>
-                            <img class="productImage" src="@item.ImageUrl" alt="@item.ProductInfoId" />
-                            <span class="d-block productText">@item.ProductTitle</span>
+            @using (Html.BeginForm("Product", "Store", FormMethod.Get))
+            {
+                <div class="d-flex align-content-start flex-wrap">
+                    @foreach (var item in Model)
+                    {
+                        <div class="d-inline flex-grow-1 pl-1 m-1">
+                            <div>
+                                <div class="homepageImg">
+                                    <img class="productImage" src="@item.ImageUrl" alt="@item.ProductInfoId" />
+                                    <span class="d-block productText">@item.ProductTitle</span>
+                                </div>
+                                <div>
+                                    <button name="viewItem" class="btn-link noBorder" type="submit" value="@item.ProductInfoId">More Details</button>
+                                </div>
+                            </div>
                         </div>
-                    </a>
-                }
-            </div>
+                    }
+                </div>
+            }
         </div>
     </main>
 </div>

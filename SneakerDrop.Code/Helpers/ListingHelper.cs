@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SneakerDrop.Domain.Models;
 
 namespace SneakerDrop.Code.Helpers
@@ -26,9 +27,20 @@ namespace SneakerDrop.Code.Helpers
             return _db.Listings.Where(l => l.ProductInfo.ProductInfoId == selectedProductId).ToList();
         }
 
-        public static List<Listing>GetallListingsByListingId(int selectedListingId)
+        public static List<Listing> GetallListingsByListingId(int selectedListingId)
         {
             return _db.Listings.Where(l => l.ListingId == selectedListingId).ToList();
+        }
+
+        public static Listing GetListingInfoByIdForOrder(Orders order)
+        {
+            Listing dbInfo = _db.Listings.Where(l => l.ListingId == order.Listing.ListingId)
+                                         .Include(l => l.ProductInfo)
+                                         .Include(l => l.ProductInfo.Brand)
+                                         .Include(l => l.ProductInfo.Type)
+                                         .Include(l => l.User)
+                                         .FirstOrDefault();
+            return dbInfo;
         }
     }
 }

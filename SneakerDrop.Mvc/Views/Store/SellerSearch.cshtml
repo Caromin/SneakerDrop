@@ -1,48 +1,14 @@
-﻿@*@model List<SneakerDrop.Mvc.Models.FindProductInfoViewModel>
+﻿@model List<SneakerDrop.Mvc.Models.FindProductInfoViewModel>
 
-    <partial name="../Partials/GeneralHeader.cshtml" />
-    <div id="sellerBanner" class="text-center pt-5 pb-5">
-        <h1 class="sellerTitle pb-4 pt-5">What do you want to sell?</h1>
-        <div class="search d-inline">
-            @using (@Html.BeginForm("buyer", "Store"))
-            {
-                @Html.TextBoxFor(u => u[0].ProductTitle, "Search", new { @required = "required", @class = "pl-2 searchbar" })
-                @Html.ValidationMessageFor(u => u[0].ProductTitle)
-                <button type="submit" class="btn btn-success">Search</button>
-            }
-        </div>
+<partial name="../Partials/GeneralHeader.cshtml" />
+<div id="sellerBanner" class="text-center pt-5 pb-5">
+    <h1 class="sellerTitle pb-4 pt-5">What do you want to sell?</h1>
+    <div class="search d-inline">
+        @using (@Html.BeginForm("buyer", "Store"))
+        {
+            @Html.TextBoxFor(u => u[0].ProductTitle, "Search", new { @required = "required", @class = "pl-2 searchbar" })
+            @Html.ValidationMessageFor(u => u[0].ProductTitle)
+            <button name="sell" type="submit" class="btn btn-success" value="seller">Search</button>
+        }
     </div>
-
-    @model List<SneakerDrop.Mvc.Models.FindProductInfoViewModel>
-    @{
-        ViewData["Title"] = "Sell Catalog";
-    }
-
-    <partial name="../Partials/GeneralHeader.cshtml" />
-    @using (Html.BeginForm("Product", "Store", FormMethod.Get))
-    {
-        <div class="search d-inline">
-            <div>
-                <main role="main">
-                    <div class="homeBanner2"></div>
-                    <div class="container  mt-5 box-shadow">
-                        <h4>SELECT AN ITEM TO SELL</h4>
-                        <div class="d-flex align-content-start flex-wrap">
-                            @foreach (var item in Model)
-                            {
-                                <div>
-                                    <div class="d-block">
-                                        <img class="productImage" src="@item.ImageUrl" />
-                                    </div>
-                                    <div class="d-block productText smallBox">@item.ProductTitle</div>
-                                    <div class="d-block smallBox">
-                                        <button name="viewItem" class="btn-link noBorder" type="submit" value="@item.ProductInfoId">More Details</button>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </main>
-            </div>
-        </div>
-    }*@
+</div>

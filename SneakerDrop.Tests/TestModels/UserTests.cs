@@ -50,12 +50,12 @@ namespace SneakerDrop.Tests.TestModels
         {
             var sut = new UserViewModel
             {
-                UserId = 1,
-                Username = "ian25192",
-                Password = "Password",
-                Firstname = "Ian",
-                Lastname = "Nai",
-                Email = "Email@email.com"
+                UserId = 76,
+                Username = "SimonPegg",
+                Password = "HazzyMax312",
+                Firstname = "Kobe",
+                Lastname = "Bryant",
+                Email = "torch@email.com"
             };
 
             var test = sut.LoginValidator(sut);

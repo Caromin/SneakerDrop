@@ -1,7 +1,60 @@
-﻿
+﻿@model SneakerDrop.Mvc.Models.CreateNewListingViewModel
+
 @{
-    ViewData["Title"] = "Listing";
+    ViewData["Title"] = "Create Listing";
 }
 
-<h1>Listing</h1>
+<partial name="../Partials/GeneralHeader" />
+<div class="container text-center mt-5">
+    <div>
 
+        <div>
+            <h1>@Model.ProductTitle</h1>
+            <img class="singleItemPhoto" src="@Model.ImageUrl" />
+        </div>
+        <div class="text-left row">
+            <div class="col-6">
+                <p><b>COLOR WAY</b> @Model.Color</p>
+                <p><b>RETAIL PRICE</b> $@Model.DisplayPrice</p>
+                <p><b>RELEASE DATE</b> @Model.ReleaseDate</p>
+            </div>
+            <div class="col-6">
+                <p>@Model.Description</p>
+            </div>
+        </div>
+    </div>
+    <div class="text-left pt-5 mb-5 pb-5">
+        <div>
+            @using (@Html.BeginForm("createListing", "Store"))
+            {
+                <div>
+                    <div>
+                        @Html.LabelFor(m => m.UserSetPrice, "Price", new { @class = "" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(m => m.UserSetPrice, new { @class = "" })
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        @Html.LabelFor(m => m.Size, "Size", new { @class = "" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(m => m.Size, new { @class = "" })
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        @Html.LabelFor(m => m.Quantity, "Quantity", new { @class = "" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(m => m.Quantity, new { @class = "" })
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-success">Create Listing</button>
+                </div>
+            }
+
+        </div>
+    </div>

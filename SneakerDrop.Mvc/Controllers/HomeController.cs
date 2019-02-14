@@ -72,30 +72,21 @@ namespace SneakerDrop.Mvc.Controllers
         public IActionResult Catalog()
         {
             cd.SneakerDropDbContext db = new cd.SneakerDropDbContext();
-
             var sessionproduct = HttpContext.Session.GetString("ProductName");
-
-            var createcatalog = db.ProductInfos.Where(p => p.ProductTitle.Contains(sessionproduct)).ToList();
-            foreach (var item in createcatalog)
-            {
-                KeyValuePair<string, object> catalogcreate = new KeyValuePair<string, object>(item.ProductTitle, item.ImageUrl);
-                ViewData.Add(catalogcreate);
-
-            }
+            var model = new FindProductInfoViewModel { ProductTitle = sessionproduct };
+            List<FindProductInfoViewModel> results = model.FindMatchingProductInfo(model);
             var createcatalog2 = db.Type.Where(t => t.TypeName.Contains(sessionproduct)).ToList();
+
             foreach (var item2 in createcatalog2)
             {
                 var typeid = item2.TypeId;
                 var createcatalog3 = db.ProductInfos.Where(p => p.Type.TypeId == typeid).ToList();
-                foreach (var item3 in createcatalog3)
-                {
-                    KeyValuePair<string, object> typecatalogcreate = new KeyValuePair<string, object>(item3.ProductTitle, item3.ImageUrl);
-                    ViewData.Add(typecatalogcreate);
-                }
+                var typeList = model.ConvertListOnly(createcatalog3);
+                results.AddRange(typeList);
             }
 
 
-            return View("~/Views/Store/Catalog.cshtml");
+            return View("~/Views/Store/Catalog.cshtml", results);
         }
 
 

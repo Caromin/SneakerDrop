@@ -1,30 +1,26 @@
-﻿@{
+﻿@model List<SneakerDrop.Mvc.Models.FindProductInfoViewModel>
+@{
     ViewData["Title"] = "Catalog";
 }
+
+<partial name="../Partials/GeneralHeader.cshtml" />
 @using (Html.BeginForm("Catalog", "Home", FormMethod.Get))
 {
-<div class="search d-inline">
- 
-     <div>
+    <div class="search d-inline">
+        <div>
             <main role="main">
                 <div class="homeBanner2"></div>
                 <div class="container  mt-5 box-shadow">
-                    <h1>Search Results</h1>
+                    <h4>SEARCH RESULTS</h4>
                     <div class="d-flex align-content-start flex-wrap">
-                        @foreach (var item in ViewData)
+                        @foreach (var item in Model)
                         {
-                            
-                                  
-                                <span class="d-block productText">@item.Key</span>
-                                <img class="productImage" src="@item.Value"/>
-                               
+                            <span class="d-block productText">@item.ProductTitle</span>
+                            <img class="productImage" src="@item.ImageUrl" />
                         }
                     </div>
                 </div>
             </main>
         </div>
-    
-        
-    
-</div>
+    </div>
 }

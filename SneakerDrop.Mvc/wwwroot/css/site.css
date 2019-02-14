@@ -183,3 +183,13 @@ p {
 .noBorder {
     border: none;
 }
+
+.sellerTitle {
+    font-weight: 200;
+}
+
+#sellerBanner {
+    background: url("../images/ebayBanner.jpg") no-repeat center;
+    background-size: cover;
+    height: 400px;
+}

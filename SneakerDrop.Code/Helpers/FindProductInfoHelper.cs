@@ -17,9 +17,9 @@ namespace SneakerDrop.Code.Helpers
                         where item.ProductTitle.Contains(inputPassed)
                         select item;
 
-            var productInfos = query.ToList<ProductInfo>().Take(10);
+            var productInfos = query.ToList();
 
-            return (System.Collections.Generic.List<SneakerDrop.Domain.Models.ProductInfo>)productInfos;
+            return productInfos;
         }
 
         public static ProductInfo SingleProductInfo(ProductInfo product)
@@ -37,7 +37,7 @@ namespace SneakerDrop.Code.Helpers
             return query;
         }
 
-        public static List<ProductInfo>FindSearch(string input)
+        public static List<ProductInfo> FindSearch(string input)
         {
 
             var query = from item in _db.ProductInfos

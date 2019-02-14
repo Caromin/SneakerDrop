@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SneakerDrop.Domain.Models;
 
 namespace SneakerDrop.Code.Helpers
 {
     public static class OrderHelper
     {
-        public static SneakerDropDbContext _db = new SneakerDropDbContext();
+        private static SneakerDropDbContext _db = new SneakerDropDbContext();
 
         public static bool AddOrderById(Orders orders)
         {
@@ -20,8 +21,13 @@ namespace SneakerDrop.Code.Helpers
             _db.Attach(orders.Payment);
             _db.Attach(orders.Payment.User);
             _db.Attach(orders.User);
-
-
+            _db.Entry(orders.Listing).State = EntityState.Detached;
+            _db.Entry(orders.Listing.ProductInfo).State = EntityState.Detached;
+            _db.Entry(orders.Listing.ProductInfo.Brand).State = EntityState.Detached;
+            _db.Entry(orders.Listing.ProductInfo.Type).State = EntityState.Detached;
+            _db.Entry(orders.Listing.User).State = EntityState.Detached;
+            _db.Entry(orders.Payment).State = EntityState.Detached;
+            _db.Entry(orders.Payment.User).State = EntityState.Detached;
 
             return _db.SaveChanges() == 1;
         }

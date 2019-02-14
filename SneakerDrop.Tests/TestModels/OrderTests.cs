@@ -66,7 +66,7 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(sut);
         }
-        [Fact(Skip = "working on still")]
+        [Fact(Skip ="need to work on time")]
         public void Test_AddOrders()
         {
             var sut = new OrderAndPaymentViewModel

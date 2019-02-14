@@ -25,11 +25,13 @@ namespace SneakerDrop.Domain.Models
 
         public ProductInfo ProductInfo { get; set; }
 
+        public Validator validator = new Validator();
+
         public bool AddListing(Listing listing)
         {
             // add validation here before sending to db
             ListingHelper.AddListingById(listing);
-
+            var checkShoeSize = validator.ValidateShoeSize(listing);
             return true;
         }
 

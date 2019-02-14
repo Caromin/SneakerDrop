@@ -102,6 +102,16 @@ namespace SneakerDrop.Domain.Models
             }
             return false;
         }
+        public bool ValidateShoeSize(Listing listingInfoDomainModel)
+        {
+            var listingSize = new Regex (@"^[0-9]+$");
+
+            if (listingSize.IsMatch(listingInfoDomainModel.Size))
+            {
+                return true;
+            }
+            return false;
+        }
 
     }
 }

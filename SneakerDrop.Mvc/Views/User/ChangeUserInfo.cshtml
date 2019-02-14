@@ -13,7 +13,7 @@
                         @Html.LabelFor(u => u.Firstname, new { @class = "btnText" })
                     </div>
                     <div>
-                        @Html.TextBoxFor(u => u.Firstname, new { @required = "required", placeholder = "Christian", @class = "w-100 form-control" })
+                        @Html.TextBoxFor(u => u.Firstname, @Model.Firstname, new { @required = "required", placeholder = "Christian", @class = "w-100 form-control" })
                     </div>
                     <div>
                         @Html.ValidationMessageFor(u => u.Firstname)
@@ -24,7 +24,7 @@
                         @Html.LabelFor(u => u.Lastname, new { @class = "btnText" })
                     </div>
                     <div>
-                        @Html.TextBoxFor(u => u.Lastname, new { @required = "required", placeholder = "Smith", @class = "w-100 form-control" })
+                        @Html.TextBoxFor(u => u.Lastname, @Model.Lastname, new { @required = "required", placeholder = "Smith", @class = "w-100 form-control" })
                     </div>
                     <div>
                         @Html.ValidationMessageFor(u => u.Lastname)
@@ -35,7 +35,7 @@
                         @Html.LabelFor(u => u.Username, new { @class = "btnText" })
                     </div>
                     <div>
-                        @Html.TextBoxFor(u => u.Username, new { @required = "required", placeholder = "MeowCat123", @class = "w-100 form-control" })
+                        @Html.TextBoxFor(u => u.Username, @Model.Username, new { @required = "required", placeholder = "MeowCat123", @class = "w-100 form-control" })
                     </div>
                     <div>
                         @Html.ValidationMessageFor(u => u.Username)
@@ -46,7 +46,7 @@
                         @Html.LabelFor(u => u.Email, new { @class = "btnText" })
                     </div>
                     <div>
-                        @Html.TextBoxFor(u => u.Email, new { @required = "required", placeholder = "MeowMix123@aol.com", @class = "w-100 form-control" })
+                        @Html.TextBoxFor(u => u.Email, @Model.Email, new { @required = "required", placeholder = "MeowMix123@aol.com", @class = "w-100 form-control" })
                     </div>
                     <div>
                         @Html.ValidationMessageFor(u => u.Email)
@@ -58,7 +58,7 @@
                         @Html.LabelFor(u => u.Password, new { @class = "btnText" })
                     </div>
                     <div>
-                        @Html.TextBoxFor(u => u.Password, new { @required = "required", placeholder = "Password123", @class = "w-100 form-control" })
+                        @Html.TextBoxFor(u => u.Password, @Model.Password, new { @required = "required", placeholder = "Password123", @class = "w-100 form-control" })
                     </div>
                     <div>
                         @Html.ValidationMessageFor(u => u.Password)

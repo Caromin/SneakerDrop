@@ -21,6 +21,9 @@ namespace SneakerDrop.Code.Helpers
             return _db.Listings.Where(l => l.ProductInfo.ProductTitle == listing.ProductInfo.ProductTitle).ToList();
         }
 
-       
+        public static List<Listing> GetAllListingsByProductInfoId(int selectedProductId)
+        {
+            return _db.Listings.Where(l => l.ProductInfo.ProductInfoId == selectedProductId).ToList();
+        }
     }
 }

@@ -75,15 +75,15 @@ namespace SneakerDrop.Mvc.Controllers
             var sessionproduct = HttpContext.Session.GetString("ProductName");
             var model = new FindProductInfoViewModel { ProductTitle = sessionproduct };
             List<FindProductInfoViewModel> results = model.FindMatchingProductInfo(model);
-            //var createcatalog2 = db.Type.Where(t => t.TypeName.Contains(sessionproduct)).ToList();
+            var createcatalog2 = db.Type.Where(t => t.TypeName.Contains(sessionproduct)).ToList();
 
-            //  foreach (var item2 in createcatalog2)
-            //{
-            //    var typeid = item2.TypeId;
-            //    var createcatalog3 = db.ProductInfos.Where(p => p.Type.TypeId == typeid).ToList();
-            //    model.(createcatalog3);
-            //    results.AddRange(createcatalog3);
-            //}
+            foreach (var item2 in createcatalog2)
+            {
+                var typeid = item2.TypeId;
+                var createcatalog3 = db.ProductInfos.Where(p => p.Type.TypeId == typeid).ToList();
+                var typeList = model.ConvertListOnly(createcatalog3);
+                results.AddRange(typeList);
+            }
 
 
             return View("~/Views/Store/Catalog.cshtml", results);

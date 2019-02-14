@@ -143,5 +143,10 @@ namespace SneakerDrop.Mvc.Models
             }
             return convertedList;
         }
+        public AddressViewModel MappingAddressInfo(dm.Address address)
+        {
+            var addressViewMapper = viewConfig.CreateMapper();
+            return addressViewMapper.Map<dm.Address, AddressViewModel> (address);
+        }
     }
 }

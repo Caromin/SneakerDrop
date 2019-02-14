@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using SneakerDrop.Code.Helpers;
 using dm = SneakerDrop.Domain.Models;
+using System.Linq;
 
 namespace SneakerDrop.Mvc.Models
 {
@@ -13,7 +15,8 @@ namespace SneakerDrop.Mvc.Models
         [Required]
         public decimal UserSetPrice { get; set; }
 
-        [Required]
+
+       [Required]
         public int Quantity { get; set; }
 
         [StringLength(50)]
@@ -75,6 +78,18 @@ namespace SneakerDrop.Mvc.Models
 
             return true;
         }
+
+
+        public List<dm.Listing> ListofListing (CreateNewListingViewModel listing)
+        {
+            var listingitem = ListingHelper.GetallListingsByListingId(listing.ListingId);
+
+            foreach(var item in listingitem)
+            {
+              createModel.MappingListing(item);
+            }
+            return listingitem;
+        }
     }
 
     public class ConversionNewListing : Profile
@@ -103,6 +118,13 @@ namespace SneakerDrop.Mvc.Models
         {
             var listingMapper = listingConfig.CreateMapper();
             return listingMapper.Map<dm.ProductInfo, CreateNewListingViewModel>(item);
+        }
+
+        public CreateNewListingViewModel MappingListing(dm.Listing listing)
+        {
+            var listingMapper = listingConfig.CreateMapper();
+            return listingMapper.Map<dm.Listing, CreateNewListingViewModel>(listing);
+            
         }
 
         public dm.Listing MappingDomainListing(CreateNewListingViewModel listing)

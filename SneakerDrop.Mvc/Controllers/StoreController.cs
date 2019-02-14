@@ -121,6 +121,26 @@ namespace SneakerDrop.Mvc.Controllers
 
             return View("~/Views/Store/SingleItem.cshtml", convertedList);
         }
+
+        [HttpGet]
+        [ActionName("CartPull")]
+        public IActionResult CartInfo(CreateNewListingViewModel listinginfo)
+        {
+            var checklistinginfo = listinginfo.ListofListing(listinginfo);
+            var PriceHelper = new FindProductInfoViewModel();
+            
+
+            if (checklistinginfo != null)
+            {
+                StaticCartViewModel.CartOfListId.Add(listinginfo.ListingId);
+                PriceHelper.HelperType = "buy";
+                StaticCartViewModel.TotalPrice(PriceHelper);
+               
+
+            }
+                
+            
+        }
     }
 }
 

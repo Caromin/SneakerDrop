@@ -94,7 +94,6 @@ namespace SneakerDrop.Mvc.Controllers
                 }
             }
 
-
             return View("~/Views/Store/Catalog.cshtml");
         }
 

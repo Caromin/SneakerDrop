@@ -54,61 +54,60 @@ namespace SneakerDrop.Mvc.Models
         }
 
         // add order needs userId, cancel order needs orderId, no validation setup
-        public bool AddOrCancelOrders(OrderAndPaymentViewModel orderView)
-        {
-            dm.Orders orderDomainModel = createModel.MappingOrders(orderView); 
+        //public bool AddOrCancelOrders(OrderAndPaymentViewModel orderView)
+        //{
+        //    dm.Orders orderDomainModel = createModel.MappingOrders(orderView); 
 
-            dm.User getUser = UserHelper.GetUserInfoByIdForOrder(orderDomainModel);
-            dm.Listing getListing = ListingHelper.GetListingInfoByIdForOrder(orderDomainModel);
-            dm.User getUserListing = UserHelper.GetUserInfobyIdForListing(getListing);
-            dm.Payment getPayment = PaymentHelper.GetPaymentByOrderId(orderDomainModel);
+        //    dm.User getUser = UserHelper.GetUserInfoByIdForOrder(orderDomainModel);
+        //    dm.Listing getListing = ListingHelper.GetListingInfoByIdForOrder(orderDomainModel);
+        //    dm.Payment getPayment = PaymentHelper.GetPaymentByOrderId(orderDomainModel);
 
-            if (orderView.HelperType == "add")
-            {
-                var addedOrder = new dm.Orders
-                {
-                    OrderId = orderDomainModel.OrderId,
-                    OrderGroupNumber = orderDomainModel.OrderGroupNumber,
-                    Quantity = orderDomainModel.Quantity,
-                    ShippingStatus = orderDomainModel.ShippingStatus,
-                    Timestamp = orderDomainModel.Timestamp,
+        //    if (orderView.HelperType == "add")
+        //    {
+        //        var addedOrder = new dm.Orders
+        //        {
+        //            OrderId = orderDomainModel.OrderId,
+        //            OrderGroupNumber = orderDomainModel.OrderGroupNumber,
+        //            Quantity = orderDomainModel.Quantity,
+        //            ShippingStatus = orderDomainModel.ShippingStatus,
+        //            Timestamp = orderDomainModel.Timestamp,
 
-                    User = new dm.User
-                    {
-                        UserId = getUser.UserId,
-                        Username = getUser.Username,
-                        Password = getUser.Password,
-                        Firstname = getUser.Firstname,
-                        Lastname = getUser.Lastname,
-                        Email = getUser.Email,
-                    },
-                    Listing = new dm.Listing
-                    {
-                        ListingId = getListing.ListingId,
-                        Quantity = getListing.Quantity,
-                        Size = getListing.Size,
-                        UserSetPrice = getListing.UserSetPrice,
-                        ProductInfo = getListing.ProductInfo,
-                        User = getListing.User,                        
-                    },
-                    Payment = new dm.Payment
-                    {
-                        PaymentId = getPayment.PaymentId,
-                        CCNumber = getPayment.CCNumber,
-                        CCUserName = getPayment.CCUserName,
-                        Month = getPayment.Month,
-                        Year = getPayment.Year,
-                        CVV = getPayment.CVV,
-                        User = getPayment.User,
+        //            User = new dm.User
+        //            {
+        //                UserId = getUser.UserId,
+        //                Username = getUser.Username,
+        //                Password = getUser.Password,
+        //                Firstname = getUser.Firstname,
+        //                Lastname = getUser.Lastname,
+        //                Email = getUser.Email,
+        //            },
+        //            Listing = new dm.Listing
+        //            {
+        //                ListingId = getListing.ListingId,
+        //                Quantity = getListing.Quantity,
+        //                Size = getListing.Size,
+        //                UserSetPrice = getListing.UserSetPrice,
+        //                ProductInfo = getListing.ProductInfo,
+        //                User = getListing.User,                        
+        //            },
+        //            Payment = new dm.Payment
+        //            {
+        //                PaymentId = getPayment.PaymentId,
+        //                CCNumber = getPayment.CCNumber,
+        //                CCUserName = getPayment.CCUserName,
+        //                Month = getPayment.Month,
+        //                Year = getPayment.Year,
+        //                CVV = getPayment.CVV,
+        //                User = getPayment.User,
                         
-                    },
-                };
-                OrderHelper.AddOrderById(addedOrder);
-                return true;
-            }
-            OrderHelper.CancelOrderByOrderId(orderDomainModel);
-            return true;
-        }
+        //            },
+        //        };
+        //        OrderHelper.AddOrderById(addedOrder);
+        //        return true;
+        //    }
+        //    OrderHelper.CancelOrderByOrderId(orderDomainModel);
+        //    return true;
+        //}
     }
 
     public class ConversionOrder : Profile

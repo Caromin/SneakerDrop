@@ -266,7 +266,6 @@ namespace SneakerDrop.Mvc.Controllers
         public IActionResult AddEditView(AddressViewModel address)
         {
             var sessionUserId = HttpContext.Session.GetInt32("UserId");
-            var sessionAddressId = HttpContext.Session.GetInt32("AddressId");
             var addressInfo = AddressHelper.GetAddressInfoByAddressId((int)sessionUserId);
             var model = new ConversionAddress();
             AddressViewModel addressView = model.MappingAddressInfo(addressInfo);

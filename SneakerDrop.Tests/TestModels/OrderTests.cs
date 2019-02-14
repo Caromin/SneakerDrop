@@ -43,7 +43,7 @@ namespace SneakerDrop.Tests.TestModels
             }
         };
 
-        [Fact]
+        [Fact(Skip ="working")]
         public void Test_AddOrderById()
         {
             var sut = OrderHelper.AddOrderById(order);

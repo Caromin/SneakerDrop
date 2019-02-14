@@ -53,7 +53,7 @@ namespace SneakerDrop.Tests.TestModels
                 UserId = 67,
                 Username = "ian25192",
                 Password = "Password",
-                Firstname = "Bob",
+                Firstname = "Ian",
                 Lastname = "Jan",
                 Email = "Email@email.com"
             };

@@ -92,20 +92,9 @@ namespace SneakerDrop.Mvc.Controllers
 
         [HttpPost]
         [ActionName("orderinitial")]
-        public IActionResult OrderInitial(string buy, CreateNewListingViewModel listinginfo)
+        public IActionResult OrderInitial(string buy)
         {
             int listingId = Int32.Parse(buy);
-
-
-            var PriceHelper = new FindProductInfoViewModel();
-
-            StaticCartViewModel.CartOfListId.Add(listingId);
-            PriceHelper.HelperType = "buy";
-            StaticCartViewModel.TotalPrice(PriceHelper);
-
-
-
-
 
             return RedirectToAction("Product", "Store");
         }
@@ -143,37 +132,43 @@ namespace SneakerDrop.Mvc.Controllers
                 item.ProductTitle = productInfo.ProductTitle;
             }
 
+            if (convertedList.Count == 0)
+            {
+                convertedList.Add(new SingleProductViewModel
+                {
+                    Color = productInfo.Color,
+                    Description = productInfo.Description,
+                    ImageUrl = productInfo.ImageUrl,
+                    DisplayPrice = productInfo.DisplayPrice,
+                    ReleaseDate = productInfo.ReleaseDate,
+                    ProductTitle = productInfo.ProductTitle
+                });
+            }
+
+
             return View("~/Views/Store/SingleItem.cshtml", convertedList);
         }
 
-        public IActionResult CartPost()
+        [HttpGet]
+        [ActionName("CartPull")]
+        public IActionResult CartInfo(CreateNewListingViewModel listinginfo)
         {
-            c.SneakerDropDbContext db = new c.SneakerDropDbContext();
+            var checklistinginfo = listinginfo.ListofListing(listinginfo);
+            var PriceHelper = new FindProductInfoViewModel();
 
-            foreach (var item in StaticCartViewModel.CartOfListId)
+
+            if (checklistinginfo != null)
             {
-                var cartstuff = db.Listings.Where(l => l.ListingId == item).ToList();
-                var cartstufffirst = cartstuff.FirstOrDefault();
-                foreach (var item2 in cartstuff)
-                {
-                    var cartstuff2 = db.ProductInfos.Where(p => p.ProductInfoId == item2.ProductInfoId).FirstOrDefault();
-                    var producttime = new CreateNewListingViewModel
-                    {
-                        ProductTitle = cartstuff2.ProductTitle,
-                        ImageUrl = cartstuff2.ImageUrl,
-                        UserSetPrice = cartstufffirst.UserSetPrice,
-                        Quantity = 1
+                StaticCartViewModel.CartOfListId.Add(listinginfo.ListingId);
+                PriceHelper.HelperType = "buy";
+                StaticCartViewModel.TotalPrice(PriceHelper);
 
-                    };
-                    StaticCartViewModel.CartOfProducts.Add(producttime);
-             }
 
-         }
+            }
+            return View();
 
-            return RedirectToAction("Cart", "Home");
 
         }
     }
 }
-
 

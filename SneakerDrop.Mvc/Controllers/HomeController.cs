@@ -82,7 +82,20 @@ namespace SneakerDrop.Mvc.Controllers
             var model = new FindProductInfoViewModel { ProductTitle = sessionproduct };
             List<FindProductInfoViewModel> results = model.FindMatchingProductInfo(model);
             var createcatalog2 = db.Type.Where(t => t.TypeName.Contains(sessionproduct)).ToList();
+            List<FindProductInfoViewModel> onlyType = new List<FindProductInfoViewModel>();
 
+
+            if (results == null)
+            {
+                foreach (var item1 in createcatalog2)
+                {
+                    var typeid = item1.TypeId;
+                    var createcatalog3 = db.ProductInfos.Where(p => p.Type.TypeId == typeid).ToList();
+                    var typeList = model.ConvertListOnly(createcatalog3);
+                    onlyType.AddRange(typeList);
+                }
+                return View("~/Views/Store/Catalog.cshtml", onlyType);
+            }
             foreach (var item2 in createcatalog2)
             {
                 var typeid = item2.TypeId;
@@ -90,8 +103,6 @@ namespace SneakerDrop.Mvc.Controllers
                 var typeList = model.ConvertListOnly(createcatalog3);
                 results.AddRange(typeList);
             }
-
-
             return View("~/Views/Store/Catalog.cshtml", results);
         }
 
@@ -105,8 +116,8 @@ namespace SneakerDrop.Mvc.Controllers
 
         public IActionResult Cart()
         {
-            
-            return View("~/Views/Store/Cart.cshtml", StaticCartViewModel.CartOfProducts);
+
+            return View("~/Views/Store/Cart.cshtml");
         }
 
 

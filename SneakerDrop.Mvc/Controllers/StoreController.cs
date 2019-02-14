@@ -16,6 +16,17 @@ namespace SneakerDrop.Mvc.Controllers
 {
     public class StoreController : Controller
     {
+        public static List<int> ListOfIds { get; set; }
+
+        public static List<dm.ProductInfo> ListOfProducts { get; set; }
+
+        static StoreController()
+        {
+            ListOfIds = new List<int>();
+            ListOfProducts = new List<dm.ProductInfo>();
+        }
+
+
         [HttpPost]
         [ActionName("seller")]
         public IActionResult SearchAction(string SearchAction)
@@ -87,11 +98,9 @@ namespace SneakerDrop.Mvc.Controllers
         {
             int listingId = Int32.Parse(buy);
 
-            List<int> ListingIdList = new List<int>();
+            ListOfIds.Add(listingId);
 
-            ListingIdList.Add(listingId);
-
-            HttpContext.Session.SetString("ListOfIds", JsonConvert.SerializeObject(ListingIdList));
+            HttpContext.Session.SetString("ListOfIds", JsonConvert.SerializeObject(ListOfIds));
             //var PriceHelper = new FindProductInfoViewModel();
 
             //StaticCartViewModel.CartOfListId.Add(listingId);
@@ -99,7 +108,7 @@ namespace SneakerDrop.Mvc.Controllers
             ////StaticCartViewModel.TotalPrice(PriceHelper);
 
 
-            return RedirectToAction("Product", "Store");
+            return RedirectToAction("CartPull", "Store");
         }
 
         [HttpGet]
@@ -116,32 +125,25 @@ namespace SneakerDrop.Mvc.Controllers
                 foreach (var item2 in cartstuff)
                 {
                     var cartstuff2 = db.ProductInfos.Where(p => p.ProductInfoId == item2.ProductInfoId).FirstOrDefault();
-                    var producttime = new CreateNewListingViewModel
-                    {
-                        ProductTitle = cartstuff2.ProductTitle,
-                        ImageUrl = cartstuff2.ImageUrl,
-                        UserSetPrice = cartstufffirst.UserSetPrice,
-                        Quantity = 1
-
-                    };
-                    StaticCartViewModel.CartOfProducts.Add(producttime);
-                    HttpContext.Session.SetString("ProductTime", JsonConvert.SerializeObject(producttime));
+                    ListOfProducts.Add(cartstuff2);
+                   
+                    HttpContext.Session.SetString("ProductTime", JsonConvert.SerializeObject(ListOfProducts));
                 }
 
             }
 
-            return RedirectToAction("CartPull2", "Store");
+            return RedirectToAction("Cart", "Home");
 
         }
 
-        [HttpGet]
-        [ActionName("CartPull2")]
-        public IActionResult CartInfoPull()
-        {
-            var getProduct = JsonConvert.DeserializeObject<CreateNewListingViewModel>(HttpContext.Session.GetString("ProductTime"));
-            return RedirectToAction("Cart", "Home", getProduct);
+        //[HttpGet]
+        //[ActionName("CartPull2")]
+        //public IActionResult CartInfoPull()
+        //{
+        //    var getProduct = JsonConvert.DeserializeObject<CreateNewListingViewModel>(HttpContext.Session.GetString("ProductTime"));
+        //    return RedirectToAction("Cart", "Home", getProduct);
             
-        }
+        //}
 
         [HttpGet]
         [ActionName("Product")]

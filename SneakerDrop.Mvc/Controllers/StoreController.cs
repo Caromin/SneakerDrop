@@ -92,17 +92,30 @@ namespace SneakerDrop.Mvc.Controllers
 
         [HttpPost]
         [ActionName("orderinitial")]
-        public IActionResult OrderInitial(FindProductInfoViewModel productinfo)
+        public IActionResult OrderInitial(string buy)
         {
-            return RedirectToAction("Order", "Home", productinfo.ProductTitle);
+            int listingId = Int32.Parse(buy);
+
+            return RedirectToAction("Product", "Store");
         }
 
         [HttpGet]
         [ActionName("Product")]
         public IActionResult ProductInfoView(string viewItem)
         {
+            int selectedProductId;
+
+            if (viewItem == null)
+            {
+                selectedProductId = Int32.Parse(HttpContext.Session.GetString("ProductId"));
+            }
+            else
+            {
+                HttpContext.Session.SetString("ProductId", viewItem);
+                selectedProductId = Int32.Parse(viewItem);
+            }
+
             var convert = new ConversionListing();
-            int selectedProductId = Int32.Parse(viewItem);
 
             List<dm.Listing> allListings = ListingHelper.GetAllListingsByProductInfoId(selectedProductId);
             dm.ProductInfo productInfo = FindProductInfoHelper.SingleProductById(selectedProductId);

@@ -5,11 +5,48 @@
 }
 
 <partial name="../Partials/GeneralHeader" />
-<div class="container">
-    <h1>@Model[0].ProductTitle</h1>
+<div class="container text-center mt-5">
+    <div>
+
+        <div>
+            <h1>@Model[0].ProductTitle</h1>
+            <img class="singleItemPhoto" src="@Model[0].ImageUrl" />
+        </div>
+        <div class="text-left row">
+            <div class="col-6">
+                <p><b>COLOR WAY</b> @Model[0].Color</p>
+                <p><b>RETAIL PRICE</b> @Model[0].DisplayPrice</p>
+                <p><b>RELEASE DATE</b> @Model[0].ReleaseDate</p>
+            </div>
+            <div class="col-6">
+                <p>@Model[0].Description</p>
+            </div>
+        </div>
+    </div>
+    <div class="text-left pt-5 mb-5 pb-5">
+        <h4 class="pb-2">AVAILABLE SIZES</h4>
+        <div>
+            @using (@Html.BeginForm("orderinitial", "Store"))
+            {
+                <table class="w-100 text-center">
+                    <tr>
+                        <th>Size(Mens)</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Add To Cart</th>
+                    </tr>
+                    @foreach (var item in @Model)
+                    {
+                        <tr>
+                            <td>@item.Size</td>
+                            <td>$@item.UserSetPrice</td>
+                            <td>@item.Quantity</td>
+                            <td><button name="buy" type="submit" value="@item.ListingId" class="btn btn-success w-50 m-1">Add</button></td>
+
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+    </div>
 </div>
-
-@using (@Html.BeginForm("orderinitial", "Store"))
-{
-
-}

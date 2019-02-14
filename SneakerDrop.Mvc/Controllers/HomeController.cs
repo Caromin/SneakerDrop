@@ -62,6 +62,7 @@ namespace SneakerDrop.Mvc.Controllers
         {
             var productId = Int32.Parse(sellItem);
             dm.ProductInfo domainModel = FindProductInfoHelper.SingleProductById(productId);
+            domainModel.ProductInfoId = productId;
             var viewModel = new ConversionNewListing();
             CreateNewListingViewModel listing = viewModel.MappingCreateListing(domainModel);
 
@@ -98,12 +99,6 @@ namespace SneakerDrop.Mvc.Controllers
                     var typeList = model.ConvertListOnly(createcatalog3);
                     onlyType.AddRange(typeList);
                 }
-                if (HttpContext.Session.GetString("Selling") == "seller")
-                {
-                    HttpContext.Session.SetString("Selling", "");
-                    return View("~/Views/Store/SellerCatalog.cshtml", onlyType);
-
-                }
 
                 return View("~/Views/Store/Catalog.cshtml", onlyType);
             }
@@ -121,17 +116,47 @@ namespace SneakerDrop.Mvc.Controllers
                 return View("~/Views/Store/SellerCatalog.cshtml", onlyType);
             }
 
-            if (HttpContext.Session.GetString("Selling") == "seller")
-            {
-                HttpContext.Session.SetString("Selling", "");
-                return View("~/Views/Store/SellerCatalog.cshtml", results);
-
-            }
-
             return View("~/Views/Store/Catalog.cshtml", results);
         }
 
+        public ActionResult SellCatalog()
+        {
+            cd.SneakerDropDbContext db = new cd.SneakerDropDbContext();
+            var sessionproduct = HttpContext.Session.GetString("ProductName");
+            var model = new FindProductInfoViewModel { ProductTitle = sessionproduct };
+            List<FindProductInfoViewModel> results = model.FindMatchingProductInfo(model);
+            var createcatalog2 = db.Type.Where(t => t.TypeName.Contains(sessionproduct)).ToList();
+            List<FindProductInfoViewModel> onlyType = new List<FindProductInfoViewModel>();
 
+
+            if (results == null)
+            {
+                foreach (var item1 in createcatalog2)
+                {
+                    var typeid = item1.TypeId;
+                    var createcatalog3 = db.ProductInfos.Where(p => p.Type.TypeId == typeid).ToList();
+                    var typeList = model.ConvertListOnly(createcatalog3);
+                    onlyType.AddRange(typeList);
+                }
+
+                return View("~/Views/Store/SellerCatalog.cshtml", onlyType);
+            }
+            foreach (var item2 in createcatalog2)
+            {
+                var typeid = item2.TypeId;
+                var createcatalog3 = db.ProductInfos.Where(p => p.Type.TypeId == typeid).ToList();
+                var typeList = model.ConvertListOnly(createcatalog3);
+                results.AddRange(typeList);
+            }
+
+            // for if user inputs something that doesnt exist in db
+            if (results.Count == 0 && createcatalog2.Count == 0)
+            {
+                return View("~/Views/Store/SellerCatalog.cshtml", onlyType);
+            }
+
+            return View("~/Views/Store/SellerCatalog.cshtml", results);
+        }
 
         public IActionResult SingleItem(FindProductInfoViewModel productinfo)
         {

@@ -65,24 +65,13 @@ namespace SneakerDrop.Mvc.Controllers
                 HttpContext.Session.SetString("ProductName", PTitle);
             }
 
-            return RedirectToAction("buyer2", "Store");
-
-        }
-
-        [HttpGet]
-        [ActionName("buyer2")]
-        public IActionResult BuyerSearchPull()
-        {
-            var sessionproduct = HttpContext.Session.GetString("ProductName");
-
-            //var productdata = new FindProductInfoViewModel
-            //{
-
-            //    ProductTitle = sessionproduct
-            //};
+            if (sell == "seller")
+            {
+                return RedirectToAction("SellCatalog", "Home");
+            }
             return RedirectToAction("Catalog", "Home");
-        }
 
+        }
 
         [HttpPost]
         [ActionName("buyer3")]

@@ -102,6 +102,7 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(c => c.ProductTitle, pf => pf.MapFrom(src => src.ProductTitle))
             .ForMember(c => c.Color, pf => pf.MapFrom(src => src.Color))
             .ForMember(c => c.ImageUrl, pf => pf.MapFrom(src => src.ImageUrl))
+            .ForMember(c => c.ProductInfoId, pf => pf.MapFrom(src => src.ProductInfoId))
             .ForAllOtherMembers(c => c.Ignore()));
 
         public static MapperConfiguration domainConfig = new MapperConfiguration(cgf => cgf.CreateMap<CreateNewListingViewModel, dm.Listing>()

@@ -92,9 +92,20 @@ namespace SneakerDrop.Mvc.Controllers
 
         [HttpPost]
         [ActionName("orderinitial")]
-        public IActionResult OrderInitial(string buy)
+        public IActionResult OrderInitial(string buy, CreateNewListingViewModel listinginfo)
         {
             int listingId = Int32.Parse(buy);
+
+
+            var PriceHelper = new FindProductInfoViewModel();
+
+            StaticCartViewModel.CartOfListId.Add(listingId);
+            PriceHelper.HelperType = "buy";
+            StaticCartViewModel.TotalPrice(PriceHelper);
+
+
+
+
 
             return RedirectToAction("Product", "Store");
         }
@@ -135,26 +146,34 @@ namespace SneakerDrop.Mvc.Controllers
             return View("~/Views/Store/SingleItem.cshtml", convertedList);
         }
 
-        [HttpGet]
-        [ActionName("CartPull")]
-        public IActionResult CartInfo(CreateNewListingViewModel listinginfo)
+        public IActionResult CartPost()
         {
-            var checklistinginfo = listinginfo.ListofListing(listinginfo);
-            var PriceHelper = new FindProductInfoViewModel();
-            
+            c.SneakerDropDbContext db = new c.SneakerDropDbContext();
 
-            if (checklistinginfo != null)
+            foreach (var item in StaticCartViewModel.CartOfListId)
             {
-                StaticCartViewModel.CartOfListId.Add(listinginfo.ListingId);
-                PriceHelper.HelperType = "buy";
-                StaticCartViewModel.TotalPrice(PriceHelper);
-               
+                var cartstuff = db.Listings.Where(l => l.ListingId == item).ToList();
+                var cartstufffirst = cartstuff.FirstOrDefault();
+                foreach (var item2 in cartstuff)
+                {
+                    var cartstuff2 = db.ProductInfos.Where(p => p.ProductInfoId == item2.ProductInfoId).FirstOrDefault();
+                    var producttime = new CreateNewListingViewModel
+                    {
+                        ProductTitle = cartstuff2.ProductTitle,
+                        ImageUrl = cartstuff2.ImageUrl,
+                        UserSetPrice = cartstufffirst.UserSetPrice,
+                        Quantity = 1
 
-            }
-            return View();
-                
-            
+                    };
+                    StaticCartViewModel.CartOfProducts.Add(producttime);
+             }
+
+         }
+
+            return RedirectToAction("Cart", "Home");
+
         }
     }
 }
+
 

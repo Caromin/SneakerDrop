@@ -24,6 +24,8 @@ namespace SneakerDrop.Domain.Models
 
         public ProductInfo ProductInfo { get; set; }
 
+        public int ProductInfoId { get; set; }
+
         public static decimal CartTotal(Listing productinfo, Listing buyerinfo)
         {
             decimal PendingPrice = 0;

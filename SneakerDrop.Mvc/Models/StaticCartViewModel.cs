@@ -11,6 +11,8 @@ namespace SneakerDrop.Mvc.Models
 
         public static decimal CartTotal { get; set; }
 
+        public static List<CreateNewListingViewModel> CartOfProducts { get; set; }
+
         public static List<int> QuantityBasedOnListId { get; set; }
 
         public static decimal TotalPrice(FindProductInfoViewModel findproductinfo)

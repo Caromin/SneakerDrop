@@ -106,7 +106,7 @@ namespace SneakerDrop.Mvc.Controllers
         public IActionResult Cart()
         {
             
-            return View("~/Views/Store/Cart.cshtml");
+            return View("~/Views/Store/Cart.cshtml", StaticCartViewModel.CartOfProducts);
         }
 
 

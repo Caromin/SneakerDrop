@@ -27,10 +27,33 @@
         <div>
             @using (@Html.BeginForm("createListing", "Store"))
             {
-                @Html.TextBoxFor(m => m.UserSetPrice, new { @class = "" })
-                @Html.TextBoxFor(m => m.Size, new { @class = "" })
-                @Html.TextBoxFor(m => m.Quantity, new { @class = "" })
-                <button type="submit" class="btn btn-success">Create Listing</button>
+                <div>
+                    <div>
+                        @Html.LabelFor(m => m.UserSetPrice, "Price", new { @class = "" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(m => m.UserSetPrice, new { @class = "" })
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        @Html.LabelFor(m => m.Size, "Size", new { @class = "" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(m => m.Size, new { @class = "" })
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        @Html.LabelFor(m => m.Quantity, "Quantity", new { @class = "" })
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(m => m.Quantity, new { @class = "" })
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-success">Create Listing</button>
+                </div>
             }
 
         </div>

@@ -3,7 +3,7 @@
 <div class="search d-inline">
     @using (@Html.BeginForm("buyer", "Store"))
     {
-        @Html.TextBoxFor(u => u[0].ProductTitle, "Search", new { @required = "required", @class = "pl-2 searchbar" })
+        @Html.TextBoxFor(u => u[0].ProductTitle, "Search", new { @required = "required", placeholder = "Search", @class = "pl-2 searchbar" })
         @Html.ValidationMessageFor(u => u[0].ProductTitle)
         <button type="submit" class="btn btn-success">Search</button>
     }

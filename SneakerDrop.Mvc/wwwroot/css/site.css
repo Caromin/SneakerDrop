@@ -209,4 +209,5 @@ tr:nth-child(even) {
 
 .homepageImg {
     min-height: 160px;
+    max-height: 175px;
 }

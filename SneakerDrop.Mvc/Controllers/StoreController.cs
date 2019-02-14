@@ -51,16 +51,18 @@ namespace SneakerDrop.Mvc.Controllers
 
         [HttpPost]
         [ActionName("buyer")]
-        public IActionResult BuyerSearch(List<FindProductInfoViewModel> findProductInfos)
+        public IActionResult BuyerSearch(List<FindProductInfoViewModel> findProductInfos, string sell)
         {
             c.SneakerDropDbContext db = new c.SneakerDropDbContext();
+            if (sell != null)
+            {
+                HttpContext.Session.SetString("Selling", sell);
+            }
 
             foreach (var item in findProductInfos)
             {
                 string PTitle = item.ProductTitle;
                 HttpContext.Session.SetString("ProductName", PTitle);
-
-
             }
 
             return RedirectToAction("buyer2", "Store");
@@ -73,13 +75,12 @@ namespace SneakerDrop.Mvc.Controllers
         {
             var sessionproduct = HttpContext.Session.GetString("ProductName");
 
+            //var productdata = new FindProductInfoViewModel
+            //{
 
-            var productdata = new FindProductInfoViewModel
-            {
-
-                ProductTitle = sessionproduct
-            };
-            return RedirectToAction("Catalog", "Home", productdata);
+            //    ProductTitle = sessionproduct
+            //};
+            return RedirectToAction("Catalog", "Home");
         }
 
 
@@ -132,6 +133,20 @@ namespace SneakerDrop.Mvc.Controllers
                 item.ProductTitle = productInfo.ProductTitle;
             }
 
+            if (convertedList.Count == 0)
+            {
+                convertedList.Add(new SingleProductViewModel
+                {
+                    Color = productInfo.Color,
+                    Description = productInfo.Description,
+                    ImageUrl = productInfo.ImageUrl,
+                    DisplayPrice = productInfo.DisplayPrice,
+                    ReleaseDate = productInfo.ReleaseDate,
+                    ProductTitle = productInfo.ProductTitle
+                });
+            }
+
+
             return View("~/Views/Store/SingleItem.cshtml", convertedList);
         }
 
@@ -141,19 +156,19 @@ namespace SneakerDrop.Mvc.Controllers
         {
             var checklistinginfo = listinginfo.ListofListing(listinginfo);
             var PriceHelper = new FindProductInfoViewModel();
-            
+
 
             if (checklistinginfo != null)
             {
                 StaticCartViewModel.CartOfListId.Add(listinginfo.ListingId);
                 PriceHelper.HelperType = "buy";
                 StaticCartViewModel.TotalPrice(PriceHelper);
-               
+
 
             }
             return View();
-                
-            
+
+
         }
     }
 }

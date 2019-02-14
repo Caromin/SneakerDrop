@@ -16,7 +16,7 @@ namespace SneakerDrop.Mvc.Models
         public decimal UserSetPrice { get; set; }
 
 
-       [Required]
+        [Required]
         public int Quantity { get; set; }
 
         [StringLength(50)]
@@ -58,7 +58,7 @@ namespace SneakerDrop.Mvc.Models
         [Required]
         public string Color { get; set; }
 
-        public string ImageUrl {get; set; }
+        public string ImageUrl { get; set; }
 
         public ConversionNewListing createModel = new ConversionNewListing();
 
@@ -80,13 +80,13 @@ namespace SneakerDrop.Mvc.Models
         }
 
 
-        public List<dm.Listing> ListofListing (CreateNewListingViewModel listing)
+        public List<dm.Listing> ListofListing(CreateNewListingViewModel listing)
         {
             var listingitem = ListingHelper.GetallListingsByListingId(listing.ListingId);
 
-            foreach(var item in listingitem)
+            foreach (var item in listingitem)
             {
-              createModel.MappingListing(item);
+                createModel.MappingListing(item);
             }
             return listingitem;
         }
@@ -108,10 +108,10 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(l => l.Quantity, nl => nl.MapFrom(src => src.Quantity))
             .ForMember(l => l.UserSetPrice, nl => nl.MapFrom(src => src.UserSetPrice))
             .ForMember(l => l.Size, nl => nl.MapFrom(src => src.Size))
-            .ForMember(l => l.User.UserId, nl => nl.MapFrom(src => src.UserId))
-            .ForMember(l => l.ProductInfo.ProductInfoId, nl => nl.MapFrom(src => src.ProductInfoId))
-            .ForMember(l => l.ProductInfo.ProductTitle, nl => nl.MapFrom(src => src.ProductTitle))
-            .ForMember(l => l.ProductInfo.ImageUrl, nl => nl.MapFrom(src => src.ImageUrl))
+            .ForPath(l => l.User.UserId, nl => nl.MapFrom(src => src.UserId))
+            .ForPath(l => l.ProductInfo.ProductInfoId, nl => nl.MapFrom(src => src.ProductInfoId))
+            .ForPath(l => l.ProductInfo.ProductTitle, nl => nl.MapFrom(src => src.ProductTitle))
+            .ForPath(l => l.ProductInfo.ImageUrl, nl => nl.MapFrom(src => src.ImageUrl))
             .ForAllOtherMembers(c => c.Ignore()));
 
         public CreateNewListingViewModel MappingCreateListing(dm.ProductInfo item)
@@ -124,7 +124,7 @@ namespace SneakerDrop.Mvc.Models
         {
             var listingMapper = listingConfig.CreateMapper();
             return listingMapper.Map<dm.Listing, CreateNewListingViewModel>(listing);
-            
+
         }
 
         public dm.Listing MappingDomainListing(CreateNewListingViewModel listing)

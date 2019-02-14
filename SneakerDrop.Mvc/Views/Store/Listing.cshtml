@@ -10,7 +10,7 @@
 
         <div>
             <h1>@Model.ProductTitle</h1>
-            <img class="singleItemPhoto" src="@Model.ImageUrl" />
+            <img class="singleItemPhotoSell" src="@Model.ImageUrl" />
         </div>
         <div class="text-left row">
             <div class="col-6">
@@ -25,34 +25,41 @@
     </div>
     <div class="text-left pt-5 mb-5 pb-5">
         <div>
-            @using (@Html.BeginForm("createListing", "Store"))
+            @using (@Html.BeginForm("CreateListing", "Store"))
             {
-                <div>
-                    <div>
-                        @Html.LabelFor(m => m.UserSetPrice, "Price", new { @class = "" })
+                <div class="row">
+                    <div class="mr-2 ml-2">
+                        <div>
+                            @Html.LabelFor(m => m.UserSetPrice, "Price", new { @class = "" })
+                        </div>
+                        <div>
+                            @Html.TextBoxFor(m => m.UserSetPrice, new { @class = "", type = "number" })
+                        </div>
                     </div>
-                    <div>
-                        @Html.TextBoxFor(m => m.UserSetPrice, new { @class = "" })
+                    <div class="mr-2 ml-2">
+                        <div>
+                            @Html.LabelFor(m => m.Size, "Size", new { @class = "" })
+                        </div>
+                        <div>
+                            @Html.TextBoxFor(m => m.Size, new { @class = "" })
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <div>
-                        @Html.LabelFor(m => m.Size, "Size", new { @class = "" })
+                    <div class="mr-2 ml-2">
+                        <div>
+                            @Html.LabelFor(m => m.Quantity, "Quantity", new { @class = "" })
+                        </div>
+                        <div>
+                            @Html.TextBoxFor(m => m.Quantity, new { @class = "", type = "number" })
+                        </div>
                     </div>
-                    <div>
-                        @Html.TextBoxFor(m => m.Size, new { @class = "" })
+                    <div class="mr-2 ml-2">
+                        <div>
+                            @Html.Label("Button", "", new { @class = "" })
+                        </div>
+                        <div>
+                            <button type="submit" class="btn-success">Create</button>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <div>
-                        @Html.LabelFor(m => m.Quantity, "Quantity", new { @class = "" })
-                    </div>
-                    <div>
-                        @Html.TextBoxFor(m => m.Quantity, new { @class = "" })
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <button type="submit" class="btn btn-success">Create Listing</button>
                 </div>
             }
 

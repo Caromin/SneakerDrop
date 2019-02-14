@@ -15,20 +15,20 @@ namespace SneakerDrop.Mvc.Controllers
 {
     public class StoreController : Controller
     {
-        [HttpPost]
-        [ActionName("seller")]
-        public IActionResult SearchAction(string SearchAction)
-        {
-            switch (SearchAction)
-            {
-                case "Search":
-                    return View("~/Views/Partials/ListingSearch.cshtml");
-                case "Next":
-                    return View("~/Views/Store/Listing.cshtml");
-                default:
-                    return View();
-            }
-        }
+        //[HttpPost]
+        //[ActionName("seller")]
+        //public IActionResult SearchAction(string SearchAction)
+        //{
+        //    switch (SearchAction)
+        //    {
+        //        case "Search":
+        //            return View("~/Views/Partials/ListingSearch.cshtml");
+        //        case "Next":
+        //            return View("~/Views/Store/Listing.cshtml");
+        //        default:
+        //            return View();
+        //    }
+        //}
         [HttpPost]
         [ActionName("seller2")]
         public IActionResult ListingCheck(FindProductInfoViewModel productinfo)
@@ -158,6 +158,33 @@ namespace SneakerDrop.Mvc.Controllers
             return View();
 
 
+        }
+
+        [HttpPost]
+        [ActionName("CreateListing")]
+        public IActionResult CreateListing(CreateNewListingViewModel passedInfo)
+        {
+            var model = new dm.Listing();
+            var id = HttpContext.Session.GetInt32("SellingProductId");
+            dm.ProductInfo productInfo = FindProductInfoHelper.SingleProductById((int)id);
+
+            var listing = new dm.Listing
+            {
+                UserSetPrice = passedInfo.UserSetPrice,
+                Quantity = passedInfo.Quantity,
+                Size = passedInfo.Size,
+                User = new dm.User
+                {
+                    UserId = (int)HttpContext.Session.GetInt32("UserId")
+                },
+                ProductInfo = new dm.ProductInfo
+                {
+                    ProductInfoId = (int)HttpContext.Session.GetInt32("SellingProductId")
+                }
+            };
+            model.AddListing(listing);
+
+            return RedirectToAction("Account", "Home");
         }
     }
 }

@@ -193,3 +193,7 @@ p {
     background-size: cover;
     height: 400px;
 }
+
+.smallBox {
+    height: 50px;
+}

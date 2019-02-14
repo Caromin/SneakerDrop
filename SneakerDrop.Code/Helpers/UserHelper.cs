@@ -21,7 +21,7 @@ namespace SneakerDrop.Code.Helpers
             User dbInfo = _db.Users.Where(u => u.Username == user.Username && u.Password == user.Password).FirstOrDefault();
 
             return dbInfo;
-              
+
         }
         public static User GetUserInfoByIdForAddress(Address address)
         {
@@ -40,6 +40,11 @@ namespace SneakerDrop.Code.Helpers
         {
             var datauser = _db.Users.ToList();
             return datauser;
+        }
+
+        public static User GetUserInfoById(int userId)
+        {
+            return _db.Users.Where(u => u.UserId == userId).FirstOrDefault();
         }
 
         public static bool EditUserInfoById(User user)

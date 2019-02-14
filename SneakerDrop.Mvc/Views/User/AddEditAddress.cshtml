@@ -15,7 +15,7 @@
                         @Html.LabelFor(u => u.Street, "Street", new { @class = "btnText" })
                     </div>
                     <div>
-                        @Html.TextBoxFor(u => u.Street, new { @required = "required", placeholder = "123 Main Street", @class = "w-100 form-control" })
+                        @Html.TextBoxFor(u => u.Street, @Model.Street, new { @required = "required", placeholder = "123 Main Street", @class = "w-100 form-control" })
                     </div>
                     <div>
                         @Html.ValidationMessageFor(u => u.Street)
@@ -26,7 +26,7 @@
                         @Html.LabelFor(u => u.City, "City", new { @class = "btnText" })
                     </div>
                     <div>
-                        @Html.TextBoxFor(u => u.City, new { @required = "required", placeholder = "Tampa", @class = "w-100 form-control" })
+                        @Html.TextBoxFor(u => u.City, @Model.City, new { @required = "required", placeholder = "Tampa", @class = "w-100 form-control" })
                     </div>
                     <div>
                         @Html.ValidationMessageFor(u => u.City)
@@ -37,7 +37,7 @@
                         @Html.LabelFor(u => u.State, "State", new { @class = "btnText" })
                     </div>
                     <div>
-                        @Html.TextBoxFor(u => u.State, new { @required = "required", placeholder = "Fl", @class = "w-100 form-control" })
+                        @Html.TextBoxFor(u => u.State,@Model.State ,new { @required = "required", placeholder = "Fl", @class = "w-100 form-control" })
                     </div>
                     <div>
                         @Html.ValidationMessageFor(u => u.State)
@@ -48,7 +48,7 @@
                         @Html.LabelFor(u => u.PostalCode, "ZipCode", new { @class = "btnText" })
                     </div>
                     <div>
-                        @Html.TextBoxFor(u => u.PostalCode, new { @required = "required", placeholder = "33263", @class = "w-100 form-control" })
+                        @Html.TextBoxFor(u => u.PostalCode,@Model.PostalCode, new { @required = "required", placeholder = "33263", @class = "w-100 form-control" })
                     </div>
                     <div>
                         @Html.ValidationMessageFor(u => u.PostalCode)

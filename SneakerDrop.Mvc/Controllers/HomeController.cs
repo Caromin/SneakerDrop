@@ -227,16 +227,15 @@ namespace SneakerDrop.Mvc.Controllers
             return RedirectToAction("AddEditView", "Home");
         }
 
-        public IActionResult AddEditView()
+        public IActionResult AddEditView(AddressViewModel address)
         {
-            //var sessionUserId = HttpContext.Session.GetInt32("UserId");
-            //var sessionAddressId = HttpContext.Session.GetInt32("AddressId");
-            //int userId = (int)sessionUserId;
-            //var addressInfo = AddressHelper.GetAddressInfoByAddressId((int)sessionAddressId);
-            //var model = new ConversionAddress();
-            //AddressViewModel addressView = model.MappingAddressInfo(addressInfo);
+            var sessionUserId = HttpContext.Session.GetInt32("UserId");
+            var sessionAddressId = HttpContext.Session.GetInt32("AddressId");
+            var addressInfo = AddressHelper.GetAddressInfoByAddressId((int)sessionUserId);
+            var model = new ConversionAddress();
+            AddressViewModel addressView = model.MappingAddressInfo(addressInfo);
 
-            return View("~/Views/User/AddEditAddress.cshtml");
+            return View("~/Views/User/AddEditAddress.cshtml", addressView);
         }
 
         public IActionResult AddEditInfo(AddressViewModel address)

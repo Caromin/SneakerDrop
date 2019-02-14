@@ -35,6 +35,8 @@
     <Content Remove="wwwroot\images\addressImage.png" />
     <Content Remove="wwwroot\images\orderImage.png" />
     <Content Remove="wwwroot\images\AmazonImage.png" />
+    <Content Remove="wwwroot\images\ebayBanner.jpg" />
+    <Content Remove="wwwroot\images\youSellImage.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\images\HomeBanner2.jpg" />
@@ -44,5 +46,7 @@
     <None Include="wwwroot\images\addressImage.png" />
     <None Include="wwwroot\images\orderImage.png" />
     <None Include="wwwroot\images\AmazonImage.png" />
+    <None Include="wwwroot\images\ebayBanner.jpg" />
+    <None Include="wwwroot\images\youSellImage.jpg" />
   </ItemGroup>
 </Project>

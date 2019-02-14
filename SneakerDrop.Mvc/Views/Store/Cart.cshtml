@@ -1,7 +1,29 @@
-﻿
+﻿@model List<SneakerDrop.Mvc.Models.CreateNewListingViewModel>
 @{
-    ViewData["Title"] = "Cart";
+    ViewData["Title"] = "Catalog";
 }
 
-<h1>Cart</h1>
+<partial name="../Partials/GeneralHeader.cshtml" />
+@using (Html.BeginForm("Cart", "Home", FormMethod.Get))
+{
+    <div class="search d-inline">
+        <div>
+            <main role="main">
+                <div class="homeBanner2"></div>
+                <div class="container  mt-5 box-shadow">
+                    <h4>SEARCH RESULTS</h4>
+                    <div class="d-flex align-content-start flex-wrap">
+                        @foreach (var item in Model)
+                        {
+                            <span class="d-block productText">@item.ProductTitle</span>
+                            <img class="productImage" src="@item.ImageUrl" />
+                            <span class="d-block productText"> @item.Quantity</span>
+                            <span class="d-block productText"> @item.UserSetPrice</span>
+                        }
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+}
 

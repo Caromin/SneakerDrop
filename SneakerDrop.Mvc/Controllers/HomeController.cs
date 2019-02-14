@@ -65,7 +65,13 @@ namespace SneakerDrop.Mvc.Controllers
 
         public IActionResult ChangeUserInfo()
         {
-            return View("~/Views/User/ChangeUserInfo.cshtml");
+            var sessionuserid = HttpContext.Session.GetInt32("UserId");
+
+            var userInfo = UserHelper.GetUserInfoById((int)sessionuserid);
+            var model = new ConversionUser();
+            UserViewModel viewModel = model.MappingViewInfo(userInfo);
+
+            return View("~/Views/User/ChangeUserInfo.cshtml", viewModel);
         }
 
 
@@ -95,6 +101,12 @@ namespace SneakerDrop.Mvc.Controllers
         {
 
             return View("~/Views/Store/SingleItem.cshtml");
+        }
+
+        public IActionResult Cart()
+        {
+            
+            return View("~/Views/Store/Cart.cshtml");
         }
 
 

@@ -139,27 +139,7 @@ namespace SneakerDrop.Mvc.Models
 
             return convertedList;
         }
-        public decimal TotalPrice(FindProductInfoViewModel findproductinfo)
-        {
-            var productsingle = findproductinfo.FindMatchingProductInfo(findproductinfo);
-            decimal Price = 0;
-            if (findproductinfo.HelperType == "buy")
-            {
-                foreach (var item in productsingle)
-                {
-                    if (item.ProductTitle == findproductinfo.ProductTitle)
-                    {
-                        Price += item.DisplayPrice;
-                    }
-                    Price += 0;
-                }
-            }
-            if (findproductinfo.HelperType == "remove")
-            {
-                Price -= findproductinfo.DisplayPrice;
-            }
-            return Price;
-        }
+       
 
 
 

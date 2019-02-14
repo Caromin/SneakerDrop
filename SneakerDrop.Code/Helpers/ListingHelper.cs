@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using SneakerDrop.Domain.Models;
 
 namespace SneakerDrop.Code.Helpers
@@ -13,8 +12,6 @@ namespace SneakerDrop.Code.Helpers
         public static bool AddListingById(Listing listing)
         {
             _db.Listings.Add(listing);
-            _db.Attach(listing.User);
-            _db.Entry(listing.User).State = EntityState.Detached;
 
             return _db.SaveChanges() == 1;
         }
@@ -23,32 +20,15 @@ namespace SneakerDrop.Code.Helpers
         {
             return _db.Listings.Where(l => l.ProductInfo.ProductTitle == listing.ProductInfo.ProductTitle).ToList();
         }
-        public static Listing GetListingInfoByIdForOrder(Orders order)
-        {
-            Listing dbInfo = _db.Listings.Where(l => l.ListingId == order.Listing.ListingId)
-                                         .Include(l => l.ProductInfo)
-                                         .Include(l => l.User)
-                                         .Include(l => l.ProductInfo.Brand)
-                                         .Include(l => l.ProductInfo.Type)
-                                         .FirstOrDefault();
 
-            return dbInfo;
+        public static List<Listing> GetAllListingsByProductInfoId(int selectedProductId)
+        {
+            return _db.Listings.Where(l => l.ProductInfo.ProductInfoId == selectedProductId).ToList();
         }
-        public static ProductInfo GetProductInfoByIdForListing(Listing listing)
-        {
-            ProductInfo dbInfo = _db.ProductInfos.Where(p => p.ProductInfoId == listing.ProductInfo.ProductInfoId).FirstOrDefault();
 
-            return dbInfo;
-        }
-        public static List<Listing> GetListingById(Listing listing)
+        public static List<Listing>GetallListingsByListingId(int selectedListingId)
         {
-            List<Listing> results = _db.Listings.Where(p => p.User.UserId == listing.User.UserId).ToList();
-
-            if (results != null)
-            {
-                return results;
-            }
-            return null;
+            return _db.Listings.Where(l => l.ListingId == selectedListingId).ToList();
         }
     }
 }

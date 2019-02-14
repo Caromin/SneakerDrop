@@ -42,12 +42,12 @@ namespace SneakerDrop.Mvc.Controllers
 
             var viewcheck = new ConversionProduct();
 
-             if (newcheck != null )
-                {
+            if (newcheck != null)
+            {
                 return View("~/Views/Store/Listing.cshtml");
-                }
-                return View("~/Views/Store/SellerSearch.cshtml");
             }
+            return View("~/Views/Store/SellerSearch.cshtml");
+        }
 
         [HttpPost]
         [ActionName("buyer")]
@@ -64,7 +64,7 @@ namespace SneakerDrop.Mvc.Controllers
             }
 
             return RedirectToAction("buyer2", "Store");
-            
+
         }
 
         [HttpGet]
@@ -72,11 +72,11 @@ namespace SneakerDrop.Mvc.Controllers
         public IActionResult BuyerSearchPull()
         {
             var sessionproduct = HttpContext.Session.GetString("ProductName");
-           
+
 
             var productdata = new FindProductInfoViewModel
             {
-                
+
                 ProductTitle = sessionproduct
             };
             return RedirectToAction("Catalog", "Home", productdata);
@@ -92,10 +92,69 @@ namespace SneakerDrop.Mvc.Controllers
 
         [HttpPost]
         [ActionName("orderinitial")]
-        public IActionResult OrderInitial(FindProductInfoViewModel productinfo)
+        public IActionResult OrderInitial(string buy)
         {
-            return RedirectToAction("Order", "Home", productinfo.ProductTitle);
+            int listingId = Int32.Parse(buy);
+
+            return RedirectToAction("Product", "Store");
         }
-       }
+
+        [HttpGet]
+        [ActionName("Product")]
+        public IActionResult ProductInfoView(string viewItem)
+        {
+            int selectedProductId;
+
+            if (viewItem == null)
+            {
+                selectedProductId = Int32.Parse(HttpContext.Session.GetString("ProductId"));
+            }
+            else
+            {
+                HttpContext.Session.SetString("ProductId", viewItem);
+                selectedProductId = Int32.Parse(viewItem);
+            }
+
+            var convert = new ConversionListing();
+
+            List<dm.Listing> allListings = ListingHelper.GetAllListingsByProductInfoId(selectedProductId);
+            dm.ProductInfo productInfo = FindProductInfoHelper.SingleProductById(selectedProductId);
+
+            List<SingleProductViewModel> convertedList = convert.MappingAllViewListings(allListings);
+
+            foreach (var item in convertedList)
+            {
+                item.Color = productInfo.Color;
+                item.Description = productInfo.Description;
+                item.ImageUrl = productInfo.ImageUrl;
+                item.DisplayPrice = productInfo.DisplayPrice;
+                item.ReleaseDate = productInfo.ReleaseDate;
+                item.ProductTitle = productInfo.ProductTitle;
+            }
+
+            return View("~/Views/Store/SingleItem.cshtml", convertedList);
+        }
+
+        [HttpGet]
+        [ActionName("CartPull")]
+        public IActionResult CartInfo(CreateNewListingViewModel listinginfo)
+        {
+            var checklistinginfo = listinginfo.ListofListing(listinginfo);
+            var PriceHelper = new FindProductInfoViewModel();
+            
+
+            if (checklistinginfo != null)
+            {
+                StaticCartViewModel.CartOfListId.Add(listinginfo.ListingId);
+                PriceHelper.HelperType = "buy";
+                StaticCartViewModel.TotalPrice(PriceHelper);
+               
+
+            }
+            return View();
+                
+            
+        }
     }
+}
 

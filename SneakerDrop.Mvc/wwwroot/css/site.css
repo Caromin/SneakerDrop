@@ -193,3 +193,20 @@ p {
     background-size: cover;
     height: 400px;
 }
+
+.smallBox {
+    height: 50px;
+}
+
+.singleItemPhoto {
+    height: 450px;
+    width: 600px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.homepageImg {
+    min-height: 160px;
+}

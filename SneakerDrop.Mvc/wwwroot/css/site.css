@@ -216,3 +216,8 @@ tr:nth-child(even) {
     min-height: 160px;
     max-height: 175px;
 }
+
+.listingImage {
+    height: 50px;
+    width: 60px;
+}

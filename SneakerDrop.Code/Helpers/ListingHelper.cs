@@ -35,5 +35,24 @@ namespace SneakerDrop.Code.Helpers
         {
             return _db.Listings.Where(l => l.ListingId == selectedListingId).ToList();
         }
+
+        public static List<Listing> GetAllListingById(int id)
+        {
+            return _db.Listings.Where(l => l.User.UserId == id).ToList();
+        }
+
+        public static ProductInfo GetProductIdByListingId(int listingId)
+        {
+            Listing result1 = _db.Listings.Where(l => l.ListingId == listingId).Include(p => p.ProductInfo).FirstOrDefault();
+
+            return _db.ProductInfos.Where(p => p.ProductInfoId == result1.ProductInfo.ProductInfoId).FirstOrDefault();
+        }
+
+        public static bool DeleteListingById(int listingId)
+        {
+            _db.Listings.RemoveRange(_db.Listings.Where(l => l.ListingId == listingId));
+
+            return _db.SaveChanges() == 1;
+        }
     }
 }

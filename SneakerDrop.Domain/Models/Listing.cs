@@ -22,8 +22,6 @@ namespace SneakerDrop.Domain.Models
 
         public User User { get; set; }
 
-        public Validator validator = new Validator();
-
         public ProductInfo ProductInfo { get; set; }
 
         public int ProductInfoId { get; set; }

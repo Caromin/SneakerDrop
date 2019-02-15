@@ -81,17 +81,17 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("orderinitial")]
         public IActionResult OrderInitial(string buy)
         {
-         //first in route of Cart
+            //first in route of Cart
             int listingId = Int32.Parse(buy);
-            
+
 
             ListOfIds.Add(listingId);
 
-          
+
 
             //serializes the List into a Json object
             HttpContext.Session.SetString("ListOfIds", JsonConvert.SerializeObject(ListOfIds));
-            
+
 
 
 
@@ -183,7 +183,7 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("CreateListing")]
         public IActionResult CreateListing(CreateNewListingViewModel passedInfo)
         {
-            var model = new dm.Listing();
+            var model = new CreateNewListingViewModel();
             var id = HttpContext.Session.GetInt32("SellingProductId");
             dm.ProductInfo productInfo = FindProductInfoHelper.SingleProductById((int)id);
 

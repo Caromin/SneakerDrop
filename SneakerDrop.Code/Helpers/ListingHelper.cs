@@ -55,17 +55,17 @@ namespace SneakerDrop.Code.Helpers
 
             return _db.SaveChanges() == 1;
 
-            //public static Listing GetListingInfoByIdForOrder(Orders order)
-            //{
-            //    Listing dbInfo = _db.Listings.Where(l => l.ListingId == order.Listing.ListingId)
-            //                                 .Include(l => l.ProductInfo)
-            //                                 .Include(l => l.ProductInfo.Brand)
-            //                                 .Include(l => l.ProductInfo.Type)
-            //                                 .Include(l => l.User)
-            //                                 .FirstOrDefault();
-            //    return dbInfo;
-            }
+        }
+
+        public static Listing GetListingInfoByIdForOrder(Orders order)
+        {
+            Listing dbInfo = _db.Listings.Where(l => l.ListingId == order.Listing.ListingId)
+                                .Include(l => l.ProductInfo)
+                                .Include(l => l.ProductInfo.Brand)
+                                .Include(l => l.ProductInfo.Type)
+                                .Include(l => l.User)
+                                .FirstOrDefault();
+            return dbInfo;
         }
     }
-
-
+}

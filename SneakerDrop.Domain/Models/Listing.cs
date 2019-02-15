@@ -23,6 +23,8 @@ namespace SneakerDrop.Domain.Models
 
         public User User { get; set; }
 
+        public Validator validator = new Validator();
+
         public ProductInfo ProductInfo { get; set; }
 
         public int ProductInfoId { get; set; }
@@ -30,9 +32,14 @@ namespace SneakerDrop.Domain.Models
         public bool AddListing(Listing listing)
         {
             // add validation here before sending to db
-            ListingHelper.AddListingById(listing);
-
-            return true;
+            
+            var checkShoeSize = validator.ValidateShoeSize(listing);
+            if(checkShoeSize)
+            {
+                ListingHelper.AddListingById(listing);
+                return true;
+            }
+            return false;
         }
 
         public static decimal CartTotal(Listing productinfo, Listing buyerinfo)

@@ -14,16 +14,25 @@
                 <div class="container  mt-5 box-shadow">
                     <h4>Cart Items</h4>
                     <div class="d-flex align-content-start flex-wrap">
-
+                        <h5>@ViewBag.MessageBad</h5>
+                        @if (ViewBag.MessageGood == "You Have Added")
+                        {
                         @foreach (var item in Model)
                         {
-
+                           
                             <span class="d-block productText">@item.ProductTitle</span>
                             <img class="productImage" src="@item.ImageUrl" alt="@item.ProductInfoId" />
                             <span class="d-block productText"> @item.DisplayPrice</span>
                             <span class="d-block productText"> @item.Color</span>
 
+                            
+                             
                         }
+                        }
+                            <div>
+                                <b> Your Cart Total</b>
+                                <h6>@ViewBag.Price</h6>
+                            </div>
 
                     </div>
                 </div>

@@ -84,6 +84,8 @@ namespace SneakerDrop.Mvc.Controllers
             //first in route of Cart
             int listingId = Int32.Parse(buy);
 
+            HttpContext.Session.SetInt32("nodup", listingId);
+
 
             ListOfIds.Add(listingId);
 
@@ -110,23 +112,38 @@ namespace SneakerDrop.Mvc.Controllers
 
             //retrieves the Json object and deserializes into a list of ListingIds
             var getIdList = JsonConvert.DeserializeObject<List<int>>(HttpContext.Session.GetString("ListOfIds"));
+            var getnodup = HttpContext.Session.GetInt32("nodup");
 
             foreach (var item in getIdList)
             {
-                var cartstuff = db.Listings.Where(l => l.ListingId == item).ToList();
-                var cartstufffirst = cartstuff.FirstOrDefault();
-                foreach (var item2 in cartstuff)
+                if (item == getnodup)
                 {
-                    var cartstuff2 = db.ProductInfos.Where(p => p.ProductInfoId == item2.ProductInfoId).FirstOrDefault();
-                    ListOfProducts.Add(cartstuff2);
-                    //serializes list of productinfo into a Json object
-                    HttpContext.Session.SetString("ProductTime", JsonConvert.SerializeObject(ListOfProducts));
-                }
+                    var cartstuff = db.Listings.Where(l => l.ListingId == item).ToList();
+                    HttpContext.Session.SetString("ListingTime", JsonConvert.SerializeObject(cartstuff));
+                    var cartstufffirst = cartstuff.FirstOrDefault();
+                    foreach (var item2 in cartstuff)
+                    {
+                        decimal oriprice = item2.UserSetPrice;
+                        int newprice = Convert.ToInt32(oriprice);
+                        
+          
+                        HttpContext.Session.SetString("transferprice", JsonConvert.SerializeObject(newprice));
+                       
+                        var cartstuff2 = db.ProductInfos.Where(p => p.ProductInfoId == item2.ProductInfoId).FirstOrDefault();
+                        cartstuff2.DisplayPrice = newprice;
+                        ListOfProducts.Add(cartstuff2);
+                        
+                        HttpContext.Session.SetString("ProductTime", JsonConvert.SerializeObject(ListOfProducts));
+                    }
 
+                }
             }
-            //sends to home controller
+            
             return RedirectToAction("Cart", "Home");
         }
+
+       
+
 
         [HttpGet]
         [ActionName("Product")]

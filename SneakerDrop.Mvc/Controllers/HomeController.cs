@@ -167,24 +167,30 @@ namespace SneakerDrop.Mvc.Controllers
         public IActionResult Cart()
         {
             //third in route
-
+            var nodup = HttpContext.Session.GetInt32("nodup");
+            if (HttpContext.Session.GetInt32("nodup") == null)
+            {
+                ViewBag.MessageBad = "You Have Nothing In Your Cart";
+                return View("~/Views/Store/Cart.cshtml");
+              
+            }
+            ViewBag.MessageGood = "You Have Added";
             var getProduct = JsonConvert.DeserializeObject<List<dm.ProductInfo>>(HttpContext.Session.GetString("ProductTime"));
 
-           
-            Int32 index = 0;
-            while (index < getProduct.Count - 1)
-            {
-                if (getProduct[index] == getProduct[index + 1])
-                    getProduct.RemoveAt(index);
-                else
-                    index++;
-            }
+           var totalprice = 0;
 
-            
+            foreach(var item in getProduct)
+            {
+                totalprice += item.DisplayPrice;
+                
+            }
+            ViewBag.Price = totalprice;
+
 
             return View("~/Views/Store/Cart.cshtml", getProduct );
         }
 
+     
 
         public IActionResult Order(FindProductInfoViewModel productinfo)
         {

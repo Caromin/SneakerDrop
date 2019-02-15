@@ -65,7 +65,7 @@ nav {
 
 header {
     height: 375px;
-    background: url("../images/homeBanner.jpeg") no-repeat center;
+    background: url("https://stockx-assets.imgix.net/headers/home_2.png?auto=compress%2Cformat") no-repeat center;
     background-size: cover;
 }
 
@@ -110,7 +110,7 @@ input {
 .homeBanner2 {
     height: 200px;
     width: 100vw;
-    background: url("../images/homeBanner2.jpg") no-repeat center;
+    background: url("https://stockx-assets.imgix.net/appBanners/NYCpopupFEB_MobileBanner_hex_84ced41549730543735.jpg?auto=compress,format") no-repeat center;
     background-size: cover;
 }
 
@@ -189,7 +189,7 @@ p {
 }
 
 #sellerBanner {
-    background: url("../images/ebayBanner.jpg") no-repeat center;
+    background: url("https://ir.ebaystatic.com/pictures/aw/sell/lnd/hero_7plus_new@2x.jpg") no-repeat center;
     background-size: cover;
     height: 400px;
 }
@@ -220,4 +220,9 @@ tr:nth-child(even) {
 .listingImage {
     height: 60px;
     width: 70px;
+}
+
+.resizeImage {
+    height: 120px;
+    width: 96px;
 }

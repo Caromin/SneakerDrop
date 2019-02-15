@@ -44,7 +44,6 @@ namespace SneakerDrop.Mvc.Models
             List<AddressViewModel> viewAddressList = createModel.MappingView(domainAddressList);
 
             return viewAddressList;
-
         }
 
         public bool AddEditDeleteAddresses(AddressViewModel addressView)

@@ -52,12 +52,10 @@ namespace SneakerDrop.Mvc.Models
 
             return createModel.MappingView(orderDomainList);
         }
-
         // add order needs userId, cancel order needs orderId, no validation setup
         //public bool AddOrCancelOrders(OrderAndPaymentViewModel orderView)
         //{
-        //    dm.Orders orderDomainModel = createModel.MappingOrders(orderView); 
-
+        //    dm.Orders orderDomainModel = createModel.MappingOrders(orderView);
         //    dm.User getUser = UserHelper.GetUserInfoByIdForOrder(orderDomainModel);
         //    dm.Listing getListing = ListingHelper.GetListingInfoByIdForOrder(orderDomainModel);
         //    dm.Payment getPayment = PaymentHelper.GetPaymentByOrderId(orderDomainModel);
@@ -88,7 +86,7 @@ namespace SneakerDrop.Mvc.Models
         //                Size = getListing.Size,
         //                UserSetPrice = getListing.UserSetPrice,
         //                ProductInfo = getListing.ProductInfo,
-        //                User = getListing.User,                        
+        //                User = getListing.User,
         //            },
         //            Payment = new dm.Payment
         //            {
@@ -99,7 +97,6 @@ namespace SneakerDrop.Mvc.Models
         //                Year = getPayment.Year,
         //                CVV = getPayment.CVV,
         //                User = getPayment.User,
-                        
         //            },
         //        };
         //        OrderHelper.AddOrderById(addedOrder);
@@ -109,7 +106,6 @@ namespace SneakerDrop.Mvc.Models
         //    return true;
         //}
     }
-
     public class ConversionOrder : Profile
     {
         public static MapperConfiguration orderConfig = new MapperConfiguration(cgf => cgf.CreateMap<OrderAndPaymentViewModel, dm.Orders>()
@@ -150,7 +146,6 @@ namespace SneakerDrop.Mvc.Models
                 var newItem = orderModel.Map<dm.Orders, OrderAndPaymentViewModel>(item);
                 convertedList.Add(newItem);
             }
-
             return convertedList;
         }
     }

@@ -172,8 +172,13 @@ namespace SneakerDrop.Mvc.Controllers
 
             if (delete == "checkout")
             {
-                return RedirectToAction("Store");
+                if (HttpContext.Session.GetInt32("UserId") == null)
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+                return RedirectToAction("OrderProcess", "Store")
             }
+
 
             if (delete != null)
             {

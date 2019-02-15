@@ -13,7 +13,7 @@ namespace SneakerDrop.Mvc.Models
         public int ListingId { get; set; }
 
         [Required]
-        public decimal UserSetPrice { get; set; }
+        public decimal UserSetPrice { get; set; } 
 
 
         [Required]

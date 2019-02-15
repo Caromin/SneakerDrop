@@ -14,12 +14,12 @@
                 <div class="container  mt-5 box-shadow">
                     <h4>Cart Items</h4>
                     <div class="d-flex align-content-start flex-wrap">
-                        
+
                         @foreach (var item in Model)
                         {
 
                             <span class="d-block productText">@item.ProductTitle</span>
-                            <img class="productImage" src="@item.ImageUrl" />
+                            <img class="productImage" src="@item.ImageUrl" alt="@item.ProductInfoId" />
                             <span class="d-block productText"> @item.DisplayPrice</span>
                             <span class="d-block productText"> @item.Color</span>
 

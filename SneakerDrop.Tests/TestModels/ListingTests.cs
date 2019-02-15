@@ -12,7 +12,7 @@ namespace SneakerDrop.Tests.TestModels
         {
             UserSetPrice = (decimal)220.00,
             Quantity = 3,
-            Size = "9.5",
+            Size = "10",
             User = new User
             {
                 UserId = 7,

@@ -166,22 +166,60 @@ namespace SneakerDrop.Mvc.Controllers
 
         public IActionResult Cart(string delete)
         {
-
             var nodup = HttpContext.Session.GetInt32("nodup");
-
-
             ViewBag.MessageGood = "You Have Added";
-            var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
+            int listingId = 0;
+
+            if (delete != null)
+            {
+                listingId = Int32.Parse(Regex.Match(delete, @"\d+").Value);
+            }
+            else
+            {
+                listingId = 0;
+            }
 
             decimal totalprice = 0;
 
-            foreach (var item in getProduct)
+            if (listingId == 0)
             {
-                totalprice += (decimal)item.UserSetPrice;
-            }
-            ViewBag.Price = totalprice;
+                // will cause error if nothing in cart
+                var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
 
-            return View("~/Views/Store/Cart.cshtml", getProduct);
+                foreach (var item in getProduct)
+                {
+                    totalprice += (decimal)item.UserSetPrice;
+                }
+                ViewBag.Price = totalprice;
+
+                return View("~/Views/Store/Cart.cshtml", getProduct);
+            }
+
+            if (JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime")).Count == 0)
+            {
+                List<OrderAndPaymentViewModel> test = new List<OrderAndPaymentViewModel>()
+                {
+                    new OrderAndPaymentViewModel()
+                };
+
+                return View("~/Views/Store/Cart.cshtml", test);
+            }
+
+            var updatedList = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
+
+            // For implimentation for update the json list when delete pressed
+            //foreach (var item in updatedList)
+            //{
+
+            //}
+
+            //foreach (var item in updatedList)
+            //{
+            //    totalprice += (decimal)item.UserSetPrice;
+            //}
+            //ViewBag.Price = totalprice;
+
+            return View("~/Views/Store/Cart.cshtml", updatedList);
         }
 
 

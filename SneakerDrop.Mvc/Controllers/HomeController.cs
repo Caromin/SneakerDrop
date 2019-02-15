@@ -164,16 +164,18 @@ namespace SneakerDrop.Mvc.Controllers
             return View("~/Views/Store/SingleItem.cshtml");
         }
        
-        public IActionResult Cart()
+        public IActionResult Cart(string delete)
         {
-            //third in route
-            var nodup = HttpContext.Session.GetInt32("nodup");
-            if (HttpContext.Session.GetInt32("nodup") == null)
+           
+           var nodup = HttpContext.Session.GetInt32("nodup");
+            if (HttpContext.Session.GetInt32("nodup") == null || delete == "yes") 
             {
+                HttpContext.Session.Remove("ProductTime");
                 ViewBag.MessageBad = "You Have Nothing In Your Cart";
                 return View("~/Views/Store/Cart.cshtml");
               
             }
+         
             ViewBag.MessageGood = "You Have Added";
             var getProduct = JsonConvert.DeserializeObject<List<dm.ProductInfo>>(HttpContext.Session.GetString("ProductTime"));
 
@@ -185,6 +187,11 @@ namespace SneakerDrop.Mvc.Controllers
                 
             }
             ViewBag.Price = totalprice;
+
+           
+
+
+
 
 
             return View("~/Views/Store/Cart.cshtml", getProduct );

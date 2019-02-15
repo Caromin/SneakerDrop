@@ -23,9 +23,9 @@ namespace SneakerDrop.Domain.Models
 
         public User User { get; set; }
 
-        public ProductInfo ProductInfo { get; set; }
-
         public Validator validator = new Validator();
+
+        public ProductInfo ProductInfo { get; set; }
 
         public bool AddListing(Listing listing)
         {
@@ -37,8 +37,6 @@ namespace SneakerDrop.Domain.Models
                 ListingHelper.AddListingById(listing);
                 return true;
             }
-            
-
             return false;
         }
 

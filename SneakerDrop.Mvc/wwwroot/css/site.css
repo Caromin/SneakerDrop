@@ -133,7 +133,7 @@ a:hover {
 
 #loginDiv {
     width: 350px;
-    height: 400px;
+    height: 450px;
     display: inline-block;
     border: solid 1px #DCDCDC;
     border-radius: 10px;
@@ -195,7 +195,7 @@ p {
 }
 
 .smallBox {
-    height: 50px;
+    height: 70px;
 }
 
 .singleItemPhoto {
@@ -218,6 +218,6 @@ tr:nth-child(even) {
 }
 
 .listingImage {
-    height: 50px;
-    width: 60px;
+    height: 60px;
+    width: 70px;
 }

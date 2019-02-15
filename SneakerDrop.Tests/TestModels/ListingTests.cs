@@ -1,4 +1,5 @@
 ﻿using SneakerDrop.Domain.Models;
+using SneakerDrop.Mvc.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,45 +9,19 @@ namespace SneakerDrop.Tests.TestModels
 {
     public class ListingTests
     {
-        public static Listing listing = new Listing
+        public static CreateNewListingViewModel listing = new CreateNewListingViewModel
         {
             UserSetPrice = (decimal)220.00,
             Quantity = 3,
             Size = "10",
-            User = new User
-            {
-                UserId = 7,
-                Firstname = "Henok",
-                Lastname = "Tesfaye",
-                Username = "OaksTree",
-                Password = "1234",
-                Email = "henoktothemax@gmail.com"
-            },
-            ProductInfo = new ProductInfo
-            {
-                ProductInfoId = 8,
-                Brand = new Brand
-                {
-                    BrandId = 2,
-                    BrandName = "Adidas"
-                },
-                Type = new Domain.Models.Type
-                {
-                    TypeId = 3,
-                    TypeName = "Basketball Shoes"
-                },
-                ProductTitle = "Adidas Yeezy Boost 350 V2 Static",
-                Description = "This Yeezy 350 V2 comes with a grey and white upper and a white sole.",
-                DisplayPrice = 220,
-                ReleaseDate = "12/27/2018",
-                Color = "STATIC/STATIC/STATIC"
-            },
+            UserId = 7,
+            ProductInfoId = 8, 
         };
     
         [Fact]
         public void Test_AddListing()
         {
-            var sut = listing.AddListing(listing);
+            var sut = listing.AddListingToDb(listing);
 
             Assert.True(sut);
         }

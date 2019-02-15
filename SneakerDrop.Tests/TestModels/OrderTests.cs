@@ -10,10 +10,45 @@ namespace SneakerDrop.Tests.TestModels
     {
         public static Orders order = new Orders
         {
-            OrderId = 1,
             OrderGroupNumber = 22,
             Quantity = 2,
+            Timestamp = DateTime.Now,
             ShippingStatus = "pending",
+            Listing = new Listing
+            {
+                ListingId = 19,
+                UserSetPrice = (decimal)220.00,
+                Quantity = 3,
+                Size = "10",
+                User = new User
+                {
+                    UserId = 7,
+                    Firstname = "Henok",
+                    Lastname = "Tesfaye",
+                    Username = "OaksTree",
+                    Password = "1234",
+                    Email = "henoktothemax@gmail.com"
+                },
+                ProductInfo = new ProductInfo
+                {
+                    ProductInfoId = 8,
+                    Brand = new Brand
+                    {
+                        BrandId = 2,
+                        BrandName = "Adidas"
+                    },
+                    Type = new Domain.Models.Type
+                    {
+                        TypeId = 3,
+                        TypeName = "Basketball Shoes"
+                    },
+                    ProductTitle = "Adidas Yeezy Boost 350 V2 Static",
+                    Description = "This Yeezy 350 V2 comes with a grey and white upper and a white sole.",
+                    DisplayPrice = 220,
+                    ReleaseDate = "12/27/2018",
+                    Color = "STATIC/STATIC/STATIC"
+                },
+    },
             Payment = new Payment
             {
                 PaymentId = 1,
@@ -43,13 +78,13 @@ namespace SneakerDrop.Tests.TestModels
             }
         };
 
-        //[Fact(Skip ="working")]
-        //public void Test_AddOrderById()
-        //{
-        //    var sut = OrderHelper.AddOrderById(order);
+        [Fact(Skip ="timestamp dosne't match datetime")]
+        public void Test_AddOrderById()
+        {
+            var sut = OrderHelper.AddOrderById(order);
 
-        //    Assert.True(sut);
-        //}
+            Assert.True(sut);
+        }
 
         [Fact]
         public void Test_GetOrdersById()
@@ -66,7 +101,7 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(sut);
         }
-        //[Fact(Skip ="need to work on time")]
+        //[Fact]
         //public void Test_AddOrders()
         //{
         //    var sut = new OrderAndPaymentViewModel
@@ -79,7 +114,6 @@ namespace SneakerDrop.Tests.TestModels
         //        PaymentId = 2,
         //        ListingId = 12,
         //        UserId = 1,
-
         //    };
         //    var test = sut.AddOrCancelOrders(sut);
         //    Assert.True(test);

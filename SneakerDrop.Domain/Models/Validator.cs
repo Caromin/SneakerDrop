@@ -104,7 +104,7 @@ namespace SneakerDrop.Domain.Models
         }
         public bool ValidateShoeSize(Listing listingInfoDomainModel)
         {
-            var listingSize = new Regex (@"^[0-9]+$");
+            var listingSize = new Regex (@"[\d]+$");
 
             if (listingSize.IsMatch(listingInfoDomainModel.Size))
             {

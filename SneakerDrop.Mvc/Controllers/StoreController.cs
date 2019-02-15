@@ -204,6 +204,14 @@ namespace SneakerDrop.Mvc.Controllers
 
             return RedirectToAction("Account", "Home");
         }
+
+        [HttpGet]
+        [ActionName("OrderProcess")]
+        public IActionResult OrderProcess()
+        {
+
+            return View("~/Views/Store/Completion.cshtml");
+        }
     }
 }
 

@@ -163,41 +163,28 @@ namespace SneakerDrop.Mvc.Controllers
 
             return View("~/Views/Store/SingleItem.cshtml");
         }
-       
+
         public IActionResult Cart(string delete)
         {
-           
-           var nodup = HttpContext.Session.GetInt32("nodup");
-            if (HttpContext.Session.GetInt32("nodup") == null || delete == "yes") 
-            {
-                HttpContext.Session.Remove("ProductTime");
-                ViewBag.MessageBad = "You Have Nothing In Your Cart";
-                return View("~/Views/Store/Cart.cshtml");
-              
-            }
-         
+
+            var nodup = HttpContext.Session.GetInt32("nodup");
+
+
             ViewBag.MessageGood = "You Have Added";
-            var getProduct = JsonConvert.DeserializeObject<List<dm.ProductInfo>>(HttpContext.Session.GetString("ProductTime"));
+            var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
 
-           var totalprice = 0;
+            decimal totalprice = 0;
 
-            foreach(var item in getProduct)
+            foreach (var item in getProduct)
             {
-                totalprice += item.DisplayPrice;
-                
+                totalprice += (decimal)item.UserSetPrice;
             }
             ViewBag.Price = totalprice;
 
-           
-
-
-
-
-
-            return View("~/Views/Store/Cart.cshtml", getProduct );
+            return View("~/Views/Store/Cart.cshtml", getProduct);
         }
 
-     
+
 
         public IActionResult Order(FindProductInfoViewModel productinfo)
         {
@@ -377,12 +364,12 @@ namespace SneakerDrop.Mvc.Controllers
                 Lastname = user.Lastname,
                 Email = user.Email,
                 Username = user.Username,
-                Password = user.Password              
+                Password = user.Password
             };
             if (editedUser.AddEditUser(editedUser))
             {
-                HttpContext.Session.SetString("Username", user.Username);           
-            }       
+                HttpContext.Session.SetString("Username", user.Username);
+            }
             return RedirectToAction("Account", "Home");
         }
 

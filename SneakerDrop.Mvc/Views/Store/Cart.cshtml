@@ -1,4 +1,4 @@
-﻿@model List<SneakerDrop.Mvc.Models.OrderAndPaymentViewModel>
+﻿@model List<SneakerDrop.Domain.Models.ProductInfo>
 
 @{
     ViewData["Title"] = "Catalog";
@@ -19,30 +19,26 @@
                         {
                             @foreach (var item in Model)
                             {
-                                <div class="w-100">
-                                    <div class="d-inline-block w-25 align-top">
-                                        <img class="listingImage" src="@item.ImageUrl" alt="@item.ProductInfoId" />
-                                    </div>
-                                    <div class="d-inline-block w-50 mb-2">
-                                        <span class="d-block btnText"><strong>Product:</strong>@item.ProductTitle</span>
-                                        <span class="d-block btnText"><strong>Price:</strong>@item.UserSetPrice</span>
-                                        <span class="d-block btnText"><strong>Colorway:</strong>@item.Color</span>
-                                        <span class="d-block btnText"><strong>Quantity:</strong>@item.Quantity</span>
-                                    </div>
-                                    <div class="d-inline-block align-top">
-                                        <button name="delete" type="submit" value="@item.ListingId" class="btn btn-danger">Remove Item</button>
-                                    </div>
-                                </div>
+
+                                <span class="d-block productText">@item.ProductTitle</span>
+                                <img class="productImage" src="@item.ImageUrl" alt="@item.ProductInfoId" />
+                                <span class="d-block productText"> @item.DisplayPrice</span>
+                                <span class="d-block productText"> @item.Color</span>
+
+
+
                             }
-                            <div class="w-100 text-right">
-                                <button name="delete" class="btn btn-success" value="checkout">Checkout Now</button>
-                            </div>
+
                         }
-                        <div class="w-100 text-right">
-                            <div>
-                                <strong> Your Cart Total</strong>
-                                <p>@ViewBag.Price</p>
-                            </div>
+
+
+                        <div>
+                            <b> Your Cart Total</b>
+                            <h6>@ViewBag.Price</h6>
+                        </div>
+
+                        <div>
+                            <button name="delete" type="submit" value="yes" class="btn btn-success w-50 m-1">Empty Cart</button>
                         </div>
 
                     </div>

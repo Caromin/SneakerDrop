@@ -163,77 +163,41 @@ namespace SneakerDrop.Mvc.Controllers
 
             return View("~/Views/Store/SingleItem.cshtml");
         }
-
+       
         public IActionResult Cart(string delete)
         {
-            var nodup = HttpContext.Session.GetInt32("nodup");
-            ViewBag.MessageGood = "You Have Added";
-            int listingId = 0;
-
-            if (delete == "checkout")
+           
+           var nodup = HttpContext.Session.GetInt32("nodup");
+            if (HttpContext.Session.GetInt32("nodup") == null || delete == "yes") 
             {
-                return RedirectToAction("Store");
-            }
-
-            if (delete != null)
-            {
-                listingId = Int32.Parse(Regex.Match(delete, @"\d+").Value);
-            }
-            else
-            {
-                listingId = 0;
-            }
-
-            decimal totalprice = 0;
-
-            if (nodup == null)
-            {
-                ViewBag.MessageGood = "Empty";
+                HttpContext.Session.Remove("ProductTime");
+                ViewBag.MessageBad = "You Have Nothing In Your Cart";
                 return View("~/Views/Store/Cart.cshtml");
+              
             }
+         
+            ViewBag.MessageGood = "You Have Added";
+            var getProduct = JsonConvert.DeserializeObject<List<dm.ProductInfo>>(HttpContext.Session.GetString("ProductTime"));
 
-            if (listingId == 0)
+           var totalprice = 0;
+
+            foreach(var item in getProduct)
             {
-                // will cause error if nothing in cart
-                var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
-
-                foreach (var item in getProduct)
-                {
-                    totalprice += (decimal)item.UserSetPrice;
-                }
-                ViewBag.Price = totalprice;
-
-                return View("~/Views/Store/Cart.cshtml", getProduct);
+                totalprice += item.DisplayPrice;
+                
             }
+            ViewBag.Price = totalprice;
 
-            if (JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime")).Count == 0)
-            {
-                List<OrderAndPaymentViewModel> test = new List<OrderAndPaymentViewModel>()
-                {
-                    new OrderAndPaymentViewModel()
-                };
+           
 
-                return View("~/Views/Store/Cart.cshtml", test);
-            }
 
-            var updatedList = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
 
-            // For implimentation for update the json list when delete pressed
-            //foreach (var item in updatedList)
-            //{
 
-            //}
 
-            //foreach (var item in updatedList)
-            //{
-            //    totalprice += (decimal)item.UserSetPrice;
-            //}
-            //ViewBag.Price = totalprice;
-
-            return View("~/Views/Store/Cart.cshtml", updatedList);
+            return View("~/Views/Store/Cart.cshtml", getProduct );
         }
 
-
+     
 
         public IActionResult Order(FindProductInfoViewModel productinfo)
         {
@@ -413,12 +377,12 @@ namespace SneakerDrop.Mvc.Controllers
                 Lastname = user.Lastname,
                 Email = user.Email,
                 Username = user.Username,
-                Password = user.Password
+                Password = user.Password              
             };
             if (editedUser.AddEditUser(editedUser))
             {
-                HttpContext.Session.SetString("Username", user.Username);
-            }
+                HttpContext.Session.SetString("Username", user.Username);           
+            }       
             return RedirectToAction("Account", "Home");
         }
 

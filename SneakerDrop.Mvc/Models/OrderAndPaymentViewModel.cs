@@ -41,16 +41,71 @@ namespace SneakerDrop.Mvc.Models
 
         public int ProductInfoId { get; set; }
 
-        public int TotalQuantity { get; set; }
+        public ConversionOrder createModel = new ConversionOrder();
 
-        public string ProductTitle { get; set; }
+        public dm.Validator validator = new dm.Validator();
 
-        public string Color { get; set; }
+        public List<OrderAndPaymentViewModel> GetOrderHistory(OrderAndPaymentViewModel orderView)
+        {
+            dm.Orders orderDomainModel = createModel.MappingOrders(orderView);
+            List<dm.Orders> orderDomainList = OrderHelper.GetOrdersById(orderDomainModel);
 
-        public string ImageUrl { get; set; }
+            return createModel.MappingView(orderDomainList);
+        }
+        // add order needs userId, cancel order needs orderId, no validation setup
+        //public bool AddOrCancelOrders(OrderAndPaymentViewModel orderView)
+        //{
+        //    dm.Orders orderDomainModel = createModel.MappingOrders(orderView);
+        //    dm.User getUser = UserHelper.GetUserInfoByIdForOrder(orderDomainModel);
+        //    dm.Listing getListing = ListingHelper.GetListingInfoByIdForOrder(orderDomainModel);
+        //    dm.Payment getPayment = PaymentHelper.GetPaymentByOrderId(orderDomainModel);
 
+        //    if (orderView.HelperType == "add")
+        //    {
+        //        var addedOrder = new dm.Orders
+        //        {
+        //            OrderId = orderDomainModel.OrderId,
+        //            OrderGroupNumber = orderDomainModel.OrderGroupNumber,
+        //            Quantity = orderDomainModel.Quantity,
+        //            ShippingStatus = orderDomainModel.ShippingStatus,
+        //            Timestamp = orderDomainModel.Timestamp,
+
+        //            User = new dm.User
+        //            {
+        //                UserId = getUser.UserId,
+        //                Username = getUser.Username,
+        //                Password = getUser.Password,
+        //                Firstname = getUser.Firstname,
+        //                Lastname = getUser.Lastname,
+        //                Email = getUser.Email,
+        //            },
+        //            Listing = new dm.Listing
+        //            {
+        //                ListingId = getListing.ListingId,
+        //                Quantity = getListing.Quantity,
+        //                Size = getListing.Size,
+        //                UserSetPrice = getListing.UserSetPrice,
+        //                ProductInfo = getListing.ProductInfo,
+        //                User = getListing.User,
+        //            },
+        //            Payment = new dm.Payment
+        //            {
+        //                PaymentId = getPayment.PaymentId,
+        //                CCNumber = getPayment.CCNumber,
+        //                CCUserName = getPayment.CCUserName,
+        //                Month = getPayment.Month,
+        //                Year = getPayment.Year,
+        //                CVV = getPayment.CVV,
+        //                User = getPayment.User,
+        //            },
+        //        };
+        //        OrderHelper.AddOrderById(addedOrder);
+        //        return true;
+        //    }
+        //    OrderHelper.CancelOrderByOrderId(orderDomainModel);
+        //    return true;
+        //}
     }
-
     public class ConversionOrder : Profile
     {
         public static MapperConfiguration orderConfig = new MapperConfiguration(cgf => cgf.CreateMap<OrderAndPaymentViewModel, dm.Orders>()

@@ -89,7 +89,7 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(test);
         }
-        [Fact]
+        [Fact(Skip = "working")]
         public void Test_AddAddress()
         {
             var sut = new AddressViewModel

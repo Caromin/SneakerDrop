@@ -53,7 +53,7 @@ namespace SneakerDrop.Tests.TestModels
             Assert.True(test);
 
         }
-        [Fact]
+        [Fact(Skip ="working")]
         public void Test_AddPayment()
         {
             var sut = new PaymentViewModel

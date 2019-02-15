@@ -1,4 +1,5 @@
-﻿@model List<SneakerDrop.Mvc.Models.CreateNewListingViewModel>
+﻿@model List<SneakerDrop.Domain.Models.ProductInfo>
+
 @{
     ViewData["Title"] = "Catalog";
 }
@@ -11,15 +12,19 @@
             <main role="main">
                 <div class="homeBanner2"></div>
                 <div class="container  mt-5 box-shadow">
-                    <h4>SEARCH RESULTS</h4>
+                    <h4>Cart Items</h4>
                     <div class="d-flex align-content-start flex-wrap">
+                        
                         @foreach (var item in Model)
                         {
+
                             <span class="d-block productText">@item.ProductTitle</span>
                             <img class="productImage" src="@item.ImageUrl" />
-                            <span class="d-block productText"> @item.Quantity</span>
-                            <span class="d-block productText"> @item.UserSetPrice</span>
+                            <span class="d-block productText"> @item.DisplayPrice</span>
+                            <span class="d-block productText"> @item.Color</span>
+
                         }
+
                     </div>
                 </div>
             </main>

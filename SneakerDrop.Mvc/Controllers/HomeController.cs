@@ -163,11 +163,26 @@ namespace SneakerDrop.Mvc.Controllers
 
             return View("~/Views/Store/SingleItem.cshtml");
         }
-
+       
         public IActionResult Cart()
         {
+            //third in route
 
-            return View("~/Views/Store/Cart.cshtml");
+            var getProduct = JsonConvert.DeserializeObject<List<dm.ProductInfo>>(HttpContext.Session.GetString("ProductTime"));
+
+           
+            Int32 index = 0;
+            while (index < getProduct.Count - 1)
+            {
+                if (getProduct[index] == getProduct[index + 1])
+                    getProduct.RemoveAt(index);
+                else
+                    index++;
+            }
+
+            
+
+            return View("~/Views/Store/Cart.cshtml", getProduct );
         }
 
 
@@ -288,9 +303,14 @@ namespace SneakerDrop.Mvc.Controllers
             return RedirectToAction("AddEditView", "Home");
         }
 
-        public IActionResult AddEditView(string match)
+        public IActionResult AddEditView(AddressViewModel address)
         {
-            return View("~/Views/User/AddEditAddress.cshtml");
+            var sessionUserId = HttpContext.Session.GetInt32("UserId");
+            var addressInfo = AddressHelper.GetAddressInfoByAddressId((int)sessionUserId);
+            var model = new ConversionAddress();
+            AddressViewModel addressView = model.MappingAddressInfo(addressInfo);
+
+            return View("~/Views/User/AddEditAddress.cshtml", addressView);
         }
 
         public IActionResult AddEditInfo(AddressViewModel address)
@@ -344,14 +364,12 @@ namespace SneakerDrop.Mvc.Controllers
                 Lastname = user.Lastname,
                 Email = user.Email,
                 Username = user.Username,
-                Password = user.Password
+                Password = user.Password              
             };
-
             if (editedUser.AddEditUser(editedUser))
             {
-                HttpContext.Session.SetString("Username", user.Username);
-            }
-
+                HttpContext.Session.SetString("Username", user.Username);           
+            }       
             return RedirectToAction("Account", "Home");
         }
 

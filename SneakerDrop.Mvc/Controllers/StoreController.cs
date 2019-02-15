@@ -15,20 +15,17 @@ namespace SneakerDrop.Mvc.Controllers
 {
     public class StoreController : Controller
     {
-        //[HttpPost]
-        //[ActionName("seller")]
-        //public IActionResult SearchAction(string SearchAction)
-        //{
-        //    switch (SearchAction)
-        //    {
-        //        case "Search":
-        //            return View("~/Views/Partials/ListingSearch.cshtml");
-        //        case "Next":
-        //            return View("~/Views/Store/Listing.cshtml");
-        //        default:
-        //            return View();
-        //    }
-        //}
+
+        public static List<int> ListOfIds { get; set; }
+
+        public static List<dm.ProductInfo> ListOfProducts { get; set; }
+
+        static StoreController()
+        {
+            ListOfIds = new List<int>();
+            ListOfProducts = new List<dm.ProductInfo>();
+        }
+
         [HttpPost]
         [ActionName("seller2")]
         public IActionResult ListingCheck(FindProductInfoViewModel productinfo)
@@ -84,9 +81,51 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("orderinitial")]
         public IActionResult OrderInitial(string buy)
         {
+         //first in route of Cart
             int listingId = Int32.Parse(buy);
+            
 
-            return RedirectToAction("Product", "Store");
+            ListOfIds.Add(listingId);
+
+          
+
+            //serializes the List into a Json object
+            HttpContext.Session.SetString("ListOfIds", JsonConvert.SerializeObject(ListOfIds));
+            
+
+
+
+            return RedirectToAction("CartPull", "Store");
+
+
+        }
+
+        [HttpGet]
+        [ActionName("CartPull")]
+        public IActionResult CartInfo()
+        {
+
+            //second in route of cart
+            c.SneakerDropDbContext db = new c.SneakerDropDbContext();
+
+            //retrieves the Json object and deserializes into a list of ListingIds
+            var getIdList = JsonConvert.DeserializeObject<List<int>>(HttpContext.Session.GetString("ListOfIds"));
+
+            foreach (var item in getIdList)
+            {
+                var cartstuff = db.Listings.Where(l => l.ListingId == item).ToList();
+                var cartstufffirst = cartstuff.FirstOrDefault();
+                foreach (var item2 in cartstuff)
+                {
+                    var cartstuff2 = db.ProductInfos.Where(p => p.ProductInfoId == item2.ProductInfoId).FirstOrDefault();
+                    ListOfProducts.Add(cartstuff2);
+                    //serializes list of productinfo into a Json object
+                    HttpContext.Session.SetString("ProductTime", JsonConvert.SerializeObject(ListOfProducts));
+                }
+
+            }
+            //sends to home controller
+            return RedirectToAction("Cart", "Home");
         }
 
         [HttpGet]
@@ -139,26 +178,6 @@ namespace SneakerDrop.Mvc.Controllers
             return View("~/Views/Store/SingleItem.cshtml", convertedList);
         }
 
-        [HttpGet]
-        [ActionName("CartPull")]
-        public IActionResult CartInfo(CreateNewListingViewModel listinginfo)
-        {
-            var checklistinginfo = listinginfo.ListofListing(listinginfo);
-            var PriceHelper = new FindProductInfoViewModel();
-
-
-            if (checklistinginfo != null)
-            {
-                StaticCartViewModel.CartOfListId.Add(listinginfo.ListingId);
-                PriceHelper.HelperType = "buy";
-                StaticCartViewModel.TotalPrice(PriceHelper);
-
-
-            }
-            return View();
-
-
-        }
 
         [HttpPost]
         [ActionName("CreateListing")]

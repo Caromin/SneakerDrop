@@ -176,11 +176,6 @@ namespace SneakerDrop.Mvc.Controllers
                 {
                     return RedirectToAction("Login", "Home");
                 }
-<<<<<<< HEAD
-=======
-                return RedirectToAction("OrderProcess", "Store")
-            }
->>>>>>> fb2c82d1348b605ac52126109c0183079de36b2c
 
                 return RedirectToAction("OrderProcess", "Store");
             }

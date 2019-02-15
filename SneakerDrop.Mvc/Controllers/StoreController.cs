@@ -209,10 +209,6 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("OrderProcess")]
         public IActionResult OrderProcess()
         {
-<<<<<<< HEAD
-
-=======
->>>>>>> fb2c82d1348b605ac52126109c0183079de36b2c
             return View("~/Views/Store/Completion.cshtml");
         }
     }

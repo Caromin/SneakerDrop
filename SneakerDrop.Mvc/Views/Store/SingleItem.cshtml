@@ -10,13 +10,13 @@
 
         <div>
             <h1>@Model[0].ProductTitle</h1>
-            <img class="singleItemPhoto" src="@Model[0].ImageUrl" />
+            <img class="singleItemPhoto" src="@Model[0].ImageUrl" alt="@Model[0].ProductTitle" />
         </div>
         <div class="text-left row">
             <div class="col-6">
-                <p><b>COLOR WAY</b> @Model[0].Color</p>
-                <p><b>RETAIL PRICE</b> $@Model[0].DisplayPrice</p>
-                <p><b>RELEASE DATE</b> @Model[0].ReleaseDate</p>
+                <p><strong>COLOR WAY</strong> @Model[0].Color</p>
+                <p><strong>RETAIL PRICE</strong> $@Model[0].DisplayPrice</p>
+                <p><strong>RELEASE DATE</strong> @Model[0].ReleaseDate</p>
             </div>
             <div class="col-6">
                 <p>@Model[0].Description</p>

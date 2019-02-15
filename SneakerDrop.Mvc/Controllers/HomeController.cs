@@ -176,9 +176,9 @@ namespace SneakerDrop.Mvc.Controllers
                 {
                     return RedirectToAction("Login", "Home");
                 }
-                return RedirectToAction("OrderProcess", "Store")
-            }
 
+                return RedirectToAction("OrderProcess", "Store");
+            }
 
             if (delete != null)
             {

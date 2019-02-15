@@ -81,16 +81,18 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("orderinitial")]
         public IActionResult OrderInitial(string buy)
         {
+         //first in route of Cart
             int listingId = Int32.Parse(buy);
+            
 
             ListOfIds.Add(listingId);
 
-            HttpContext.Session.SetString("ListOfIds", JsonConvert.SerializeObject(ListOfIds));
-            //var PriceHelper = new FindProductInfoViewModel();
+          
 
-            //StaticCartViewModel.CartOfListId.Add(listingId);
-            ////PriceHelper.HelperType = "buy";
-            ////StaticCartViewModel.TotalPrice(PriceHelper);
+            //serializes the List into a Json object
+            HttpContext.Session.SetString("ListOfIds", JsonConvert.SerializeObject(ListOfIds));
+            
+
 
 
             return RedirectToAction("CartPull", "Store");
@@ -102,7 +104,11 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("CartPull")]
         public IActionResult CartInfo()
         {
+
+            //second in route of cart
             c.SneakerDropDbContext db = new c.SneakerDropDbContext();
+
+            //retrieves the Json object and deserializes into a list of ListingIds
             var getIdList = JsonConvert.DeserializeObject<List<int>>(HttpContext.Session.GetString("ListOfIds"));
 
             foreach (var item in getIdList)
@@ -113,12 +119,12 @@ namespace SneakerDrop.Mvc.Controllers
                 {
                     var cartstuff2 = db.ProductInfos.Where(p => p.ProductInfoId == item2.ProductInfoId).FirstOrDefault();
                     ListOfProducts.Add(cartstuff2);
-
+                    //serializes list of productinfo into a Json object
                     HttpContext.Session.SetString("ProductTime", JsonConvert.SerializeObject(ListOfProducts));
                 }
 
             }
-
+            //sends to home controller
             return RedirectToAction("Cart", "Home");
         }
 

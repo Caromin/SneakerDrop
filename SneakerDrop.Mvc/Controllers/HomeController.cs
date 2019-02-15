@@ -166,16 +166,21 @@ namespace SneakerDrop.Mvc.Controllers
        
         public IActionResult Cart()
         {
-            //cd.SneakerDropDbContext db = new cd.SneakerDropDbContext();
+            //third in route
 
             var getProduct = JsonConvert.DeserializeObject<List<dm.ProductInfo>>(HttpContext.Session.GetString("ProductTime"));
-            //var getProductFirst = getProduct.FirstOrDefault();
 
+           
+            Int32 index = 0;
+            while (index < getProduct.Count - 1)
+            {
+                if (getProduct[index] == getProduct[index + 1])
+                    getProduct.RemoveAt(index);
+                else
+                    index++;
+            }
 
-            //var ProductConvertListing = db.Listings.Where(l => l.ProductInfoId == getProductFirst.ProductInfoId).ToList();
-
-            //KeyValuePair<string, object> ProductView = new KeyValuePair<string, object>("Your item", getProduct);
-            //ViewData.Add(ProductView);
+            
 
             return View("~/Views/Store/Cart.cshtml", getProduct );
         }

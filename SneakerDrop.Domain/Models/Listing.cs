@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using SneakerDrop.Code.Helpers;
 
 namespace SneakerDrop.Domain.Models
 {
@@ -23,24 +22,9 @@ namespace SneakerDrop.Domain.Models
 
         public User User { get; set; }
 
-        public Validator validator = new Validator();
-
         public ProductInfo ProductInfo { get; set; }
 
         public int ProductInfoId { get; set; }
-
-        public bool AddListing(Listing listing)
-        {
-            // add validation here before sending to db
-            
-            var checkShoeSize = validator.ValidateShoeSize(listing);
-            if(checkShoeSize)
-            {
-                ListingHelper.AddListingById(listing);
-                return true;
-            }
-            return false;
-        }
 
         public static decimal CartTotal(Listing productinfo, Listing buyerinfo)
         {

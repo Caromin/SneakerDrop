@@ -89,6 +89,18 @@ namespace SneakerDrop.Mvc.Models
             }
             return listingitem;
         }
+
+        // here is pending
+        public bool AddListing(dm.Listing listing)
+        {
+            var checkShoeSize = validator.ValidateShoeSize(listing);
+            if (checkShoeSize)
+            {
+                ListingHelper.AddListingById(listing);
+                return true;
+            }
+            return false;
+        }
     }
 
     public class ConversionNewListing : Profile

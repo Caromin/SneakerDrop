@@ -373,6 +373,31 @@ namespace SneakerDrop.Mvc.Controllers
             return RedirectToAction("Account", "Home");
         }
 
+        public IActionResult GetListing()
+        {
+            List<dm.Listing> listings = ListingHelper.GetAllListingById((int)HttpContext.Session.GetInt32("UserId"));
+            var model = new ConversionNewListing();
+            List<CreateNewListingViewModel> viewModel = model.MappingViewListings(listings);
+
+            foreach (var item in viewModel)
+            {
+                var productInfo = ListingHelper.GetProductIdByListingId(item.ListingId);
+                item.ProductTitle = productInfo.ProductTitle;
+                item.ImageUrl = productInfo.ImageUrl;
+            }
+
+            return View("~/Views/Partials/GetListings.cshtml", viewModel);
+        }
+
+        public IActionResult RemoveListing(string listing)
+        {
+            int listingId = Int32.Parse(Regex.Match(listing, @"\d+").Value);
+
+            ListingHelper.DeleteListingById(listingId);
+
+            return RedirectToAction("GetListing", "Home");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -1,0 +1,32 @@
+﻿@model List<SneakerDrop.Mvc.Models.CreateNewListingViewModel>
+
+<partial name="./GeneralHeader.cshtml" />
+
+@*remove listing does not exist yet*@
+@using (@Html.BeginForm("RemoveListing", "Home"))
+{
+    <div class="container  mb-5">
+        <h4 class="mt-4">Your Listings</h4>
+    </div>
+    <div class="container">
+        @foreach (var item in Model)
+        {
+            <div class="m-1 d-block box-shadow">
+                <div class="container">
+                    <div class="d-inline-block w-50">
+                        <div>
+                            <img class="listingImage" src="@item.ImageUrl" alt="@item.ProductTitle" />
+                        </div>
+                        <p>@item.ProductTitle</p>
+                    </div>
+                    <div class="d-inline-block w-25">
+                        <p><b>Size:</b> @item.Size</p>
+                        <p><b>Quantity:</b> @item.Quantity</p>
+                        <p><b>Price:</b> @item.UserSetPrice</p>
+                        <button name="listing" class="btn btn-danger p-1 mb-2" type="submit" value="delete-@item.ListingId">Remove</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

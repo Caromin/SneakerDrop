@@ -79,7 +79,6 @@ namespace SneakerDrop.Mvc.Models
             return true;
         }
 
-
         public List<dm.Listing> ListofListing(CreateNewListingViewModel listing)
         {
             var listingitem = ListingHelper.GetallListingsByListingId(listing.ListingId);
@@ -118,6 +117,14 @@ namespace SneakerDrop.Mvc.Models
             .ForPath(l => l.ProductInfo.ImageUrl, nl => nl.MapFrom(src => src.ImageUrl))
             .ForAllOtherMembers(c => c.Ignore()));
 
+        public static MapperConfiguration viewConfig = new MapperConfiguration(cgf => cgf.CreateMap<dm.Listing, CreateNewListingViewModel>()
+    .ForMember(c => c.ListingId, pf => pf.MapFrom(src => src.ListingId))
+    .ForMember(c => c.UserSetPrice, pf => pf.MapFrom(src => src.UserSetPrice))
+    .ForMember(c => c.Quantity, pf => pf.MapFrom(src => src.Quantity))
+    .ForMember(c => c.Size, pf => pf.MapFrom(src => src.Size))
+    .ForPath(c => c.UserId, pf => pf.MapFrom(src => src.User.UserId))
+    .ForPath(c => c.ProductInfoId, pf => pf.MapFrom(src => src.ProductInfo.ProductInfoId)));
+
         public CreateNewListingViewModel MappingCreateListing(dm.ProductInfo item)
         {
             var listingMapper = listingConfig.CreateMapper();
@@ -135,6 +142,19 @@ namespace SneakerDrop.Mvc.Models
         {
             var listingMapper = domainConfig.CreateMapper();
             return listingMapper.Map<CreateNewListingViewModel, dm.Listing>(listing);
+        }
+
+        public List<CreateNewListingViewModel> MappingViewListings(List<dm.Listing> listings)
+        {
+            var listOfListings = viewConfig.CreateMapper();
+            List<CreateNewListingViewModel> listingViewModels = new List<CreateNewListingViewModel>();
+
+            foreach (var item in listings)
+            {
+                var result = listOfListings.Map<dm.Listing, CreateNewListingViewModel>(item);
+                listingViewModels.Add(result);
+            }
+            return listingViewModels;
         }
     }
 }

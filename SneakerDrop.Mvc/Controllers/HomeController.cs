@@ -170,6 +170,11 @@ namespace SneakerDrop.Mvc.Controllers
             ViewBag.MessageGood = "You Have Added";
             int listingId = 0;
 
+            if (delete == "checkout")
+            {
+                return View("~/Views/Store/Completion.cshtml");
+            }
+
             if (delete != null)
             {
                 listingId = Int32.Parse(Regex.Match(delete, @"\d+").Value);
@@ -180,6 +185,12 @@ namespace SneakerDrop.Mvc.Controllers
             }
 
             decimal totalprice = 0;
+
+            if (nodup == null)
+            {
+                ViewBag.MessageGood = "Empty";
+                return View("~/Views/Store/Cart.cshtml");
+            }
 
             if (listingId == 0)
             {

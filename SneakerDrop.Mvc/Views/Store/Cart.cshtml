@@ -17,10 +17,6 @@
                         <h5>@ViewBag.MessageBad</h5>
                         @if (ViewBag.MessageGood == "You Have Added")
                         {
-                            @if (Model[0].ProductTitle == null)
-                            {
-                                <p>Nothing found.</p>
-                            }
                             @foreach (var item in Model)
                             {
                                 <div class="w-100">
@@ -38,11 +34,11 @@
                                     </div>
                                 </div>
                             }
-                        }
-                        <div class="w-100 text-right">
-                            <div>
+                            <div class="w-100 text-right">
                                 <button name="delete" class="btn btn-success" value="checkout">Checkout Now</button>
                             </div>
+                        }
+                        <div class="w-100 text-right">
                             <div>
                                 <strong> Your Cart Total</strong>
                                 <p>@ViewBag.Price</p>

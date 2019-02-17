@@ -59,7 +59,7 @@ namespace SneakerDrop.Mvc.Controllers
             foreach (var item in findProductInfos)
             {
                 string PTitle = item.ProductTitle;
-                HttpContext.Session.SetString("ProductName", PTitle);
+                HttpContext.Session.SetString("ProductName", PTitle.Trim());
             }
 
             if (sell == "seller")
@@ -209,7 +209,7 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("OrderProcess")]
         public IActionResult OrderProcess()
         {
-            
+
             var getAddress = new AddressViewModel
             {
                 UserId = (int)HttpContext.Session.GetInt32("UserId")
@@ -223,7 +223,7 @@ namespace SneakerDrop.Mvc.Controllers
 
             if (list.Count == 0)
             {
-               RedirectToAction("ChangeAddress", "Home");
+                RedirectToAction("ChangeAddress", "Home");
             }
             ViewBag.Street = viewaddress.Street;
             ViewBag.City = viewaddress.City;
@@ -247,7 +247,7 @@ namespace SneakerDrop.Mvc.Controllers
             ViewBag.Expiration = $"{viewpayment.Month}/{viewpayment.Year}";
             ViewBag.CardName = viewpayment.CCUserName;
 
-           var GetTotalPrice = HttpContext.Session.GetString("totalprice");
+            var GetTotalPrice = HttpContext.Session.GetString("totalprice");
             ViewBag.TotalPrice = GetTotalPrice;
 
             var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
@@ -255,9 +255,9 @@ namespace SneakerDrop.Mvc.Controllers
             return View("~/Views/Store/Order.cshtml", getProduct);
         }
 
-      [HttpGet]
-      [ActionName("OrderHistory")]
-      public IActionResult OrderHistory()
+        [HttpGet]
+        [ActionName("OrderHistory")]
+        public IActionResult OrderHistory()
         {
             return View();
         }

@@ -49,14 +49,6 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(sut);
         }
-
-        [Fact(Skip = "working")]
-        public void Test_DeleteAddressInfoById()
-        {
-            var sut = AddressHelper.DeleteAddressInfoById(address);
-
-            Assert.True(sut);
-        }
         [Fact]
         public void Test_GetAllAddresses()
         {

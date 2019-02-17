@@ -21,6 +21,15 @@ namespace SneakerDrop.Tests.TestModels
 
         public static Listing listing2 = new Listing
         {
+            ListingId = 11,
+            ProductInfoId = 1,
+            UserSetPrice = (decimal)100.00,
+            Quantity = 1,
+            Size = "8",
+            User = new User
+            {
+                UserId = 1
+            }
         };
         [Fact]
         public void Test_AddListing()
@@ -28,6 +37,34 @@ namespace SneakerDrop.Tests.TestModels
             var sut = listing.AddListingToDb(listing);
 
             Assert.True(sut);
+        }
+        [Fact]
+        public void Test_GetAllListingByProductInfoId()
+        {
+            var sut = ListingHelper.GetAllListingsByProductInfoId(listing2.ProductInfoId);
+
+            Assert.NotEmpty(sut);
+        }
+        [Fact]
+        public void Test_GetAllListingByListingId()
+        {
+            var sut = ListingHelper.GetallListingsByListingId(listing2.ListingId);
+
+            Assert.NotEmpty(sut);
+        }
+        [Fact]
+        public void Test_GetAllListingById()
+        {
+            var sut = ListingHelper.GetAllListingById(listing.UserId);
+
+            Assert.NotEmpty(sut);
+        }
+        [Fact]
+        public void Test_GetProductIdByListingId()
+        {
+            var sut = ListingHelper.GetProductIdByListingId(listing2.ListingId);
+
+            Assert.NotNull(sut);
         }
     }
 }

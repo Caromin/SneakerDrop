@@ -13,6 +13,7 @@
                 <div class="homeBanner2"></div>
                 <div class="container  mt-5 box-shadow">
                     <h4>Cart Items</h4>
+                    <hr />
                     <div class="d-flex align-content-start flex-wrap">
                         <h5>@ViewBag.MessageBad</h5>
                         @if (ViewBag.MessageGood == "You Have Added")
@@ -30,12 +31,13 @@
                                         <span class="d-block btnText"><strong>Quantity:</strong>@item.Quantity</span>
                                     </div>
                                     <div class="d-inline-block align-top">
-                                        <button name="delete" type="submit" value="@item.ListingId" class="btn btn-danger">Remove Item</button>
+                                        <button name="delete" type="submit" value="@item.ListingId" class="btn btn-link btnText">Delete</button>
                                     </div>
+                                    <hr />
                                 </div>
                             }
-                            <div class="w-100 text-right">
-                                <button name="delete" class="btn btn-success" value="checkout">Checkout Now</button>
+                            <div class="w-100 text-right mb-3">
+                                <button name="delete" class="btn btn-warning" value="checkout"><div class="btnText">Proceed to Checkout</div></button>
                             </div>
                         }
                         <div class="w-100 text-right">

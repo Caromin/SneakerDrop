@@ -94,7 +94,7 @@ namespace SneakerDrop.Domain.Models
         }
         public bool ValidateProductTitle(ProductInfo productInfoDomainModel)
         {
-            var productTitleCheck = new Regex(@"^[a-zA-Z0-9]+$");
+            var productTitleCheck = new Regex(@"^[a-zA-Z0-9_]+$");
 
             if (productTitleCheck.IsMatch(productInfoDomainModel.ProductTitle))
             {

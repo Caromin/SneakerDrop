@@ -25,12 +25,12 @@ namespace SneakerDrop.Tests.TestModels
                 Email = "Email@email.com"
             }
         };
-        [Fact(Skip = "need Identity Insert On")]
+        [Fact(Skip = "identity insert")]
         public void Test_AddAddresesById()
         {
             var sut = AddressHelper.AddAddressById(address);
 
-            Assert.True(sut);
+            Assert.NotNull(sut);
 
         }
         [Fact]

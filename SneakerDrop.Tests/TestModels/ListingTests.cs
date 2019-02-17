@@ -1,4 +1,5 @@
-﻿using SneakerDrop.Domain.Models;
+﻿using SneakerDrop.Code.Helpers;
+using SneakerDrop.Domain.Models;
 using SneakerDrop.Mvc.Models;
 using System;
 using System.Collections.Generic;

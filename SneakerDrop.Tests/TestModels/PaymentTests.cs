@@ -25,12 +25,12 @@ namespace SneakerDrop.Tests.TestModels
                 Email = "Email@email.com"
             }
         };
-        [Fact(Skip = "no dummy db data")]
+        [Fact]
         public void Test_GetPaymentById()
         {
             var sut = PaymentHelper.GetPaymentById(payment);
 
-            Assert.Equal(1, sut.Count);
+            Assert.Equal(2, sut.Count);
         }
 
         [Fact(Skip = "working, avoid deleting from db")]
@@ -41,7 +41,7 @@ namespace SneakerDrop.Tests.TestModels
             Assert.True(sut);
         }
 
-        [Fact(Skip ="working")]
+        [Fact]
         public void Test_ValidateNewPayment()
         {
             var sut = new PaymentViewModel

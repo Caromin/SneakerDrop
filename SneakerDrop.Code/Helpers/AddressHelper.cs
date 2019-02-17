@@ -15,7 +15,7 @@ namespace SneakerDrop.Code.Helpers
         {
             _db.Attach(address.User);
             _db.Addresses.Add(address);
-            _db.Entry(address.User).State = EntityState.Detached;
+            _db.Entry(address.User).State = EntityState.Unchanged;
 
             return _db.SaveChanges() == 1;
         }

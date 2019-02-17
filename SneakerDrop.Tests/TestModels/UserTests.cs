@@ -89,5 +89,47 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(test);
         }
+        [Fact]
+        public void Test_GetUserInfoByUsername()
+        {
+            var sut = UserHelper.GetUserInfoByUsername(user);
+
+            Assert.Equal(sut.Username, user.Username);
+        }
+        [Fact]
+        public void Test_getUserInfoByIdForAddres()
+        {
+            Address address = new Address
+            {
+                User = new User
+                {
+                    UserId = 1
+                }
+            };
+            var sut = UserHelper.GetUserInfoByIdForAddress(address);
+
+            Assert.Equal(sut.UserId, user.UserId);
+        }
+        [Fact]
+        public void Test_GetUserInfoByIdForPayment()
+        {
+            Payment payment = new Payment
+            {
+                User = new User
+                {
+                    UserId = 1
+                }
+            };
+            var sut = UserHelper.GetUserInfoByIdForPayment(payment);
+
+            Assert.Equal(sut.UserId, user.UserId);
+        }
+        [Fact]
+        public void Test_GetAllUsers()
+        {
+            var sut = UserHelper.GetAllUsers();
+
+            Assert.NotEmpty(sut);
+        }
     }
 }

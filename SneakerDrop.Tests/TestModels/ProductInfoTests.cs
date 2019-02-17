@@ -30,6 +30,13 @@ namespace SneakerDrop.Tests.TestModels
 
         };
         [Fact]
+        public void Test_FindPossibleMatches()
+        {
+            var sut = FindProductInfoHelper.FindPossibleMatches(productInfo);
+
+            Assert.NotEmpty(sut);
+        }
+        [Fact]
         public void Test_SingleProductInfo()
         {
             var sut = FindProductInfoHelper.SingleProductInfo(productInfo);
@@ -49,7 +56,6 @@ namespace SneakerDrop.Tests.TestModels
             var sut = FindProductInfoHelper.GetAllRecentProducts();
 
             Assert.NotEmpty(sut);
-        }
-            
+        } 
     }
 }

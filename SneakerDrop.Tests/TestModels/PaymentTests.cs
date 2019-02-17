@@ -40,19 +40,6 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(sut);
         }
-
-        [Fact]
-        public void Test_ValidateNewPayment()
-        {
-            var sut = new PaymentViewModel
-            {
-                CCNumber = 1111222233334444
-            };
-            var test = sut.AddOrDeletePayments(sut);
-
-            Assert.True(test);
-
-        }
         [Fact(Skip ="working")]
         public void Test_AddPayment()
         {
@@ -79,6 +66,18 @@ namespace SneakerDrop.Tests.TestModels
             var test = sut.AddOrDeletePayments(sut);
 
             Assert.True(test);
+        }
+        [Fact(Skip ="working but interfering with another test")]
+        public void Test_ValidateNewPayment()
+        {
+            var sut = new PaymentViewModel
+            {
+                CCNumber = 1111222233334444
+            };
+            var test = sut.AddOrDeletePayments(sut);
+
+            Assert.True(test);
+
         }
         [Fact]
         public void Test_GetAllPayment()

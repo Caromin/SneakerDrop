@@ -18,7 +18,10 @@ namespace SneakerDrop.Tests.TestModels
             UserId = 7,
             ProductInfoId = 8, 
         };
-    
+
+        public static Listing listing2 = new Listing
+        {
+        };
         [Fact]
         public void Test_AddListing()
         {

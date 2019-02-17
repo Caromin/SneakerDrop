@@ -1,8 +1,7 @@
-﻿@Model SneakerDrop.Mvc.Models.OrderAndPaymentViewModel
+﻿@using (Html.BeginForm("Completion", "Home"))
+{
 
-@{
-    ViewData["Title"] = "Completion";
+    <h1> You Have Completed Your Order</h1>
+
+    <button name="orderhistory" type="submit" value="done" class="btn btn-danger">Check Your Order History</button>
 }
-
-<h1>Hello</h1>
-

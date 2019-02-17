@@ -23,7 +23,7 @@ namespace SneakerDrop.Mvc.Controllers
 
         static HomeController()
         {
-             UpdatedList = new List<OrderAndPaymentViewModel>();
+            UpdatedList = new List<OrderAndPaymentViewModel>();
         }
 
         public IActionResult Index()
@@ -120,7 +120,7 @@ namespace SneakerDrop.Mvc.Controllers
             // for if user inputs something that doesnt exist in db
             if (results.Count == 0 && createcatalog2.Count == 0)
             {
-                return View("~/Views/Store/SellerCatalog.cshtml", onlyType);
+                return View("~/Views/Store/Catalog.cshtml", onlyType);
             }
 
             return View("~/Views/Store/Catalog.cshtml", results);
@@ -187,7 +187,7 @@ namespace SneakerDrop.Mvc.Controllers
                 return RedirectToAction("OrderProcess", "Store");
             }
 
-          if (delete != null)
+            if (delete != null)
             {
                 //statment to remove item and then have an updated list
                 var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
@@ -219,22 +219,22 @@ namespace SneakerDrop.Mvc.Controllers
 
                     return View("~/Views/Store/Cart.cshtml", UpdatedList);
                 }
-                
-             //when cart gets deleted it returns back to this statement instead of the updated cart
-               var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
 
-                    foreach (var item in getProduct)
-                    {
-                        totalprice += (decimal)item.UserSetPrice;
-                    }
-                    ViewBag.Price = totalprice;
-                    string TotalPrice = totalprice.ToString();
-                   HttpContext.Session.SetString("totalprice", TotalPrice);
+                //when cart gets deleted it returns back to this statement instead of the updated cart
+                var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
 
-                    return View("~/Views/Store/Cart.cshtml", getProduct);
-                
+                foreach (var item in getProduct)
+                {
+                    totalprice += (decimal)item.UserSetPrice;
                 }
-            
+                ViewBag.Price = totalprice;
+                string TotalPrice = totalprice.ToString();
+                HttpContext.Session.SetString("totalprice", TotalPrice);
+
+                return View("~/Views/Store/Cart.cshtml", getProduct);
+
+            }
+
             if (JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime")).Count == 0)
             {
                 List<OrderAndPaymentViewModel> test = new List<OrderAndPaymentViewModel>()
@@ -247,7 +247,7 @@ namespace SneakerDrop.Mvc.Controllers
 
             var updatedList = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
 
-            
+
 
 
 
@@ -256,8 +256,8 @@ namespace SneakerDrop.Mvc.Controllers
 
 
 
-     
-   
+
+
         public IActionResult Completion(string orderhistory)
         {
             if (orderhistory != null)
@@ -265,8 +265,8 @@ namespace SneakerDrop.Mvc.Controllers
                 RedirectToAction("OrderHistory");
             }
             return View("~/Views/Store/Completion.cstml");
-        
-       }
+
+        }
 
         public IActionResult OrderHistory()
         {

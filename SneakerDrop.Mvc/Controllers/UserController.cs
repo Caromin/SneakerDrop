@@ -95,19 +95,6 @@ namespace SneakerDrop.Mvc.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ActionName("addaddress")]
-        public IActionResult AddAddress()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ActionName("changeaddress")]
-        public IActionResult ChangeAddress()
-        {
-            return View();
-
-        }
+       
     }
 }

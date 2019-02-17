@@ -209,7 +209,57 @@ namespace SneakerDrop.Mvc.Controllers
         [ActionName("OrderProcess")]
         public IActionResult OrderProcess()
         {
-            return View("~/Views/Store/Completion.cshtml");
+            
+            var getAddress = new AddressViewModel
+            {
+                UserId = (int)HttpContext.Session.GetInt32("UserId")
+            };
+
+            var sessionusername = HttpContext.Session.GetString("Username");
+            ViewBag.Username = sessionusername;
+
+            List<AddressViewModel> list = getAddress.GetAllAddresses(getAddress);
+            var viewaddress = list.FirstOrDefault();
+
+            if (list.Count == 0)
+            {
+               RedirectToAction("ChangeAddress", "Home");
+            }
+            ViewBag.Street = viewaddress.Street;
+            ViewBag.City = viewaddress.City;
+            ViewBag.State = viewaddress.State;
+            ViewBag.PostalCode = viewaddress.PostalCode;
+
+            var getPayment = new PaymentViewModel
+            {
+                UserId = (int)HttpContext.Session.GetInt32("UserId")
+            };
+            List<PaymentViewModel> list2 = getPayment.GetAllPayments(getPayment);
+            var viewpayment = list2.FirstOrDefault();
+
+            if (list2.Count == 0)
+            {
+                RedirectToAction("ChangePayment", "Home");
+            }
+
+            HttpContext.Session.SetInt32("addressid", viewpayment.PaymentId);
+            ViewBag.CardNumber = viewpayment.CCNumber;
+            ViewBag.Expiration = $"{viewpayment.Month}/{viewpayment.Year}";
+            ViewBag.CardName = viewpayment.CCUserName;
+
+           var GetTotalPrice = HttpContext.Session.GetString("totalprice");
+            ViewBag.TotalPrice = GetTotalPrice;
+
+            var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
+
+            return View("~/Views/Store/Order.cshtml", getProduct);
+        }
+
+      [HttpGet]
+      [ActionName("OrderHistory")]
+      public IActionResult OrderHistory()
+        {
+            return View();
         }
     }
 }

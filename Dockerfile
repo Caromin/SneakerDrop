@@ -4,7 +4,7 @@ WORKDIR /app
 COPY ./ /app
 RUN dotnet build
 RUN dotnet test
-RUN dotnet publish -o ../Publish SneakerDrop/SneakerDrop.Mvc/SneakerDrop.Mvc.csproj
+RUN dotnet publish -o ../Publish SneakerDrop.Mvc/SneakerDrop.Mvc.csproj
 
 WORKDIR /app/Publish
 

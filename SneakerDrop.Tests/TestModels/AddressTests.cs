@@ -10,14 +10,14 @@ namespace SneakerDrop.Tests.TestModels
     {
         public static Address address = new Address()
         {
-            AddressId = 2,
-            Street = "4508 Burnhill Dr",
-            City = "Frisco",
+            AddressId = 4,
+            Street = "1234 fake street",
+            City = "Plano",
             State = "TX",
-            PostalCode = "75024",
+            PostalCode = "75000",
             User = new User
             {
-                UserId = 2,
+                UserId = 1,
                 Username = "ian2519",
                 Password = "Password",
                 Firstname = "Ian",
@@ -96,6 +96,13 @@ namespace SneakerDrop.Tests.TestModels
             var test = sut.AddEditDeleteAddresses(sut);
 
             Assert.True(test);
+        }
+        [Fact]
+        public void Test_GetAddressInfoByAddressId()
+        {
+            var sut = AddressHelper.GetAddressInfoByAddressId(address.User.UserId);
+
+            Assert.NotNull(sut);
         }
     }
 }

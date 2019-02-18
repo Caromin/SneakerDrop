@@ -78,13 +78,13 @@ namespace SneakerDrop.Tests.TestModels
             }
         };
 
-        [Fact(Skip ="timestamp dosne't match datetime")]
-        public void Test_AddOrderById()
-        {
-            var sut = OrderHelper.AddOrderById(order);
+        //[Fact(Skip ="timestamp dosne't match datetime")]
+        //public void Test_AddOrderById()
+        //{
+        //    var sut = OrderHelper.AddOrderById(order);
 
-            Assert.True(sut);
-        }
+        //    Assert.True(sut);
+        //}
 
         [Fact]
         public void Test_GetOrdersById()

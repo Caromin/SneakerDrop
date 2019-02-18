@@ -17,6 +17,7 @@ namespace SneakerDrop.Tests.TestModels
             Size = "10",
             UserId = 7,
             ProductInfoId = 8, 
+            ProductTitle = "Nike"
         };
 
         public static Listing listing2 = new Listing

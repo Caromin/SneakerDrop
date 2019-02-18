@@ -68,13 +68,7 @@ namespace SneakerDrop.Mvc.Controllers
             return RedirectToAction("Account", "Home", userdata);
         }
 
-        [HttpGet]
-        [ActionName("Logout")]
-        public IActionResult AccountLogOut()
-        {
-            HttpContext.Session.Clear();
-           return RedirectToAction("Login", "Home");
-        }
+        
 
 
 

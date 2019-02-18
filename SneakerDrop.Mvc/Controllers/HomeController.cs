@@ -279,7 +279,13 @@ namespace SneakerDrop.Mvc.Controllers
 
         public IActionResult OrderHistory()
         {
-            return View("~/Views/User/OrderHistory.cshtml");
+
+        var sessionusername = (int)HttpContext.Session.GetInt32("UserId");
+
+        
+
+
+        return View("~/Views/User/OrderHistory.cshtml");
         }
 
         public IActionResult ChangeAddress()

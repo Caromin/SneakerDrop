@@ -302,11 +302,15 @@ namespace SneakerDrop.Mvc.Controllers
             return RedirectToAction("Account", "Home");
         }
 
+        
+
         [HttpGet]
-        [ActionName("OrderHistory")]
-        public IActionResult OrderHistory()
+        [ActionName("Logout")]
+        public IActionResult AccountLogOut()
         {
-            return View();
+            HttpContext.Session.Clear();
+            ListOfProducts.RemoveAll(p => p.ProductInfoId > 0);
+            return RedirectToAction("Login", "Home");
         }
     }
 }

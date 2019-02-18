@@ -21,7 +21,7 @@ namespace SneakerDrop.Code.Helpers
         }
         public static List<Address> GetAddressInfoById(Address address)
         {
-            var dbAddressInfo = _db.Addresses.Where(a => a.User.UserId == address.User.UserId).ToList();
+            var dbAddressInfo = _db.Addresses.Include(u => u.User).Where(a => a.User.UserId == address.User.UserId).ToList();
 
             return dbAddressInfo;
 
@@ -54,5 +54,6 @@ namespace SneakerDrop.Code.Helpers
         {
             return _db.Addresses.Where(a => a.DefaultAddress == 1).FirstOrDefault();
         }
+
     }
 }

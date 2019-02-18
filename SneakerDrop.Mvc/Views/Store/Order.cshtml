@@ -4,47 +4,54 @@
     ViewData["Title"] = "Order";
 }
 
-@using (Html.BeginForm("OrderProcess", "Store", FormMethod.Get))
+@using (Html.BeginForm("CompleteOrder", "Store", FormMethod.Get))
 {
-    <div class="search d-inline">
-        <main>
-            <main role="main">
-                <div class="homeBanner2"></div>
-                <div class="container  mt-5 box-shadow">
-                    <h4>Your Order, @ViewBag.Username </h4>
-                    <div>
-                     
-                        
-                        <p>Your Current Address</p>
-
-                        <span class="d-block btnText">@ViewBag.Street</span>
-                        <span class="d-block btnText">@ViewBag.City</span>
-                        <span class="d-block btnText">@ViewBag.State</span>
-                        <span class="d-block btnText">@ViewBag.PostalCode</span>
-                        <p>Your Current Payment Information </p>
-                        <span class="d-block btnText">@ViewBag.CardName</span>
-                        <span class="d-block btnText">@ViewBag.CardNumber</span>
-                        <span class="d-block btnText">@ViewBag.Expiration</span>
-
-                        <p>Your Current Order</p>
-                        @foreach (var item in Model)
-                        {
-                            <span class="d-block btnText">@item.ProductTitle</span>
-                            <span class="d-block btnText">@item.UserSetPrice</span>
-                        }
-
-                        <p>Total Price</p>
-                        <span class="d-block btnText">@ViewBag.TotalPrice</span>
-
-
-
-                        <button name="complete" type="submit" value="done" class="btn btn-danger">Complete Order</button>
-                        
+    <partial name="../Partials/GeneralHeader.cshtml" />
+    <div class="search container">
+        <div class="row">
+            <div class="mt-5 pr-3 pl-3 box-shadow w-75">
+                <div class=" m-2 row">
+                    <div class="flex-grow-1 d-inline-block">
+                        <strong>Shipping address</strong>
+                        <p class="btnText">@Model[0].Street</p>
+                        <p class="btnText">@Model[0].City, @Model[0].State</p>
+                        <p class="btnText">@Model[0].PostalCode</p>
                     </div>
+                    <div class="flex-grow-1 d-inline-block">
+                        <strong>Payment</strong>
+                        <p class="btnText">@Model[0].CCNumber</p>
+                        <p class="btnText">@Model[0].CCUserName</p>
+                        <p class="btnText">@Model[0].Month/@Model[0].Year</p>
+                        <p class="btnText">@Model[0].CVV</p>
                     </div>
-                </main>
-            </main>
+                </div>
+                <div>
+                    <hr />
+                    @foreach (var item in Model)
+                    {
+                        <div class="w-100">
+                            <div class="d-inline-block w-25 align-top">
+                                <img class="listingImage" src="@item.ImageUrl" alt="@item.ProductInfoId" />
+                            </div>
+                            <div class="d-inline-block w-50 mb-2">
+                                <span class="d-block btnText"><strong>Product:</strong>@item.ProductTitle</span>
+                                <span class="d-block btnText"><strong>Price:</strong>@item.UserSetPrice</span>
+                                <span class="d-block btnText"><strong>Colorway:</strong>@item.Color</span>
+                                <span class="d-block btnText"><strong>Quantity:</strong>@item.Quantity</span>
+                            </div>
+                            <hr />
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="w-25 d-inline-block box-shadow mt-5 container">
+                <button name="complete" type="submit" value="done" class="btn btn-warning btnText">Place your order</button>
+                <br />
+                <br />
+                <p>Total Price</p>
+                <span class="d-block btnText"><strong>$@ViewBag.TotalPrice</strong></span>
+            </div>
         </div>
-        
-    }
+    </div>
+}
 

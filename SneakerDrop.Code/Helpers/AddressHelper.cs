@@ -50,5 +50,9 @@ namespace SneakerDrop.Code.Helpers
             return _db.Addresses.Where(a => a.User.UserId == userid).FirstOrDefault();
         }
 
+        public static Address GetAddressByDefaultId()
+        {
+            return _db.Addresses.Where(a => a.DefaultAddress == 1).FirstOrDefault();
+        }
     }
 }

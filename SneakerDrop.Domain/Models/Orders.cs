@@ -7,11 +7,10 @@ namespace SneakerDrop.Domain.Models
     [Table("Orders", Schema = "User")]
     public class Orders
     {
-
         public int OrderId { get; set; }
 
         [Required]
-        public int OrderGroupNumber { get; set; }
+        public string OrderGroupNumber { get; set; }
 
         [Required]
         public int Quantity { get; set; }
@@ -20,8 +19,8 @@ namespace SneakerDrop.Domain.Models
         [Required]
         public string ShippingStatus { get; set; }
 
-        [Timestamp]
-        public DateTime Timestamp { get; set; }
+        //[Timestamp]
+        //public DateTime Timestamp { get; set; }
 
         public Payment Payment { get; set; }
 
@@ -30,4 +29,6 @@ namespace SneakerDrop.Domain.Models
         public Listing Listing { get; set; }
 
     }
+
+
 }

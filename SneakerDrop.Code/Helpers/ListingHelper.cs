@@ -36,7 +36,7 @@ namespace SneakerDrop.Code.Helpers
             return _db.Listings.Where(l => l.ListingId == selectedListingId).ToList();
         }
 
-        
+
 
 
         public static List<Listing> GetAllListingById(int id)
@@ -61,11 +61,12 @@ namespace SneakerDrop.Code.Helpers
 
         public static Listing GetListingInfoByIdForOrder(Orders order)
         {
-            Listing dbInfo = _db.Listings.Where(l => l.ListingId == order.Listing.ListingId)
+            Listing dbInfo = _db.Listings
                                 .Include(l => l.ProductInfo)
                                 .Include(l => l.ProductInfo.Brand)
                                 .Include(l => l.ProductInfo.Type)
                                 .Include(l => l.User)
+                                .Where(l => l.ListingId == order.Listing.ListingId)
                                 .FirstOrDefault();
             return dbInfo;
         }

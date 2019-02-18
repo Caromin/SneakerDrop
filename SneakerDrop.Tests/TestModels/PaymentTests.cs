@@ -72,6 +72,28 @@ namespace SneakerDrop.Tests.TestModels
             Assert.True(test);
 
         }
+        [Fact]
+        public void Test_GetPaymentById()
+        {
+            Payment payment = new Payment
+            {
+                PaymentId = 2,
+                User = new User
+                {
+                    UserId = 1,
+                }
+            };
+            var sut = PaymentHelper.GetPaymentById(payment);
+
+            Assert.NotEmpty(sut);
+        }
+        [Fact]
+        public void Test_GetPaymentByDefaultId()
+        {
+            var sut = PaymentHelper.GetPaymentByDefaultId();
+
+            Assert.NotNull(sut);
+        }
     }
 
 }

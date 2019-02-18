@@ -23,7 +23,7 @@ namespace SneakerDrop.Mvc.Controllers
 
         static HomeController()
         {
-             UpdatedList = new List<OrderAndPaymentViewModel>();
+            UpdatedList = new List<OrderAndPaymentViewModel>();
         }
 
         public IActionResult Index()
@@ -177,6 +177,13 @@ namespace SneakerDrop.Mvc.Controllers
             ViewBag.MessageGood = "You Have Added";
             int listingId = 0;
             decimal totalprice = 0;
+            int deletehelper = 0;
+
+            if (nodup == null)
+            {
+                ViewBag.MessageGood = "Empty";
+                return View("~/Views/Store/Cart.cshtml");
+            }
 
             if (delete == "checkout")
             {
@@ -187,40 +194,42 @@ namespace SneakerDrop.Mvc.Controllers
                 return RedirectToAction("OrderProcess", "Store");
             }
 
-          if (delete != null)
+            if (delete != null)
             {
-                //statment to remove item and then have an updated list
-                var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
+                deletehelper = 1;
+                HttpContext.Session.SetInt32("deletehelper", deletehelper);
+
                 listingId = Int32.Parse(Regex.Match(delete, @"\d+").Value);
+                HttpContext.Session.SetInt32("listingiddelete", listingId);
 
-                getProduct.RemoveAll(p => p.ListingId == listingId);
+                RedirectToAction("CartPull", "Store");
 
-                UpdatedList = getProduct;
+                //var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
+
+                // getProduct.RemoveAll(p => p.ListingId == listingId);
+
+                //UpdatedList = getProduct;
 
 
-                return View("~/Views/Store/Cart.cshtml", UpdatedList);
+                //return View("~/Views/Store/Cart.cshtml", UpdatedList);
             }
 
-            if (nodup == null)
-            {
-                ViewBag.MessageGood = "Empty";
-                return View("~/Views/Store/Cart.cshtml");
-            }
 
-            if (listingId == 0)
-            {
-                if (UpdatedList.Count != 0)
-                {
-                    foreach (var item in UpdatedList)
-                    {
-                        totalprice += (decimal)item.UserSetPrice;
-                    }
-                    ViewBag.Price = totalprice;
 
-                    return View("~/Views/Store/Cart.cshtml", UpdatedList);
-                }
-                
-             //when cart gets deleted it returns back to this statement instead of the updated cart
+            //if (listingId == 0)
+            //{
+            //    if (UpdatedList.Count != 0)
+            //    {
+            //        foreach (var item in UpdatedList)
+            //        {
+            //            totalprice += (decimal)item.UserSetPrice;
+            //        }
+            //        ViewBag.Price = totalprice;
+
+            //        return View("~/Views/Store/Cart.cshtml", UpdatedList);
+            //    }
+
+        
                var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
 
                     foreach (var item in getProduct)
@@ -233,25 +242,25 @@ namespace SneakerDrop.Mvc.Controllers
 
                     return View("~/Views/Store/Cart.cshtml", getProduct);
                 
-                }
+                
             
-            if (JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime")).Count == 0)
-            {
-                List<OrderAndPaymentViewModel> test = new List<OrderAndPaymentViewModel>()
-                {
-                    new OrderAndPaymentViewModel()
-                };
+            //if (JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime")).Count == 0)
+            //{
+            //    List<OrderAndPaymentViewModel> test = new List<OrderAndPaymentViewModel>()
+            //    {
+            //        new OrderAndPaymentViewModel()
+            //    };
 
-                return View("~/Views/Store/Cart.cshtml", test);
-            }
+            //    return View("~/Views/Store/Cart.cshtml", test);
+            //}
 
-            var updatedList = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
+            //var updatedList = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
 
             
 
 
 
-            return View("~/Views/Store/Cart.cshtml", updatedList);
+            //return View("~/Views/Store/Cart.cshtml", updatedList);
         }
 
 

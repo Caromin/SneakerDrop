@@ -118,7 +118,15 @@ namespace SneakerDrop.Mvc.Controllers
                 ImageUrl = results.ProductInfo.ImageUrl
             };
 
+
             ListOfProducts.Add(model);
+
+            if (HttpContext.Session.GetInt32("deletehelper") == 1)
+            {
+                var deleteid = HttpContext.Session.GetInt32("listingiddelete");
+                ListOfProducts.RemoveAll(p => p.ListingId == deleteid);
+                HttpContext.Session.SetString("ProductTime", JsonConvert.SerializeObject(ListOfProducts));
+            }
             HttpContext.Session.SetString("ProductTime", JsonConvert.SerializeObject(ListOfProducts));
 
             return RedirectToAction("Cart", "Home");

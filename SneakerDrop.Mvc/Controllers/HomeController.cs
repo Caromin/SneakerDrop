@@ -120,7 +120,7 @@ namespace SneakerDrop.Mvc.Controllers
             // for if user inputs something that doesnt exist in db
             if (results.Count == 0 && createcatalog2.Count == 0)
             {
-                return View("~/Views/Store/Catalog.cshtml", onlyType);
+                return View("~/Views/Store/SellerCatalog.cshtml", onlyType);
             }
 
             return View("~/Views/Store/Catalog.cshtml", results);
@@ -177,6 +177,13 @@ namespace SneakerDrop.Mvc.Controllers
             ViewBag.MessageGood = "You Have Added";
             int listingId = 0;
             decimal totalprice = 0;
+            int deletehelper = 0;
+
+            if (nodup == null)
+            {
+                ViewBag.MessageGood = "Empty";
+                return View("~/Views/Store/Cart.cshtml");
+            }
 
             if (delete == "checkout")
             {
@@ -189,75 +196,77 @@ namespace SneakerDrop.Mvc.Controllers
 
             if (delete != null)
             {
-                //statment to remove item and then have an updated list
-                var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
+                deletehelper = 1;
+                HttpContext.Session.SetInt32("deletehelper", deletehelper);
+
                 listingId = Int32.Parse(Regex.Match(delete, @"\d+").Value);
+                HttpContext.Session.SetInt32("listingiddelete", listingId);
 
-                getProduct.RemoveAll(p => p.ListingId == listingId);
+                RedirectToAction("CartPull", "Store");
 
-                UpdatedList = getProduct;
+                //var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
+
+                // getProduct.RemoveAll(p => p.ListingId == listingId);
+
+                //UpdatedList = getProduct;
 
 
-                return View("~/Views/Store/Cart.cshtml", UpdatedList);
+                //return View("~/Views/Store/Cart.cshtml", UpdatedList);
             }
 
-            if (nodup == null)
-            {
-                ViewBag.MessageGood = "Empty";
-                return View("~/Views/Store/Cart.cshtml");
-            }
 
-            if (listingId == 0)
-            {
-                if (UpdatedList.Count != 0)
-                {
-                    foreach (var item in UpdatedList)
+
+            //if (listingId == 0)
+            //{
+            //    if (UpdatedList.Count != 0)
+            //    {
+            //        foreach (var item in UpdatedList)
+            //        {
+            //            totalprice += (decimal)item.UserSetPrice;
+            //        }
+            //        ViewBag.Price = totalprice;
+
+            //        return View("~/Views/Store/Cart.cshtml", UpdatedList);
+            //    }
+
+        
+               var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
+
+                    foreach (var item in getProduct)
                     {
                         totalprice += (decimal)item.UserSetPrice;
                     }
                     ViewBag.Price = totalprice;
+                    string TotalPrice = totalprice.ToString();
+                   HttpContext.Session.SetString("totalprice", TotalPrice);
 
-                    return View("~/Views/Store/Cart.cshtml", UpdatedList);
-                }
+                    return View("~/Views/Store/Cart.cshtml", getProduct);
+                
+                
+            
+            //if (JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime")).Count == 0)
+            //{
+            //    List<OrderAndPaymentViewModel> test = new List<OrderAndPaymentViewModel>()
+            //    {
+            //        new OrderAndPaymentViewModel()
+            //    };
 
-                //when cart gets deleted it returns back to this statement instead of the updated cart
-                var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
+            //    return View("~/Views/Store/Cart.cshtml", test);
+            //}
 
-                foreach (var item in getProduct)
-                {
-                    totalprice += (decimal)item.UserSetPrice;
-                }
-                ViewBag.Price = totalprice;
-                string TotalPrice = totalprice.ToString();
-                HttpContext.Session.SetString("totalprice", TotalPrice);
+            //var updatedList = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
 
-                return View("~/Views/Store/Cart.cshtml", getProduct);
-
-            }
-
-            if (JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime")).Count == 0)
-            {
-                List<OrderAndPaymentViewModel> test = new List<OrderAndPaymentViewModel>()
-                {
-                    new OrderAndPaymentViewModel()
-                };
-
-                return View("~/Views/Store/Cart.cshtml", test);
-            }
-
-            var updatedList = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
+            
 
 
 
-
-
-            return View("~/Views/Store/Cart.cshtml", updatedList);
+            //return View("~/Views/Store/Cart.cshtml", updatedList);
         }
 
 
 
-
-
+     
+   
         public IActionResult Completion(string orderhistory)
         {
             if (orderhistory != null)
@@ -265,12 +274,18 @@ namespace SneakerDrop.Mvc.Controllers
                 RedirectToAction("OrderHistory");
             }
             return View("~/Views/Store/Completion.cstml");
-
-        }
+        
+       }
 
         public IActionResult OrderHistory()
         {
-            return View("~/Views/User/OrderHistory.cshtml");
+
+        var sessionusername = (int)HttpContext.Session.GetInt32("UserId");
+
+        
+
+
+        return View("~/Views/User/OrderHistory.cshtml");
         }
 
         public IActionResult ChangeAddress()

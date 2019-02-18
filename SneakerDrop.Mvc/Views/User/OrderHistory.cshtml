@@ -8,33 +8,29 @@
 {
     <partial name="../Partials/GeneralHeader.cshtml" />
     <div class="search container">
-        <div class="row">
-            <div class="mt-5 pr-3 pl-3 box-shadow w-75">
-                <div class=" m-2 row">
-                </div>
-                <div>
-                    <h1>Your Order History, @ViewBag.Username</h1>
-                    <hr />
-                    @foreach (var item2 in Model)
-                    {
-                        <div class="w-100">
-                            <div class="d-inline-block w-25 align-top">
-                                <img class="listingImage" src="@item2.ImageUrl" alt="@item2.ProductInfoId" />
-                            </div>
-                            <div class="d-inline-block w-50 mb-2">
-                                <span class="d-block btnText"><strong>Product:</strong>@item2.ProductTitle</span>
-                                <span class="d-block btnText"><strong>Quantity:</strong>@item2.Quantity</span>
-                                <span class="d-block btnText"><strong>Price:</strong>@item2.UserSetPrice</span>
-                                <span class="d-block btnText"><strong>Shipping: </strong>@item2.City, @item2.State </span>
-                                <span class="d-block btnText"><strong>Status</strong>@item2.ShippingStatus</span>
-                            </div>
-                            <hr />
+        <div class="mt-5 pr-3 pl-3 box-shadow w-100">
+            <div>
+                <h1>Order History</h1>
+                <p>By Most Recent</p>
+                <hr />
+                @foreach (var item in Model)
+                {
+                    <div class="w-100">
+                        <div class="d-inline-block w-25 align-top">
+                            <img class="listingImage" src="@item.ImageUrl" alt="@item.ProductInfoId" />
                         </div>
-                    }
-                </div>
-            </div>
+                        <div class="d-inline-block w-50 mb-2">
+                            <span class="d-block btnText"><strong>Product: </strong>@item.ProductTitle</span>
+                            <span class="d-block btnText"><strong>Quantity: </strong>@item.Quantity</span>
+                            <span class="d-block btnText"><strong>Price: </strong>@item.UserSetPrice</span>
+                            <span class="d-block btnText"><strong>Status: </strong>@item.ShippingStatus</span>
+                        </div>
+                        <hr />
+                    </div>
+                }
             </div>
         </div>
+    </div>
 }
 
 

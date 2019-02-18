@@ -13,7 +13,7 @@ namespace SneakerDrop.Mvc.Models
 
         public string HelperType { get; set; }
 
-        public int OrderGroupNumber { get; set; }
+        public string OrderGroupNumber { get; set; }
 
         public int Quantity { get; set; }
 
@@ -79,7 +79,10 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(o => o.ShippingStatus, op => op.MapFrom(src => src.ShippingStatus))
             .ForPath(o => o.PaymentId, op => op.MapFrom(src => src.Payment.PaymentId))
             .ForPath(o => o.UserId, op => op.MapFrom(src => src.User.UserId))
-            .ForPath(o => o.ListingId, op => op.MapFrom(src => src.Listing.ListingId)));
+            .ForPath(o => o.ListingId, op => op.MapFrom(src => src.Listing.ListingId))
+            .ForPath(o => o.ImageUrl, op => op.MapFrom(src => src.Listing.ProductInfo.ImageUrl))
+            .ForPath(o => o.UserSetPrice, op => op.MapFrom(src => src.Listing.UserSetPrice))
+            .ForPath(o => o.ProductTitle, op => op.MapFrom(src => src.Listing.ProductInfo.ProductTitle)));
 
 
         public dm.Orders MappingOrders(OrderAndPaymentViewModel orderView)
@@ -97,7 +100,7 @@ namespace SneakerDrop.Mvc.Models
             foreach (var item in orders)
             {
                 var newItem = orderModel.Map<dm.Orders, OrderAndPaymentViewModel>(item);
-                convertedList.Add(newItem);
+                convertedList.Insert(0, newItem);
             }
             return convertedList;
         }

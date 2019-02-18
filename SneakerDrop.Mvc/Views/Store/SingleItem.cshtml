@@ -42,8 +42,16 @@
                             <tr>
                                 <td>@item.Size</td>
                                 <td>$@item.UserSetPrice</td>
-                                <td>@item.Quantity</td>
-                                <td><button name="buy" type="submit" value="@item.ListingId" class="btn btn-success w-50 m-1">Add</button></td>
+                                @if (item.Quantity == 0)
+                                {
+                                    <td>Pending sold.</td>
+                                    <td><button name="buy" type="submit" value="@item.ListingId" class="btn btn-success w-50 m-1" disabled>Add</button></td>
+                                }
+                                else
+                                {
+                                    <td>@item.Quantity</td>
+                                    <td><button name="buy" type="submit" value="@item.ListingId" class="btn btn-success w-50 m-1">Add</button></td>
+                                }
 
                             </tr>
                         }

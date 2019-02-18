@@ -10,9 +10,9 @@ namespace SneakerDrop.Tests.TestModels
     {
         public static Orders order = new Orders
         {
-            OrderGroupNumber = 22,
+            //OrderGroupNumber = 22,
             Quantity = 2,
-            Timestamp = DateTime.Now,
+            //Timestamp = DateTime.Now,
             ShippingStatus = "pending",
             Listing = new Listing
             {

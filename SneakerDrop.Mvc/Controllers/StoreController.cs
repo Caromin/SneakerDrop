@@ -15,6 +15,10 @@ namespace SneakerDrop.Mvc.Controllers
 {
     public class StoreController : Controller
     {
+        //public static System.DateTime GetTimestamp(DateTime value)
+        //{
+        //    return value;
+        //}
 
         public static List<int> ListOfIds { get; set; }
 
@@ -118,7 +122,15 @@ namespace SneakerDrop.Mvc.Controllers
                 ImageUrl = results.ProductInfo.ImageUrl
             };
 
+
             ListOfProducts.Add(model);
+
+            if (HttpContext.Session.GetInt32("deletehelper") == 1)
+            {
+                var deleteid = HttpContext.Session.GetInt32("listingiddelete");
+                ListOfProducts.RemoveAll(p => p.ListingId == deleteid);
+                HttpContext.Session.SetString("ProductTime", JsonConvert.SerializeObject(ListOfProducts));
+            }
             HttpContext.Session.SetString("ProductTime", JsonConvert.SerializeObject(ListOfProducts));
 
             return RedirectToAction("Cart", "Home");
@@ -207,59 +219,102 @@ namespace SneakerDrop.Mvc.Controllers
 
         [HttpGet]
         [ActionName("OrderProcess")]
-        public IActionResult OrderProcess()
+        public IActionResult OrderProcess(string complete)
         {
-
-            var getAddress = new AddressViewModel
-            {
-                UserId = (int)HttpContext.Session.GetInt32("UserId")
-            };
-
-            var sessionusername = HttpContext.Session.GetString("Username");
-            ViewBag.Username = sessionusername;
-
-            List<AddressViewModel> list = getAddress.GetAllAddresses(getAddress);
-            var viewaddress = list.FirstOrDefault();
-
-            if (list.Count == 0)
-            {
-                RedirectToAction("ChangeAddress", "Home");
-            }
-            ViewBag.Street = viewaddress.Street;
-            ViewBag.City = viewaddress.City;
-            ViewBag.State = viewaddress.State;
-            ViewBag.PostalCode = viewaddress.PostalCode;
-
-            var getPayment = new PaymentViewModel
-            {
-                UserId = (int)HttpContext.Session.GetInt32("UserId")
-            };
-            List<PaymentViewModel> list2 = getPayment.GetAllPayments(getPayment);
-            var viewpayment = list2.FirstOrDefault();
-
-            if (list2.Count == 0)
-            {
-                RedirectToAction("ChangePayment", "Home");
-            }
-
-            HttpContext.Session.SetInt32("addressid", viewpayment.PaymentId);
-            ViewBag.CardNumber = viewpayment.CCNumber;
-            ViewBag.Expiration = $"{viewpayment.Month}/{viewpayment.Year}";
-            ViewBag.CardName = viewpayment.CCUserName;
-
+            var sessionusername = (int)HttpContext.Session.GetInt32("UserId");
             var GetTotalPrice = HttpContext.Session.GetString("totalprice");
             ViewBag.TotalPrice = GetTotalPrice;
 
+            var defaultAddress = AddressHelper.GetAddressByDefaultId();
+            var defaultPayment = PaymentHelper.GetPaymentByDefaultId();
             var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
+
+            foreach (var item in getProduct)
+            {
+                item.UserId = sessionusername;
+                item.AddressId = defaultAddress.AddressId;
+                item.CCNumber = defaultPayment.CCNumber;
+                item.CCUserName = defaultPayment.CCUserName;
+                item.Month = defaultPayment.Month;
+                item.Year = defaultPayment.Year;
+                item.PaymentId = defaultPayment.PaymentId;
+                item.CVV = defaultPayment.CVV;
+                item.Street = defaultAddress.Street;
+                item.City = defaultAddress.City;
+                item.State = defaultAddress.State;
+                item.PostalCode = defaultAddress.PostalCode;
+            }
+
+            if (complete == "done")
+            {
+                return RedirectToAction("SaveOrder", "Store");
+            }
 
             return View("~/Views/Store/Order.cshtml", getProduct);
         }
 
         [HttpGet]
-        [ActionName("OrderHistory")]
-        public IActionResult OrderHistory()
+        [ActionName("SaveOrder")]
+        public IActionResult SaveOrder()
         {
-            return View();
+
+            var sessionusername = (int)HttpContext.Session.GetInt32("UserId");
+
+            var defaultAddress = AddressHelper.GetAddressByDefaultId();
+            var defaultPayment = PaymentHelper.GetPaymentByDefaultId();
+            var defaultUser = UserHelper.GetUserInfoById(sessionusername);
+            dm.Orders user = new dm.Orders
+            {
+                User = defaultUser
+            };
+            var getProduct = JsonConvert.DeserializeObject<List<OrderAndPaymentViewModel>>(HttpContext.Session.GetString("ProductTime"));
+            List<dm.Orders> finalOrderModel = new List<dm.Orders>();
+            string guid = System.Guid.NewGuid().ToString();
+
+            foreach (var item in getProduct)
+            {
+                var model = new ConversionOrder();
+                finalOrderModel.Add(model.MappingOrders(item));
+            }
+
+            foreach (var item in finalOrderModel)
+            {
+                var currentListing = ListingHelper.GetListingInfoByIdForOrder(item);
+                item.OrderGroupNumber = guid;
+                item.ShippingStatus = "Pending";
+                //item.Timestamp = GetTimestamp(DateTime.Now);
+                item.User = defaultUser;
+                item.Payment = defaultPayment;
+                item.Payment.User = defaultUser;
+                item.Listing = currentListing;
+                item.Listing.User = defaultUser;
+                item.Listing.ProductInfo = currentListing.ProductInfo;
+                item.Listing.ProductInfo.Brand = currentListing.ProductInfo.Brand;
+                item.Listing.ProductInfo.Type = currentListing.ProductInfo.Type;
+            }
+
+            foreach (var item in finalOrderModel)
+            {
+
+                var result = OrderHelper.AddOrderById(item);
+                //if (result)
+                //{
+                //    ListingHelper.UpdateQuantityById(item.Listing);
+                //}
+            }
+
+            return RedirectToAction("Account", "Home");
+        }
+
+        
+
+        [HttpGet]
+        [ActionName("Logout")]
+        public IActionResult AccountLogOut()
+        {
+            HttpContext.Session.Clear();
+            ListOfProducts.RemoveAll(p => p.ProductInfoId > 0);
+            return RedirectToAction("Login", "Home");
         }
     }
 }

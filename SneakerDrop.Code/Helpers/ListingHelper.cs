@@ -36,6 +36,8 @@ namespace SneakerDrop.Code.Helpers
             return _db.Listings.Where(l => l.ListingId == selectedListingId).ToList();
         }
 
+        
+
 
         public static List<Listing> GetAllListingById(int id)
         {

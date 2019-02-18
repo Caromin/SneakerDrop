@@ -57,19 +57,6 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(sut);
         }
-        [Fact]
-        public void Test_GetAllAddresses()
-        {
-
-            var sut = new AddressViewModel
-            {
-                UserId = 1
-            };
-            var test = sut.GetAllAddresses(sut);
-
-
-            Assert.NotEmpty(test);
-        }
 
         [Fact(Skip = "edit works")]
         public void Test_EditAddresses()

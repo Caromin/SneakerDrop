@@ -46,7 +46,7 @@ namespace SneakerDrop.Code.Helpers
 
         public static Payment GetPaymentByDefaultId()
         {
-            return _db.Payment.Where(p => p.DefaultPayment == 1).FirstOrDefault();
+            return _db.Payment.Where(p => p.DefaultPayment == 1).LastOrDefault();
         }
     }
 }

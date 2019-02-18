@@ -20,10 +20,12 @@ namespace SneakerDrop.Mvc.Controllers
     public class HomeController : Controller
     {
         public static List<OrderAndPaymentViewModel> UpdatedList { get; set; }
+        public static List<OrderAndPaymentViewModel> OrderHistoryList { get; set; }
 
         static HomeController()
         {
             UpdatedList = new List<OrderAndPaymentViewModel>();
+            OrderHistoryList = new List<OrderAndPaymentViewModel>();
         }
 
         public IActionResult Index()
@@ -279,13 +281,37 @@ namespace SneakerDrop.Mvc.Controllers
 
         public IActionResult OrderHistory()
         {
+           
+            var sessionusername = HttpContext.Session.GetString("Username");
+            ViewBag.Username = sessionusername;
+            var AddressUsed = AddressHelper.GetAddressByDefaultId();
+            var sessionuserid = (int)HttpContext.Session.GetInt32("UserId");
+            
 
-        var sessionusername = (int)HttpContext.Session.GetInt32("UserId");
+            var OrderList = OrderHelper.GetAllOrdersById(sessionuserid);
 
+            foreach (var item in OrderList)
+            {
+                var ListingList = ListingHelper.GetListingInfoByIdForOrder(item);
+                //OrderAndPaymentViewModel orders = new OrderAndPaymentViewModel
+               foreach(var item2 in OrderHistoryList)
+                {
+                    item2.ProductInfoId = ListingList.ProductInfoId;
+                    item2.UserSetPrice = ListingList.UserSetPrice;
+                    item2.City = AddressUsed.City;
+                    item2.State = AddressUsed.State;
+                    item2.ProductTitle = ListingList.ProductInfo.ProductTitle;
+                    item2.Quantity = ListingList.Quantity;
+                    item2.ShippingStatus = item.ShippingStatus;
+                    item2.ImageUrl = ListingList.ProductInfo.ImageUrl;
+                }
+                
+            }
+            
         
 
 
-        return View("~/Views/User/OrderHistory.cshtml");
+        return View("~/Views/User/OrderHistory.cshtml", OrderHistoryList);
         }
 
         public IActionResult ChangeAddress()

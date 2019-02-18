@@ -60,6 +60,12 @@ namespace SneakerDrop.Code.Helpers
             return _db.SaveChanges() == 1;
         }
 
+
+        public static List<Orders> GetAllOrdersById(int id)
+        {
+            return _db.Orders.Where(o => o.User.UserId == id).ToList();
+        }
+
     }
 
 }

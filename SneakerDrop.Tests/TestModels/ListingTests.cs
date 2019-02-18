@@ -17,20 +17,11 @@ namespace SneakerDrop.Tests.TestModels
             Size = "10",
             UserId = 7,
             ProductInfoId = 8, 
-            ProductTitle = "Nike"
         };
 
         public static Listing listing2 = new Listing
         {
-            ListingId = 11,
-            ProductInfoId = 1,
-            UserSetPrice = (decimal)100.00,
-            Quantity = 1,
-            Size = "8",
-            User = new User
-            {
-                UserId = 1
-            }
+            ListingId = 40,
         };
         [Fact]
         public void Test_AddListing()
@@ -40,32 +31,42 @@ namespace SneakerDrop.Tests.TestModels
             Assert.True(sut);
         }
         [Fact]
-        public void Test_GetAllListingByProductInfoId()
+        public void Test_GetListingInfoByIdForOrder()
         {
-            var sut = ListingHelper.GetAllListingsByProductInfoId(listing2.ProductInfoId);
+            Orders order = new Orders
+            {
+                OrderId = 43,
+                Listing  = new Listing
+                {
+                    ListingId = 41,
+                    ProductInfo = new ProductInfo
+                    {
+                        ProductInfoId = 17,
+                    }
+                }
+            };
+            var sut = ListingHelper.GetListingInfoByIdForOrder(order);
 
-            Assert.NotEmpty(sut);
-        }
-        [Fact]
-        public void Test_GetAllListingByListingId()
-        {
-            var sut = ListingHelper.GetallListingsByListingId(listing2.ListingId);
-
-            Assert.NotEmpty(sut);
-        }
-        [Fact]
-        public void Test_GetAllListingById()
-        {
-            var sut = ListingHelper.GetAllListingById(listing.UserId);
-
-            Assert.NotEmpty(sut);
+            Assert.NotNull(sut);
         }
         [Fact]
         public void Test_GetProductIdByListingId()
         {
+
             var sut = ListingHelper.GetProductIdByListingId(listing2.ListingId);
 
             Assert.NotNull(sut);
+        }
+        [Fact]
+        public void Test_GetAllListingById()
+        {
+            User user = new User
+            {
+                UserId = 1,
+            };
+            var sut = ListingHelper.GetAllListingById(user.UserId);
+
+            Assert.NotEmpty(sut);
         }
     }
 }

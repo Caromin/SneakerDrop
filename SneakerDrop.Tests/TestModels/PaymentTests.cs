@@ -25,13 +25,6 @@ namespace SneakerDrop.Tests.TestModels
                 Email = "Email@email.com"
             }
         };
-        [Fact(Skip ="one value is null")]
-        public void Test_GetPaymentById()
-        {
-            var sut = PaymentHelper.GetPaymentById(payment);
-
-            Assert.Equal(2, sut.Count);
-        }
 
         [Fact(Skip = "working, avoid deleting from db")]
         public void Test_DeletePaymentById()
@@ -40,7 +33,7 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(sut);
         }
-        [Fact(Skip ="working")]
+        [Fact(Skip = "working")]
         public void Test_AddPayment()
         {
             var sut = new PaymentViewModel
@@ -56,7 +49,7 @@ namespace SneakerDrop.Tests.TestModels
             var test = sut.AddOrDeletePayments(sut);
             Assert.True(test);
         }
-        [Fact(Skip ="Is working")]
+        [Fact(Skip = "Is working")]
         public void Test_DeletePayment()
         {
             var sut = new PaymentViewModel
@@ -67,7 +60,7 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(test);
         }
-        [Fact(Skip ="working but interfering with another test")]
+        [Fact(Skip = "working but interfering with another test")]
         public void Test_ValidateNewPayment()
         {
             var sut = new PaymentViewModel
@@ -78,17 +71,6 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(test);
 
-        }
-        [Fact(Skip ="value is null")]
-        public void Test_GetAllPayment()
-        {
-            var sut = new PaymentViewModel
-            {
-                UserId = 1
-            };
-            var test = sut.GetAllPayments(sut);
-
-            Assert.NotEmpty(test);
         }
     }
 

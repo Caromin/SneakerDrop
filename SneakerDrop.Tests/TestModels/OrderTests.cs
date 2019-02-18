@@ -93,6 +93,17 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.NotNull(sut);
         }
+        [Fact]
+        public void Test_GetAllOrdersById()
+        {
+            User user = new User
+            {
+                UserId = 1,
+            };
+            var sut = OrderHelper.GetAllOrdersById(user.UserId);
+
+            Assert.NotEmpty(sut);
+        }
 
         [Fact(Skip = "nothing to delete")]
         public void Test_CancelOrderById()

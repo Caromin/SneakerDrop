@@ -306,7 +306,7 @@ namespace SneakerDrop.Mvc.Controllers
             return RedirectToAction("Account", "Home");
         }
 
-        
+
 
         [HttpGet]
         [ActionName("Logout")]

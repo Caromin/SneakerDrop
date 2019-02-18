@@ -63,7 +63,10 @@ namespace SneakerDrop.Code.Helpers
 
         public static List<Orders> GetAllOrdersById(int id)
         {
-            return _db.Orders.Where(o => o.User.UserId == id).ToList();
+            return _db.Orders.Include(u => u.User)
+            .Include(u => u.Listing)
+            .Include(u => u.Listing.ProductInfo)
+            .Where(o => o.User.UserId == id).ToList();
         }
 
     }

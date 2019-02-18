@@ -27,7 +27,7 @@ namespace SneakerDrop.Tests.TestModels
                 ProductInfoId = 17,
             }
         };
-        [Fact]
+        [Fact(Skip = "Isworking")]
         public void Test_AddListing()
         {
             var sut = listing.AddListingToDb(listing);

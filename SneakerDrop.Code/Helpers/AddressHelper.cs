@@ -52,7 +52,7 @@ namespace SneakerDrop.Code.Helpers
 
         public static Address GetAddressByDefaultId()
         {
-            return _db.Addresses.Where(a => a.DefaultAddress == 1).FirstOrDefault();
+            return _db.Addresses.Where(a => a.DefaultAddress == 1).LastOrDefault();
         }
 
     }

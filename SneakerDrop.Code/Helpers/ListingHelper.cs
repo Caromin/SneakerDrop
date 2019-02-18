@@ -70,12 +70,10 @@ namespace SneakerDrop.Code.Helpers
 
         public static bool UpdateQuantityById(Listing listing)
         {
-            _db.Entry(listing.User).State = EntityState.Detached;
-            _db.Entry(listing.ProductInfo).State = EntityState.Detached;
             _db.Attach(listing.User);
             _db.Attach(listing.ProductInfo);
 
-            var result = _db.Listings.Where(l => l.ListingId == listing.ListingId).FirstOrDefault();
+            var result = _db.Listings.Where(l => l.ListingId == listing.ListingId).Include(u => u.ProductInfo).Include(b => b.User).Include(p => p.ProductInfo.Brand).Include(p => p.ProductInfo.Type).FirstOrDefault();
             result.Quantity = 0;
 
             _db.Entry(listing.User).State = EntityState.Detached;

@@ -13,29 +13,21 @@ namespace SneakerDrop.Mvc.Models
 
         public string HelperType { get; set; }
 
-        [Required]
         public int OrderGroupNumber { get; set; }
 
-        [Required]
         public int Quantity { get; set; }
 
-        [StringLength(50)]
-        [Required]
         public string ShippingStatus { get; set; }
 
-        [Timestamp]
-        public DateTime Timestamp { get; set; }
-
-        [StringLength(50)]
-        [Required]
         public string Size { get; set; }
 
         public int ListingId { get; set; }
 
-        [Required]
         public decimal UserSetPrice { get; set; }
 
         public int PaymentId { get; set; }
+
+        public int AddressId { get; set; }
 
         public int UserId { get; set; }
 
@@ -49,6 +41,24 @@ namespace SneakerDrop.Mvc.Models
 
         public string ImageUrl { get; set; }
 
+        public string Street { get; set; }
+
+        public string City { get; set; }
+
+        public string State { get; set; }
+
+        public string PostalCode { get; set; }
+
+        public long CCNumber { get; set; }
+
+        public string CCUserName { get; set; }
+
+        public int Month { get; set; }
+
+        public int Year { get; set; }
+
+        public int CVV { get; set; }
+
     }
 
     public class ConversionOrder : Profile
@@ -58,7 +68,6 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(o => o.OrderGroupNumber, op => op.MapFrom(src => src.OrderGroupNumber))
             .ForMember(o => o.Quantity, op => op.MapFrom(src => src.Quantity))
             .ForMember(o => o.ShippingStatus, op => op.MapFrom(src => src.ShippingStatus))
-            .ForMember(o => o.Timestamp, op => op.MapFrom(src => src.Timestamp))
             .ForPath(o => o.Payment.PaymentId, op => op.MapFrom(src => src.PaymentId))
             .ForPath(o => o.User.UserId, op => op.MapFrom(src => src.UserId))
             .ForPath(o => o.Listing.ListingId, op => op.MapFrom(src => src.ListingId)));
@@ -68,7 +77,6 @@ namespace SneakerDrop.Mvc.Models
             .ForMember(o => o.OrderGroupNumber, op => op.MapFrom(src => src.OrderGroupNumber))
             .ForMember(o => o.Quantity, op => op.MapFrom(src => src.Quantity))
             .ForMember(o => o.ShippingStatus, op => op.MapFrom(src => src.ShippingStatus))
-            .ForMember(o => o.Timestamp, op => op.MapFrom(src => src.Timestamp))
             .ForPath(o => o.PaymentId, op => op.MapFrom(src => src.Payment.PaymentId))
             .ForPath(o => o.UserId, op => op.MapFrom(src => src.User.UserId))
             .ForPath(o => o.ListingId, op => op.MapFrom(src => src.Listing.ListingId)));
@@ -94,4 +102,6 @@ namespace SneakerDrop.Mvc.Models
             return convertedList;
         }
     }
+
+
 }

@@ -27,6 +27,8 @@ namespace SneakerDrop.Domain.Models
         [Required]
         public string PostalCode { get; set; }
 
+        public int DefaultAddress { get; set; }
+
         public User User { get; set; }
     }
 }

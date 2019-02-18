@@ -286,7 +286,7 @@ namespace SneakerDrop.Mvc.Controllers
             ViewBag.Username = sessionusername;
             var AddressUsed = AddressHelper.GetAddressByDefaultId();
             var sessionuserid = (int)HttpContext.Session.GetInt32("UserId");
-            
+             
 
             var OrderList = OrderHelper.GetAllOrdersById(sessionuserid);
 

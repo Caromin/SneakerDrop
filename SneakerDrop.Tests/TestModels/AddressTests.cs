@@ -17,7 +17,7 @@ namespace SneakerDrop.Tests.TestModels
             PostalCode = "75024",
             User = new User
             {
-                UserId = 2,
+                UserId = 1,
                 Username = "ian2519",
                 Password = "Password",
                 Firstname = "Ian",
@@ -38,6 +38,20 @@ namespace SneakerDrop.Tests.TestModels
         {
 
             var sut = AddressHelper.GetAddressInfoById(address);
+
+            Assert.NotNull(sut);
+        }
+        [Fact]
+        public void Test_GetAddressByDefaultId()
+        {
+            var sut = AddressHelper.GetAddressByDefaultId();
+
+            Assert.NotNull(sut);
+        }
+        [Fact]
+        public void Test_GetAddressInfoByAddressId()
+        {
+            var sut = AddressHelper.GetAddressInfoByAddressId(address.User.UserId);
 
             Assert.NotNull(sut);
         }

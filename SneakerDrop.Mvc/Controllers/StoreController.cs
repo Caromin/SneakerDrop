@@ -288,7 +288,11 @@ namespace SneakerDrop.Mvc.Controllers
             foreach (var item in finalOrderModel)
             {
 
-                OrderHelper.AddOrderById(item);
+                var result = OrderHelper.AddOrderById(item);
+                //if (result)
+                //{
+                //    ListingHelper.UpdateQuantityById(item.Listing);
+                //}
             }
 
             return RedirectToAction("Account", "Home");

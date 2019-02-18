@@ -67,5 +67,21 @@ namespace SneakerDrop.Code.Helpers
                                 .FirstOrDefault();
             return dbInfo;
         }
+
+        public static bool UpdateQuantityById(Listing listing)
+        {
+            _db.Entry(listing.User).State = EntityState.Detached;
+            _db.Entry(listing.ProductInfo).State = EntityState.Detached;
+            _db.Attach(listing.User);
+            _db.Attach(listing.ProductInfo);
+
+            var result = _db.Listings.Where(l => l.ListingId == listing.ListingId).FirstOrDefault();
+            result.Quantity = 0;
+
+            _db.Entry(listing.User).State = EntityState.Detached;
+            _db.Entry(listing.ProductInfo).State = EntityState.Detached;
+
+            return _db.SaveChanges() == 1;
+        }
     }
 }

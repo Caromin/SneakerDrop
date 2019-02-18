@@ -77,21 +77,23 @@ namespace SneakerDrop.Tests.TestModels
                 Email = "Email@email.com"
             }
         };
-
-        [Fact(Skip ="timestamp dosne't match datetime")]
-        public void Test_AddOrderById()
-        {
-            var sut = OrderHelper.AddOrderById(order);
-
-            Assert.True(sut);
-        }
-
         [Fact]
         public void Test_GetOrdersById()
         {
             var sut = OrderHelper.GetOrdersById(order);
 
             Assert.NotNull(sut);
+        }
+        [Fact]
+        public void Test_GetAllOrdersById()
+        {
+            User user = new User
+            {
+                UserId = 1,
+            };
+            var sut = OrderHelper.GetAllOrdersById(user.UserId);
+
+            Assert.NotEmpty(sut);
         }
 
         [Fact(Skip = "nothing to delete")]
@@ -101,22 +103,5 @@ namespace SneakerDrop.Tests.TestModels
 
             Assert.True(sut);
         }
-        //[Fact]
-        //public void Test_AddOrders()
-        //{
-        //    var sut = new OrderAndPaymentViewModel
-        //    {
-        //        HelperType = "add",
-        //        Timestamp = DateTime.UtcNow,
-        //        OrderGroupNumber = 23,
-        //        Quantity = 1,
-        //        ShippingStatus = "pending",
-        //        PaymentId = 2,
-        //        ListingId = 12,
-        //        UserId = 1,
-        //    };
-        //    var test = sut.AddOrCancelOrders(sut);
-        //    Assert.True(test);
-        //}
     }
 }

@@ -1,3 +1,14 @@
 version: '3.6'
 
 services:
+  sneakerdrop:
+    image: sneakerdrop:0.0.0
+    deploy:
+      replicas: 1
+    networks:
+      - dotnetwork
+    ports:
+      - '8080:80'
+
+networks:
+  dotnetwork:

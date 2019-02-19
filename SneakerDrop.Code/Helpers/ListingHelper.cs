@@ -15,6 +15,7 @@ namespace SneakerDrop.Code.Helpers
             _db.Entry(listing.User).State = EntityState.Detached;
             _db.Entry(listing.ProductInfo).State = EntityState.Detached;
             //_db.Attach(listing.ProductInfo);
+            _db.Attach(listing.User);
             _db.Listings.Add(listing);
             _db.Entry(listing.User).State = EntityState.Detached;
             _db.Entry(listing.ProductInfo).State = EntityState.Detached;

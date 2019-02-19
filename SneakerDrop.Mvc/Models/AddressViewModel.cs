@@ -59,7 +59,7 @@ namespace SneakerDrop.Mvc.Models
                 {
                     var addedAddress = new dm.Address
                     {
-                        AddressId = addressDomainModel.AddressId,
+                        //AddressId = addressDomainModel.AddressId,
                         Street = addressDomainModel.Street,
                         City = addressDomainModel.City,
                         State = addressDomainModel.State,
@@ -145,7 +145,7 @@ namespace SneakerDrop.Mvc.Models
         public AddressViewModel MappingAddressInfo(dm.Address address)
         {
             var addressViewMapper = viewConfig.CreateMapper();
-            return addressViewMapper.Map<dm.Address, AddressViewModel> (address);
+            return addressViewMapper.Map<dm.Address, AddressViewModel>(address);
         }
     }
 }

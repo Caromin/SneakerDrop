@@ -21,7 +21,7 @@ namespace SneakerDrop.Tests.TestModels
 
         public static Listing listing2 = new Listing
         {
-            ListingId = 40,
+            ListingId = 41,
             ProductInfo = new ProductInfo
             {
                 ProductInfoId = 17,

@@ -13,9 +13,9 @@ namespace SneakerDrop.Code.Helpers
 
         public static bool AddOrderById(Orders orders)
         {
-            _db.Attach(orders.Listing.ProductInfo);
-            _db.Attach(orders.Listing.ProductInfo.Brand);
-            _db.Attach(orders.Listing.ProductInfo.Type);
+            //_db.Attach(orders.Listing.ProductInfo);
+            //_db.Attach(orders.Listing.ProductInfo.Brand);
+            //_db.Attach(orders.Listing.ProductInfo.Type);
 
             _db.Orders.Add(orders);
 

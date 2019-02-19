@@ -13,7 +13,7 @@ namespace SneakerDrop.Code.Helpers
 
         public static bool AddAddressById(Address address)
         {
-            _db.Attach(address.User);
+            //_db.Attach(address.User);
             _db.Addresses.Add(address);
             _db.Entry(address.User).State = EntityState.Detached;
 

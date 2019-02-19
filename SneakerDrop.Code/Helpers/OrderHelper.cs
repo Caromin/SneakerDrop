@@ -23,7 +23,7 @@ namespace SneakerDrop.Code.Helpers
             _db.Entry(orders.Listing.ProductInfo.Type).State = EntityState.Detached;
             _db.Entry(orders.Payment.User).State = EntityState.Detached;
 
-            _db.Attach(orders.User);
+            //_db.Attach(orders.User);
             _db.Attach(orders.Listing);
             _db.Attach(orders.Payment);
             _db.Attach(orders.Listing.User);

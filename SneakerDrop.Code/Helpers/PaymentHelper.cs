@@ -12,7 +12,7 @@ namespace SneakerDrop.Code.Helpers
 
         public static bool AddPaymentById(Payment payment)
         {
-            _db.Attach(payment.User);
+            //_db.Attach(payment.User);
             _db.Payment.Add(payment);
             _db.Entry(payment.User).State = EntityState.Detached;
 

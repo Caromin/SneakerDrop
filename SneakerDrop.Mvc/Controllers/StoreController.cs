@@ -297,6 +297,7 @@ namespace SneakerDrop.Mvc.Controllers
             {
 
                 var result = OrderHelper.AddOrderById(item);
+                ListOfProducts.RemoveAll(p => p.ProductInfoId > 0);
                 //if (result)
                 //{
                 //    ListingHelper.UpdateQuantityById(item.Listing);

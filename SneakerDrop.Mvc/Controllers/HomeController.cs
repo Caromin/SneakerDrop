@@ -408,6 +408,18 @@ namespace SneakerDrop.Mvc.Controllers
             var model = new ConversionAddress();
             AddressViewModel addressView = model.MappingAddressInfo(addressInfo);
 
+            if (addressView == null)
+            {
+                var emptyModel = new AddressViewModel
+                {
+                    Street = "123 Main Street",
+                    City = "Jacksonville",
+                    State = "Fl",
+                    PostalCode = "32225",
+                };
+                return View("~/Views/User/AddEditAddress.cshtml", emptyModel);
+            }
+
             return View("~/Views/User/AddEditAddress.cshtml", addressView);
         }
 

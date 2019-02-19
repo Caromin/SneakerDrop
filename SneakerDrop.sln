@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SneakerDrop.Migrations", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SneakerDrop.Mvc", "SneakerDrop.Mvc\SneakerDrop.Mvc.csproj", "{B7F6849D-C6A0-4C8E-9D21-A35A392F5DE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SneakerDrop.MVCTests", "SneakerDrop.MVCTests\SneakerDrop.MVCTests.csproj", "{7D422258-DA7A-4C8C-A60A-A4D038FAFE9E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,18 +83,6 @@ Global
 		{B7F6849D-C6A0-4C8E-9D21-A35A392F5DE8}.Release|x64.Build.0 = Release|Any CPU
 		{B7F6849D-C6A0-4C8E-9D21-A35A392F5DE8}.Release|x86.ActiveCfg = Release|Any CPU
 		{B7F6849D-C6A0-4C8E-9D21-A35A392F5DE8}.Release|x86.Build.0 = Release|Any CPU
-		{7D422258-DA7A-4C8C-A60A-A4D038FAFE9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D422258-DA7A-4C8C-A60A-A4D038FAFE9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D422258-DA7A-4C8C-A60A-A4D038FAFE9E}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{7D422258-DA7A-4C8C-A60A-A4D038FAFE9E}.Debug|x64.Build.0 = Debug|Any CPU
-		{7D422258-DA7A-4C8C-A60A-A4D038FAFE9E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{7D422258-DA7A-4C8C-A60A-A4D038FAFE9E}.Debug|x86.Build.0 = Debug|Any CPU
-		{7D422258-DA7A-4C8C-A60A-A4D038FAFE9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D422258-DA7A-4C8C-A60A-A4D038FAFE9E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D422258-DA7A-4C8C-A60A-A4D038FAFE9E}.Release|x64.ActiveCfg = Release|Any CPU
-		{7D422258-DA7A-4C8C-A60A-A4D038FAFE9E}.Release|x64.Build.0 = Release|Any CPU
-		{7D422258-DA7A-4C8C-A60A-A4D038FAFE9E}.Release|x86.ActiveCfg = Release|Any CPU
-		{7D422258-DA7A-4C8C-A60A-A4D038FAFE9E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
